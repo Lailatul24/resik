@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:resik/home.dart';
 
@@ -12,24 +14,36 @@ class _JualSampahState extends State<JualSampah> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-            'Jual Sampah',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: Icon(Icons.chevron_left),
-            onPressed: () => Navigator.pop(context),
-            color: Colors.black,
-          )),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+      body: SafeArea(
         child: Container(
           child: ListView(children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                padding: EdgeInsets.all(10),
+                height: 70,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        size: 25,
+                        color: Color(0xff85d057),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text("Jual Sampah",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ],
+                )),
+            Container(
+              padding: EdgeInsets.all(20),
               height: 60,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),

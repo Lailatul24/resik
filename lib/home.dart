@@ -113,6 +113,10 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+            Container(
+                child: Column(
+              children: [Text("Data 1")],
+            ))
           ],
         ),
       ),
