@@ -28,7 +28,7 @@ class _IntroPageState extends State<IntroPage> {
             height: 0.2,
           ),
           Text(
-            'Peminjaman Barang',
+            'Aplikasi Resik hadir untuk menciptakan Solusi',
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
           ),
           SizedBox(
@@ -36,7 +36,7 @@ class _IntroPageState extends State<IntroPage> {
           ),
         ],
       ),
-      body: "Pinjam barang dengan efisien dan mempermudah",
+      body: "Tukuternak telah berkerja sama dengan penjual-penjual di seluruh Indonesia untuk memasarkan Ternak mereka",
       image: Center(
           child: SizedBox(
         height: 200,
@@ -108,7 +108,8 @@ class _IntroPageState extends State<IntroPage> {
         height: 200,
         width: 350,
         child: Image(image: AssetImage('assets/images/intro3.png')),
-      )),
+       )
+      ),
       decoration: const PageDecoration(
           pageColor: Colors.white,
           bodyTextStyle: TextStyle(
@@ -123,7 +124,7 @@ class _IntroPageState extends State<IntroPage> {
   @override
   Widget build(BuildContext context) {
     return clicked
-        ? Home()
+        ? Login()
         : IntroductionScreen(
             pages: pages,
             dotsDecorator: DotsDecorator(
@@ -148,6 +149,7 @@ class _IntroPageState extends State<IntroPage> {
             nextColor: Color(0xff85d057),
             done: const Text("DONE",
                 style: TextStyle(fontWeight: FontWeight.w600)),
+            doneColor: Color(0xff85d057),
           );
   }
 }
