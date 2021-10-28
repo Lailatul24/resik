@@ -16,7 +16,6 @@ class _MainPageState extends State<MainPage> {
   final _pageList = [
     Home(),
     JualSampah(),
-    Profile(),
   ];
 
   onTappedItem(int index) {
