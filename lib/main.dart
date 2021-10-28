@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resik/intro.dart';
 import 'package:resik/login.dart';
+import 'package:resik/main_page.dart';
 import 'package:resik/users_nasabah/profile.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Profile(),
+      home: MainPage(),
     );
   }
 }
