@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:resik/home.dart';
 
@@ -12,25 +14,37 @@ class _JualSampahState extends State<JualSampah> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-            'Jual Sampah',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: Icon(Icons.chevron_left),
-            onPressed: () => Navigator.pop(context),
-            color: Colors.black,
-          )),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+      body: SafeArea(
         child: Container(
           child: ListView(children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-              height: 60,
+                padding: EdgeInsets.all(10),
+                height: 70,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        size: 25,
+                        color: Color(0xff85d057),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text("Jual Sampah",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ],
+                )),
+            Container(
+              padding: EdgeInsets.all(10),
+              height: 55,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   color: Color(0xffF0FFEB)),
@@ -41,48 +55,69 @@ class _JualSampahState extends State<JualSampah> {
                         Icons.search,
                         color: Color(0xff85d057),
                       ),
-                      hintText: "Search Sampah")),
+                      hintText: "Search Sampah",
+                      hintStyle:
+                          TextStyle(fontSize: 15, color: Colors.grey[400]))),
             ),
             SizedBox(
               height: 25,
             ),
             Container(
-                child: AspectRatio(
-              aspectRatio: 3 / 1,
-              child: Container(
-                child: Row(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 1 / 1,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image(
-                          image: AssetImage('assets/images/maintanence.png'),
-                        ),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.asset(
+                        'assets/images/a.jpg',
+                        height: 100,
+                        width: 100,
                       ),
                     ),
-                    AspectRatio(
-                      aspectRatio: 4 / 3,
-                      child: Row(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Barang 1",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          child: Row(
                             children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.add),
+                              ),
+                              Text("01"),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.minimize_outlined),
+                              ),
+                              SizedBox(width: 15),
                               Text(
-                                "Aqua",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
+                                "Rp. 100",
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               )
                             ],
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
               ),
-            )),
+            ),
             SizedBox(
               height: 35,
             ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:resik/home.dart';
 import 'package:resik/intro.dart';
 import 'package:resik/login.dart';
-import 'package:resik/users_nasabah/jual.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,3 +16,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//
