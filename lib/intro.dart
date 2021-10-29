@@ -19,7 +19,8 @@ class _IntroPageState extends State<IntroPage> {
       clicked = true;
     });
   }
-
+@override
+  Widget build(BuildContext context) {
   final List<PageViewModel> pages = [
     PageViewModel(
       titleWidget: Column(
@@ -36,7 +37,7 @@ class _IntroPageState extends State<IntroPage> {
           ),
         ],
       ),
-      body: "Tukuternak telah berkerja sama dengan penjual-penjual di seluruh Indonesia untuk memasarkan Ternak mereka",
+      body: "Membantu pengambilan sampah dengan mudah dan efisien",
       image: Center(
           child: SizedBox(
         height: 200,
@@ -59,7 +60,7 @@ class _IntroPageState extends State<IntroPage> {
             height: 0.2,
           ),
           Text(
-            'Pilih Barang',
+            'Pilih Sampah',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 18.0,
@@ -71,7 +72,7 @@ class _IntroPageState extends State<IntroPage> {
           ),
         ],
       ),
-      body: "pilih barang yang anda inginkan",
+      body: "pilih sampah yang akan disetorkan",
       image: Center(
           child: SizedBox(
         height: 200,
@@ -94,7 +95,7 @@ class _IntroPageState extends State<IntroPage> {
             height: 0.2,
           ),
           Text(
-            'KONFIRMASI',
+            'Profit dari sampah',
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
           ),
           SizedBox(
@@ -102,13 +103,29 @@ class _IntroPageState extends State<IntroPage> {
           ),
         ],
       ),
-      body: "Segera Konfirmasi dan ambil barang",
+      body: "Bisa menghasilkan uang dengan aplikasi resik",
       image: Center(
           child: SizedBox(
         height: 200,
         width: 350,
         child: Image(image: AssetImage('assets/images/intro3.png')),
        )
+      ),
+      footer: SizedBox(
+        width: 380,
+        height: 45,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Color(0xff85d057),
+            onPrimary: Colors.white,
+            shape: StadiumBorder()),
+          onPressed: (){
+           Navigator.push(
+               context,
+               MaterialPageRoute(
+              builder: (context) => Login()));
+          },
+          child: const Text('Masuk Aplikasi!'),),
       ),
       decoration: const PageDecoration(
           pageColor: Colors.white,
@@ -118,11 +135,11 @@ class _IntroPageState extends State<IntroPage> {
           ),
           descriptionPadding: EdgeInsets.only(left: 20, right: 20),
           imagePadding: EdgeInsets.all(20)),
+          
     ),
   ];
-
-  @override
-  Widget build(BuildContext context) {
+  
+  
     return clicked
         ? Login()
         : IntroductionScreen(
@@ -135,6 +152,7 @@ class _IntroPageState extends State<IntroPage> {
                 spacing: const EdgeInsets.symmetric(horizontal: 3.0),
                 activeShape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25.0))),
+            
             onDone: () {
               afterIntroComplete();
             },
@@ -147,9 +165,11 @@ class _IntroPageState extends State<IntroPage> {
                     TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
             next: const Icon(Icons.navigate_next),
             nextColor: Color(0xff85d057),
+            showDoneButton: false,
             done: const Text("DONE",
                 style: TextStyle(fontWeight: FontWeight.w600)),
             doneColor: Color(0xff85d057),
+            
           );
   }
 }
