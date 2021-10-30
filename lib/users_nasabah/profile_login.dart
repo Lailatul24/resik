@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class ProfileLogin extends StatefulWidget {
+  const ProfileLogin({Key? key}) : super(key: key);
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _ProfileLoginState createState() => _ProfileLoginState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileLoginState extends State<ProfileLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,32 +26,32 @@ class _ProfileState extends State<Profile> {
                 ),
                 CircleAvatar(
                   radius: 39,
-                  backgroundImage: AssetImage('assets/images/user.png'),
+                  backgroundImage: AssetImage('assets/images/profile.png'),
                   backgroundColor: Colors.grey,
                 ),
                 SizedBox(
-                  width: 60,
+                  width: 40,
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Login'),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 10,
-                    primary: Color(0xff85d057),
-                    minimumSize: Size(100, 40),
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Sanburn',
+                      style: TextStyle(
+                          color: Color(0xff303030),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          fontFamily: "Nunito Sans"),
+                    ),
+                    Text(
+                      'dimas@gmail.com',
+                      style: TextStyle(
+                          color: Color(0xff808080),
+                          fontSize: 14,
+                          fontFamily: "Nunito Sans"),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  width: 17,
-                ),
-                OutlinedButton(
-                  onPressed: () {},
-                  child: Text('Daftar'),
-                  style: OutlinedButton.styleFrom(
-                    primary: Color(0xFF000000),
-                    minimumSize: Size(100, 40),
-                  ),
-                )
               ],
             ),
           ),

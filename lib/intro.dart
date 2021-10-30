@@ -21,108 +21,123 @@ class _IntroPageState extends State<IntroPage> {
     });
   }
 
-  final List<PageViewModel> pages = [
-    PageViewModel(
-      titleWidget: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 0.2,
-          ),
-          Text(
-            'Peminjaman Barang',
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
-          ),
-          SizedBox(
-            height: 2,
-          ),
-        ],
-      ),
-      body: "Pinjam barang dengan efisien dan mempermudah",
-      image: Center(
-          child: SizedBox(
-        height: 200,
-        width: 350,
-        child: Image(image: AssetImage('assets/images/intro1.png')),
-      )),
-      decoration: const PageDecoration(
-          pageColor: Colors.white,
-          bodyTextStyle: TextStyle(
-            color: Colors.black54,
-            fontSize: 16,
-          ),
-          descriptionPadding: EdgeInsets.only(left: 20, right: 20),
-          imagePadding: EdgeInsets.all(40)),
-    ),
-    PageViewModel(
-      titleWidget: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 0.2,
-          ),
-          Text(
-            'Pilih Barang',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          SizedBox(
-            height: 2,
-          ),
-        ],
-      ),
-      body: "pilih barang yang anda inginkan",
-      image: Center(
-          child: SizedBox(
-        height: 200,
-        width: 350,
-        child: Image(image: AssetImage('assets/images/intro2.png')),
-      )),
-      decoration: const PageDecoration(
-          pageColor: Colors.white,
-          bodyTextStyle: TextStyle(
-            color: Colors.black54,
-            fontSize: 16,
-          ),
-          descriptionPadding: EdgeInsets.only(left: 20, right: 20),
-          imagePadding: EdgeInsets.all(20)),
-    ),
-    PageViewModel(
-      titleWidget: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 0.2,
-          ),
-          Text(
-            'KONFIRMASI',
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
-          ),
-          SizedBox(
-            height: 2,
-          ),
-        ],
-      ),
-      body: "Segera Konfirmasi dan ambil barang",
-      image: Center(
-          child: SizedBox(
-        height: 200,
-        width: 350,
-        child: Image(image: AssetImage('assets/images/intro3.png')),
-      )),
-      decoration: const PageDecoration(
-          pageColor: Colors.white,
-          bodyTextStyle: TextStyle(
-            color: Colors.black54,
-            fontSize: 16,
-          ),
-          descriptionPadding: EdgeInsets.only(left: 20, right: 20),
-          imagePadding: EdgeInsets.all(20)),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<PageViewModel> pages = [
+      PageViewModel(
+        titleWidget: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 0.2,
+            ),
+            Text(
+              'Aplikasi Resik hadir untuk menciptakan Solusi',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 2,
+            ),
+          ],
+        ),
+        body: "Membantu pengambilan sampah dengan mudah dan efisien",
+        image: Center(
+            child: SizedBox(
+          height: 200,
+          width: 350,
+          child: Image(image: AssetImage('assets/images/intro1.png')),
+        )),
+        decoration: const PageDecoration(
+            pageColor: Colors.white,
+            bodyTextStyle: TextStyle(
+              color: Colors.black54,
+              fontSize: 16,
+            ),
+            descriptionPadding: EdgeInsets.only(left: 20, right: 20),
+            imagePadding: EdgeInsets.all(40)),
+      ),
+      PageViewModel(
+        titleWidget: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 0.2,
+            ),
+            Text(
+              'Pilih Sampah',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(
+              height: 2,
+            ),
+          ],
+        ),
+        body: "pilih sampah yang akan disetorkan",
+        image: Center(
+            child: SizedBox(
+          height: 200,
+          width: 350,
+          child: Image(image: AssetImage('assets/images/intro2.png')),
+        )),
+        decoration: const PageDecoration(
+            pageColor: Colors.white,
+            bodyTextStyle: TextStyle(
+              color: Colors.black54,
+              fontSize: 16,
+            ),
+            descriptionPadding: EdgeInsets.only(left: 20, right: 20),
+            imagePadding: EdgeInsets.all(20)),
+      ),
+      PageViewModel(
+        titleWidget: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 0.2,
+            ),
+            Text(
+              'Profit dari sampah',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 2,
+            ),
+          ],
+        ),
+        body: "Bisa menghasilkan uang dengan aplikasi resik",
+        image: Center(
+            child: SizedBox(
+          height: 200,
+          width: 350,
+          child: Image(image: AssetImage('assets/images/intro3.png')),
+        )),
+        footer: SizedBox(
+          width: 380,
+          height: 49,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Color(0xff85d057),
+                onPrimary: Colors.white,
+                shape: StadiumBorder()),
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
+            },
+            child: const Text('Masuk Aplikasi!'),
+          ),
+        ),
+        decoration: const PageDecoration(
+            pageColor: Colors.white,
+            bodyTextStyle: TextStyle(
+              color: Colors.black54,
+              fontSize: 16,
+            ),
+            descriptionPadding: EdgeInsets.only(left: 20, right: 20),
+            imagePadding: EdgeInsets.all(20)),
+      ),
+    ];
+
     return clicked
         ? Login()
         : IntroductionScreen(
@@ -147,8 +162,10 @@ class _IntroPageState extends State<IntroPage> {
                     TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
             next: const Icon(Icons.navigate_next),
             nextColor: Color(0xff85d057),
+            showDoneButton: false,
             done: const Text("DONE",
                 style: TextStyle(fontWeight: FontWeight.w600)),
+            doneColor: Color(0xff85d057),
           );
   }
 }

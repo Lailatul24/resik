@@ -17,6 +17,7 @@ class _MainPageState extends State<MainPage> {
   final _pageList = [
     Home(),
     JualSampah(),
+    Transaksi(),
     Profile(),
   ];
 
