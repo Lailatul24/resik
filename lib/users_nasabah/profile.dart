@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
@@ -10,6 +11,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+    var press;
     return Scaffold(
       body: SafeArea(
           child: ListView(
@@ -57,102 +59,25 @@ class _ProfileState extends State<Profile> {
           ),
           Column(
             children: [
-              Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 50.0,
-                    horizontal: 20.0,
-                  ),
-                  width: 400,
-                  height: 80,
-                  child: Stack(children: <Widget>[
-                    Positioned(
-                        top: 0,
-                        left: 0,
-                        child: Container(
-                            width: 500,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(255, 255, 255, 1),
-                            ))),
-                    Positioned(
-                        top: 18,
-                        left: 20,
-                        child: Text(
-                          'Saldo Saya',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              color: Color.fromRGBO(48, 48, 48, 1),
-                              fontFamily: 'Nunito Sans',
-                              fontSize: 18,
-                              letterSpacing:
-                                  0 /*percentages not used in flutter. defaulting to zero*/,
-                              fontWeight: FontWeight.normal,
-                              height: 1),
-                        )),
-                    Positioned(
-                        top: 48,
-                        left: 20,
-                        child: Text(
-                          'Informasi saldo dan Penarikan Saldo',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              color: Color.fromRGBO(128, 128, 128, 1),
-                              fontFamily: 'Nunito Sans',
-                              fontSize: 12,
-                              letterSpacing:
-                                  0 /*percentages not used in flutter. defaulting to zero*/,
-                              fontWeight: FontWeight.normal,
-                              height: 1.25),
-                        )),
-                  ])),
-              Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 50.0,
-                    horizontal: 20.0,
-                  ),
-                  width: 400,
-                  height: 80,
-                  child: Stack(children: <Widget>[
-                    Positioned(
-                        top: 0,
-                        left: 0,
-                        child: Container(
-                            width: 500,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(255, 255, 255, 1),
-                            ))),
-                    Positioned(
-                        top: 18,
-                        left: 20,
-                        child: Text(
-                          'Saldo Saya',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              color: Color.fromRGBO(48, 48, 48, 1),
-                              fontFamily: 'Nunito Sans',
-                              fontSize: 18,
-                              letterSpacing:
-                                  0 /*percentages not used in flutter. defaulting to zero*/,
-                              fontWeight: FontWeight.normal,
-                              height: 1),
-                        )),
-                    Positioned(
-                        top: 48,
-                        left: 20,
-                        child: Text(
-                          'Informasi saldo dan Penarikan Saldo',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              color: Color.fromRGBO(128, 128, 128, 1),
-                              fontFamily: 'Nunito Sans',
-                              fontSize: 12,
-                              letterSpacing:
-                                  0 /*percentages not used in flutter. defaulting to zero*/,
-                              fontWeight: FontWeight.normal,
-                              height: 1.25),
-                        )),
-                  ]))
+              TextButton(
+        style: TextButton.styleFrom(
+          
+          padding: EdgeInsets.all(20),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          backgroundColor: Color(0xFFF5F6F9),
+        ),
+        onPressed: (){
+
+        },
+        child: Row(
+          children: [
+            SizedBox(width: 20),
+            Expanded(child: Text('Saldo Saya')),
+            Icon(Icons.arrow_forward_ios),
+          ],
+        ),
+      ),
             ],
           )
         ],
