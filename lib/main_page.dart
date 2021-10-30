@@ -14,7 +14,11 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectIndex = 0;
 
-  final _pageList = [Home(), JualSampah(), Transaksi()];
+  final _pageList = [
+    Home(),
+    JualSampah(),
+    Profile(),
+  ];
 
   onTappedItem(int index) {
     setState(() {
