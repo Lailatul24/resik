@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:resik/register.dart';
+import 'package:resik/users_nasabah/saldo.dart';
+import 'package:resik/users_nasabah/ubahpin.dart';
+import 'package:resik/login.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -33,7 +37,10 @@ class _ProfileState extends State<Profile> {
                   width: 60,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Login()));
+                  },
                   child: Text('Login'),
                   style: ElevatedButton.styleFrom(
                     elevation: 10,
@@ -45,7 +52,10 @@ class _ProfileState extends State<Profile> {
                   width: 17,
                 ),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Register()));
+                  },
                   child: Text('Daftar'),
                   style: OutlinedButton.styleFrom(
                     primary: Color(0xFF000000),
@@ -68,7 +78,10 @@ class _ProfileState extends State<Profile> {
                     shape: RoundedRectangleBorder(),
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Saldo()));
+                  },
                   child: Row(
                     children: [
                       SizedBox(
@@ -118,7 +131,10 @@ class _ProfileState extends State<Profile> {
                     shape: RoundedRectangleBorder(),
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => UbahPin()));
+                  },
                   child: Row(
                     children: [
                       SizedBox(
@@ -250,7 +266,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       Spacer(),
                       Icon(
-                        Icons.login_rounded,
+                        Icons.logout_rounded,
                         color: Color(0xff909090),
                       ),
                     ],

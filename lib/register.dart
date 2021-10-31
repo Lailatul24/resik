@@ -14,8 +14,24 @@ class _RegisterState extends State<Register> {
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              height: 70,
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 32,
+                      color: Color(0xff85d0757),
+                    ),
+                  )
+                ],
+              ),
+            ),
             Center(
               child: Container(
                 width: MediaQuery.of(context).size.width,
