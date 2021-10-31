@@ -100,8 +100,8 @@ class _SaldoState extends State<Saldo> {
                 Container(
                   padding: EdgeInsets.only(right: 10, left: 10),
                   child: SizedBox(
-                    width: 150,
-                    height: 55,
+                    width: 160,
+                    height: 60,
                     child: TextButton(
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.all(23),
@@ -135,8 +135,99 @@ class _SaldoState extends State<Saldo> {
                     ),
                   ),
                 ),
+                Container(
+                  padding: EdgeInsets.only(right: 10, left: 50),
+                  child: SizedBox(
+                    width: 160,
+                    height: 60,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(23),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        backgroundColor: Color(0xffFCF2E1),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TukarPulsa()));
+                      },
+                      child: Row(
+                        children: [
+                          Text("Donasikan"),
+                          Spacer(),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white, shape: BoxShape.circle),
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Image.asset('images/iconarrowyelow.png',
+                                  fit: BoxFit.fitHeight),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
-            ))
+            )),
+            SizedBox(
+              height: 10,
+            ),
+            Column(
+              children: [
+                Container(
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(right: 10, left: 10),
+                        child: SizedBox(
+                          width: 160,
+                          height: 60,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.all(23),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              backgroundColor: Color(0xffFCF2E1),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TukarPulsa()));
+                            },
+                            child: Row(
+                              children: [
+                                Text("Tarik Saldo"),
+                                Spacer(),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle),
+                                  child: SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Image.asset(
+                                        'images/iconarrowyelow.png',
+                                        fit: BoxFit.fitHeight),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
