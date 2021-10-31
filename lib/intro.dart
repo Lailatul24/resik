@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:resik/main_page.dart';
 import 'package:resik/style/theme.dart' as Style;
 import 'package:resik/home.dart';
 import 'package:resik/login.dart';

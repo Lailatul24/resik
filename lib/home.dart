@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -118,25 +119,73 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 15,
             ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Produk Unik",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
             Container(
-              height: 100,
+              height: 250,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
                   Container(
                     width: 200,
-                    height: 20,
-                    child: Card(),
+                    height: (MediaQuery.of(context).size.height) * 3,
+                    child: Card(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Image.asset("assets/images/a.jpg")),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text("Barang 1")
+                      ],
+                    )),
                   ),
                   Container(
                     width: 200,
-                    height: 20,
-                    child: Card(),
+                    height: (MediaQuery.of(context).size.height) * 3,
+                    child: Card(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Image.asset("assets/images/a.jpg")),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text("Barang 1")
+                      ],
+                    )),
                   ),
                   Container(
                     width: 200,
-                    height: 20,
-                    child: Card(),
+                    height: (MediaQuery.of(context).size.height) * 3,
+                    child: Card(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Image.asset("assets/images/a.jpg")),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text("Barang 1")
+                      ],
+                    )),
                   ),
                 ],
               ),

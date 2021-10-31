@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resik/home.dart';
 import 'package:resik/users_nasabah/jual.dart';
 import 'package:resik/users_nasabah/profile.dart';
+import 'package:resik/users_nasabah/transaksi.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _MainPageState extends State<MainPage> {
   final _pageList = [
     Home(),
     JualSampah(),
+    Transaksi(),
     Profile(),
   ];
 
@@ -34,6 +36,8 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart_rounded), label: "Jual"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.horizontal_split_rounded), label: "Transaksi"),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_rounded), label: "Profile")
         ],
