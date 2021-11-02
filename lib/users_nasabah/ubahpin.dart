@@ -85,14 +85,16 @@ class _UbahPinState extends State<UbahPin> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _textFieldOTP(first: true, last: false),
-                        _textFieldOTP(first: false, last: false),
-                        _textFieldOTP(first: false, last: false),
-                        _textFieldOTP(first: false, last: true),
-                      ],
+                    FittedBox(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _textFieldOTP(first: true, last: false),
+                          _textFieldOTP(first: false, last: false),
+                          _textFieldOTP(first: false, last: false),
+                          _textFieldOTP(first: false, last: true),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 22,
