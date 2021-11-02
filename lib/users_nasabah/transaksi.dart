@@ -65,7 +65,7 @@ class _TransaksiState extends State<Transaksi> {
                         ),
                         Divider(),
                         Text(
-                            "Please help us to confirm and rate your order \nto get 10% discount code for next order."),
+                            "Please help us to confirm  \nto get 10% discount code for next order."),
                         SizedBox(
                           height: 10,
                         ),
@@ -74,8 +74,8 @@ class _TransaksiState extends State<Transaksi> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: 80,
-                                height: 30,
+                                width: 96,
+                                height: 36,
                                 color: Color(0xff85d057),
                                 child: TextButton(
                                   child: Text(
@@ -91,7 +91,7 @@ class _TransaksiState extends State<Transaksi> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      "Total Amount: Rp.200,000",
+                                      "Total Amount: Rp.200",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -109,7 +109,83 @@ class _TransaksiState extends State<Transaksi> {
                               )
                             ],
                           ),
-                        )
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(9.0),
+                ),
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Order 0987656",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text("02/02/20"),
+                            ],
+                          ),
+                        ),
+                        Divider(),
+                        Text(
+                            "Please help us to confirm  \nto get 10% discount code for next order."),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 96,
+                                height: 36,
+                                color: Color(0xff85d057),
+                                child: TextButton(
+                                  child: Text(
+                                    "Qr Code",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onPressed: () {},
+                                ),
+                              ),
+                              Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "Total Amount: Rp.200",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "Proses",
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: Colors.red[600]),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

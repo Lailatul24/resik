@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resik/home.dart';
 import 'package:resik/users_nasabah/jual.dart';
 import 'package:resik/users_nasabah/profile.dart';
+
 import 'package:resik/users_nasabah/transaksi.dart';
 
 class MainPage extends StatefulWidget {
@@ -14,12 +15,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectIndex = 0;
 
-  final _pageList = [
-    Home(),
-    JualSampah(),
-    Transaksi(),
-    Profile(),
-  ];
+  final _pageList = [Home(), JualSampah(), Transaksi(), Profile()];
 
   onTappedItem(int index) {
     setState(() {

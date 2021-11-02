@@ -265,8 +265,35 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                       Spacer(),
-                      Icon(
-                        Icons.logout_rounded,
+                      IconButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AlertDialog(
+                                    title: Text("Apa Anda yakin ingin Keluar"),
+                                    actions: [
+                                      Center(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text("Iya")),
+                                            Divider(),
+                                            ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text("tidak")),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )));
+                        },
+                        icon: Icon(Icons.login),
                         color: Color(0xff909090),
                       ),
                     ],

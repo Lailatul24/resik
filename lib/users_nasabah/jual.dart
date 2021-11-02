@@ -56,7 +56,7 @@ class _JualSampahState extends State<JualSampah> {
                   )),
               Container(
                 padding: EdgeInsets.all(10),
-                height: 45,
+                height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                     color: Color(0xffF0FFEB)),
@@ -71,9 +71,7 @@ class _JualSampahState extends State<JualSampah> {
                         hintStyle:
                             TextStyle(fontSize: 15, color: Colors.grey[400]))),
               ),
-              SizedBox(
-                height: 25,
-              ),
+              Spacer(),
               Container(
                 child: Row(
                   children: [
@@ -124,7 +122,6 @@ class _JualSampahState extends State<JualSampah> {
                                   icon: Icon(Icons.minimize_outlined,
                                       color: Colors.grey[400], size: 26),
                                 ),
-                                SizedBox(width: 18),
                                 Text(
                                   "Rp. 100",
                                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -188,7 +185,6 @@ class _JualSampahState extends State<JualSampah> {
                                   icon: Icon(Icons.minimize_outlined,
                                       color: Colors.grey[400], size: 26),
                                 ),
-                                SizedBox(width: 18),
                                 Text(
                                   "Rp. 100",
                                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -203,7 +199,7 @@ class _JualSampahState extends State<JualSampah> {
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 80,
               ),
               Container(
                   child: Padding(
@@ -220,9 +216,6 @@ class _JualSampahState extends State<JualSampah> {
                   ],
                 ),
               )),
-              SizedBox(
-                height: 10,
-              ),
               Container(
                 height: 50,
                 child: ElevatedButton(

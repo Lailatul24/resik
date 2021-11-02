@@ -1,6 +1,9 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:resik/detail_produk.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -9,13 +12,40 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+class produk {
+  String nama, images;
+  produk({required this.nama, required this.images});
+}
+
 class _HomeState extends State<Home> {
+  int _current = 1;
+
+  List<T> map<T>(List list, Function handler) {
+    List<T> result = [];
+    for (var i = 0; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+    return result;
+  }
+
+  List<String> banner = [
+    "images/a.jpg",
+    "images/b.jpg",
+    "images/iconsayur.png"
+  ];
+  List<produk> _produk = [
+    produk(nama: "meja Botol", images: "images/a.jpg"),
+    produk(nama: "Tas Plastik", images: "images/b.jpg"),
+    produk(nama: "motor rycle", images: "images/iconsayur.png")
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
           child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               child: Stack(
@@ -32,9 +62,10 @@ class _HomeState extends State<Home> {
                   ),
                   Positioned(
                     top: 80,
-                    left: 30,
+                    left: 20,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Selamat Datang Mr....",
@@ -58,16 +89,16 @@ class _HomeState extends State<Home> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(22.0)),
                                 elevation: 18.0,
-                                color: Color(0xFF801E48),
+                                color: Colors.transparent,
                                 clipBehavior: Clip.antiAlias, // Add This
                                 child: MaterialButton(
                                   onPressed: () {},
                                   minWidth: 100,
                                   height: 45,
-                                  color: Color(0xFFFCF2E1),
+                                  color: Colors.transparent,
                                   child: new Text('Tarik Saldo',
                                       style: new TextStyle(
-                                          fontSize: 16.0, color: Colors.black)),
+                                          fontSize: 16.0, color: Colors.white)),
                                 )))
                       ],
                     ),
@@ -80,28 +111,8 @@ class _HomeState extends State<Home> {
             ),
             Container(
               child: CarouselSlider(
-                items: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              "https://images.unsplash.com/photo-1616698845008-2e5b56e18780?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80")),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                                "https://images.unsplash.com/photo-1612729875065-1385f02852ef?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=883&q=80"))),
-                  ),
-                ],
                 options: CarouselOptions(
                   height: 200,
-                  aspectRatio: 16 / 9,
                   viewportFraction: 0.8,
                   initialPage: 0,
                   enableInfiniteScroll: true,
@@ -113,81 +124,143 @@ class _HomeState extends State<Home> {
                   pauseAutoPlayOnTouch: true,
                   enlargeCenterPage: true,
                   scrollDirection: Axis.horizontal,
+                  onPageChanged: (index, reason) {
+                    setState(
+                      () {
+                        _current = index;
+                      },
+                    );
+                  },
                 ),
+                items: banner
+                    .map(
+                      (item) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          elevation: 0,
+                          shadowColor: Colors.grey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            child: Center(
+                              child: Image.asset(
+                                item,
+                                fit: BoxFit.cover,
+                                width: double.maxFinite,
+                                height: 200,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: map<Widget>(banner, (index, url) {
+                return Container(
+                  width: 7.0,
+                  height: 7.0,
+                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _current == index
+                          ? Color.fromRGBO(0, 0, 0, 0.9)
+                          : Color.fromRGBO(0, 0, 0, 0.4)),
+                );
+              }),
+            ),
             SizedBox(
-              height: 15,
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Produk Unik",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
+              child: Text(
+                "Produk Unik",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
               height: 250,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Container(
-                    width: 200,
-                    height: (MediaQuery.of(context).size.height) * 3,
-                    child: Card(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Image.asset("assets/images/a.jpg")),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text("Barang 1")
-                      ],
-                    )),
-                  ),
-                  Container(
-                    width: 200,
-                    height: (MediaQuery.of(context).size.height) * 3,
-                    child: Card(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Image.asset("assets/images/a.jpg")),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text("Barang 1")
-                      ],
-                    )),
-                  ),
-                  Container(
-                    width: 200,
-                    height: (MediaQuery.of(context).size.height) * 3,
-                    child: Card(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Image.asset("assets/images/a.jpg")),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text("Barang 1")
-                      ],
-                    )),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Container(
+                      width: 180,
+                      height: (MediaQuery.of(context).size.height) * 4,
+                      child: Card(
+                          color: Color(0xffE9FFE1),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.asset("assets/images/a.jpg")),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text("Barang 1")
+                            ],
+                          )),
+                    ),
+                    Container(
+                      width: 180,
+                      height: (MediaQuery.of(context).size.height) * 4,
+                      child: Card(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.asset("assets/images/a.jpg")),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Text("Barang 1")
+                        ],
+                      )),
+                    ),
+                    Container(
+                      width: 180,
+                      height: (MediaQuery.of(context).size.height) * 4,
+                      child: Card(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.asset("assets/images/a.jpg")),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text("Barang 1"),
+                          Container(
+                            height: 20,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailProduk()));
+                                },
+                                child: Text("detail")),
+                          )
+                        ],
+                      )),
+                    ),
+                  ],
+                ),
               ),
             )
           ],

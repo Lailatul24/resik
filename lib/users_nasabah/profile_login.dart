@@ -99,8 +99,9 @@ class _ProfileLoginState extends State<ProfileLogin> {
                         ],
                       ),
                       Spacer(),
-                      Icon(
-                        Icons.arrow_forward_ios,
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.arrow_forward_ios_outlined),
                         color: Color(0xff909090),
                       ),
                     ],
@@ -249,8 +250,21 @@ class _ProfileLoginState extends State<ProfileLogin> {
                         ],
                       ),
                       Spacer(),
-                      Icon(
-                        Icons.login_rounded,
+                      IconButton(
+                        onPressed: () {
+                          AlertDialog(
+                            title: Text("Apa Anda Yakin Keluar"),
+                            content: Text("ok"),
+                            actions: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text("tidak"))
+                            ],
+                          );
+                        },
+                        icon: Icon(Icons.login),
                         color: Color(0xff909090),
                       ),
                     ],
