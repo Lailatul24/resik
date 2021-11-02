@@ -184,73 +184,103 @@ class _SaldoState extends State<Saldo> {
                 height: 10,
               ),
               Container(
-                child: Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(right: 10, left: 10),
-                      child: SizedBox(
-                        width: 190,
-                        height: 65,
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            backgroundColor: Color(0xffFCF2E1),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TukarPulsa()));
-                          },
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Text(
-                                  "Tarik Saldo",
-                                  style: TextStyle(fontSize: 17),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 28,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle),
-                                child: SizedBox(
-                                  height: 30,
-                                  width: 30,
-                                  child: Image.asset(
-                                      'assets/images/iconarrowyelow.png',
-                                      fit: BoxFit.fitHeight),
-                                ),
-                              )
-                            ],
-                          ),
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  child: SizedBox(
+                    width: 200,
+                    height: 65,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
+                        backgroundColor: Color(0xffFCF2E1),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TukarPulsa()));
+                      },
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Text(
+                              "Tarik Saldo",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 28,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white, shape: BoxShape.circle),
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Image.asset(
+                                  'assets/images/iconarrowyelow.png',
+                                  fit: BoxFit.fitHeight),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ),
               SizedBox(
                 height: 1,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(9.0),
-                    child: Container(
+              FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(9.0),
+                      child: Container(
+                        width: 180,
+                        height: 72,
+                        margin: EdgeInsets.symmetric(vertical: 16),
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Color(0xffCDFDBD),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                                height: 20,
+                                width: 20,
+                                child:
+                                    Image.asset('assets/images/penjualan.png')),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Total Penjualan'),
+                                Text('Rp.1.200.000')
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
                       width: 180,
                       height: 72,
                       margin: EdgeInsets.symmetric(vertical: 16),
                       padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Color(0xffCDFDBD),
+                        color: Color(0xffFCF2E1),
                         borderRadius: BorderRadius.all(
                           Radius.circular(25),
                         ),
@@ -261,52 +291,22 @@ class _SaldoState extends State<Saldo> {
                               height: 20,
                               width: 20,
                               child:
-                                  Image.asset('assets/images/penjualan.png')),
+                                  Image.asset('assets/images/tariksaldo.png')),
                           SizedBox(
                             width: 10,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Total Penjualan'),
+                              Text('Total Tarik Saldo'),
                               Text('Rp.1.200.000')
                             ],
                           )
                         ],
                       ),
-                    ),
-                  ),
-                  Container(
-                    width: 180,
-                    height: 72,
-                    margin: EdgeInsets.symmetric(vertical: 16),
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Color(0xffFCF2E1),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(25),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: Image.asset('assets/images/tariksaldo.png')),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Total Tarik Saldo'),
-                            Text('Rp.1.200.000')
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -321,45 +321,68 @@ class _SaldoState extends State<Saldo> {
               Expanded(
                 child: Column(
                   children: [
-                    Container(
-                      width: 400,
-                      height: 92,
-                      margin: EdgeInsets.symmetric(vertical: 16),
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Color(0xffF5F5F5),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                              height: 60,
-                              width: 60,
-                              child: Image.asset('assets/images/invoice.png')),
-                          SizedBox(
-                            width: 40,
+                    FittedBox(
+                      child: Container(
+                        width: 400,
+                        height: 92,
+                        margin: EdgeInsets.symmetric(vertical: 16),
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Color(0xffF5F5F5),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Tarik Saldo',
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              ),
-                              Text('Rp.200.000'),
-                              Text('Sat, 6 jun 20')
-                            ],
-                          )
-                        ],
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                                height: 60,
+                                width: 60,
+                                child:
+                                    Image.asset('assets/images/invoice.png')),
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Tarik Saldo',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Row(
+                                  children: [
+                                    Text('Rp.200.000'),
+                                    SizedBox(
+                                      width: 100,
+                                    ),
+                                    Text('WIB' + '-'),
+                                    Text(
+                                      '21.00',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        width: 10,
+                                        height: 10,
+                                        child: Image.asset(
+                                            'images/arrowupred.png'))
+                                  ],
+                                ),
+                                Text('Sat, 6 jun 20'),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     FittedBox(
                       child: Container(
                         width: 400,
-                        height: 68,
+                        height: 92,
                         margin: EdgeInsets.symmetric(vertical: 16),
                         padding: EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -372,8 +395,8 @@ class _SaldoState extends State<Saldo> {
                         child: Row(
                           children: [
                             SizedBox(
-                                height: 20,
-                                width: 20,
+                                height: 60,
+                                width: 60,
                                 child:
                                     Image.asset('assets/images/invoice.png')),
                             SizedBox(
@@ -382,47 +405,95 @@ class _SaldoState extends State<Saldo> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Total Tarik Saldo'),
-                                Text('Rp.1.200.000')
+                                Text(
+                                  'Tarik Saldo',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Row(
+                                  children: [
+                                    Text('Rp.200.000'),
+                                    SizedBox(
+                                      width: 100,
+                                    ),
+                                    Text('WIB' + '-'),
+                                    Text(
+                                      '21.00',
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        width: 10,
+                                        height: 10,
+                                        child: Image.asset(
+                                            'images/arrowdowngreen.png'))
+                                  ],
+                                ),
+                                Text('Sat, 6 jun 20')
                               ],
                             )
                           ],
                         ),
                       ),
                     ),
-                    Container(
-                      width: 400,
-                      height: 92,
-                      margin: EdgeInsets.symmetric(vertical: 16),
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Color(0xffF5F5F5),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                              height: 60,
-                              width: 60,
-                              child: Image.asset('assets/images/invoice.png')),
-                          SizedBox(
-                            width: 40,
+                    FittedBox(
+                      child: Container(
+                        width: 400,
+                        height: 92,
+                        margin: EdgeInsets.symmetric(vertical: 16),
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Color(0xffF5F5F5),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Tarik Saldo',
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              ),
-                              Text('Rp.200.000'),
-                              Text('Sat, 6 jun 20')
-                            ],
-                          )
-                        ],
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                                height: 60,
+                                width: 60,
+                                child:
+                                    Image.asset('assets/images/invoice.png')),
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Tarik Saldo',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Row(
+                                  children: [
+                                    Text('Rp.200.000'),
+                                    SizedBox(
+                                      width: 100,
+                                    ),
+                                    Text('WIB' + '-'),
+                                    Text(
+                                      '21.00',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        width: 10,
+                                        height: 10,
+                                        child: Image.asset(
+                                            'images/arrowupred.png'))
+                                  ],
+                                ),
+                                Text('Sat, 6 jun 20')
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
