@@ -103,7 +103,7 @@ class _SaldoState extends State<Saldo> {
                   Container(
                     padding: EdgeInsets.only(right: 10, left: 10),
                     child: SizedBox(
-                      width: 150,
+                      width: 170,
                       height: 54,
                       child: TextButton(
                         style: TextButton.styleFrom(
@@ -121,7 +121,11 @@ class _SaldoState extends State<Saldo> {
                         },
                         child: Row(
                           children: [
-                            Text("Tukar Pulsa"),
+                            Text("Tukar Pulsa",
+                            style: TextStyle(
+                                fontSize: 18
+                              ),
+                            ),
                             Spacer(),
                             Container(
                               decoration: BoxDecoration(
@@ -142,7 +146,7 @@ class _SaldoState extends State<Saldo> {
                   Container(
                     padding: EdgeInsets.only(right: 10, left: 50),
                     child: SizedBox(
-                      width: 150,
+                      width: 170,
                       height: 54,
                       child: TextButton(
                         style: TextButton.styleFrom(
@@ -160,7 +164,11 @@ class _SaldoState extends State<Saldo> {
                         },
                         child: Row(
                           children: [
-                            Text("Donasikan"),
+                            Text("Donasikan",
+                              style: TextStyle(
+                                fontSize: 18
+                              ),
+                            ),
                             Spacer(),
                             Container(
                               decoration: BoxDecoration(
