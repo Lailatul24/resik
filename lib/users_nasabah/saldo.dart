@@ -58,7 +58,7 @@ class _SaldoState extends State<Saldo> {
                         child: Transform.translate(
                           offset: Offset(-10.0, 30.0),
                           child: Image.asset(
-                            'images/iconsayur.png',
+                            'assets/images/iconsayur.png',
                             fit: BoxFit.fitHeight,
                           ),
                         ),
@@ -129,7 +129,8 @@ class _SaldoState extends State<Saldo> {
                               child: SizedBox(
                                 height: 40,
                                 width: 40,
-                                child: Image.asset('images/iconarrowgreen.png',
+                                child: Image.asset(
+                                    'assets/images/iconarrowgreen.png',
                                     fit: BoxFit.fitHeight),
                               ),
                             )
@@ -167,7 +168,8 @@ class _SaldoState extends State<Saldo> {
                               child: SizedBox(
                                 height: 30,
                                 width: 30,
-                                child: Image.asset('images/iconarrowyelow.png',
+                                child: Image.asset(
+                                    'assets/images/iconarrowyelow.png',
                                     fit: BoxFit.fitHeight),
                               ),
                             )
@@ -222,7 +224,7 @@ class _SaldoState extends State<Saldo> {
                                   height: 30,
                                   width: 30,
                                   child: Image.asset(
-                                      'images/iconarrowyelow.png',
+                                      'assets/images/iconarrowyelow.png',
                                       fit: BoxFit.fitHeight),
                                 ),
                               )
@@ -258,7 +260,8 @@ class _SaldoState extends State<Saldo> {
                           SizedBox(
                               height: 20,
                               width: 20,
-                              child: Image.asset('images/penjualan.png')),
+                              child:
+                                  Image.asset('assets/images/penjualan.png')),
                           SizedBox(
                             width: 10,
                           ),
@@ -289,7 +292,7 @@ class _SaldoState extends State<Saldo> {
                         SizedBox(
                             height: 20,
                             width: 20,
-                            child: Image.asset('images/tariksaldo.png')),
+                            child: Image.asset('assets/images/tariksaldo.png')),
                         SizedBox(
                           width: 10,
                         ),
@@ -334,7 +337,7 @@ class _SaldoState extends State<Saldo> {
                           SizedBox(
                               height: 60,
                               width: 60,
-                              child: Image.asset('images/invoice.png')),
+                              child: Image.asset('assets/images/invoice.png')),
                           SizedBox(
                             width: 40,
                           ),
@@ -371,7 +374,8 @@ class _SaldoState extends State<Saldo> {
                             SizedBox(
                                 height: 20,
                                 width: 20,
-                                child: Image.asset('images/invoice.png')),
+                                child:
+                                    Image.asset('assets/images/invoice.png')),
                             SizedBox(
                               width: 40,
                             ),
@@ -402,7 +406,7 @@ class _SaldoState extends State<Saldo> {
                           SizedBox(
                               height: 60,
                               width: 60,
-                              child: Image.asset('images/invoice.png')),
+                              child: Image.asset('assets/images/invoice.png')),
                           SizedBox(
                             width: 40,
                           ),

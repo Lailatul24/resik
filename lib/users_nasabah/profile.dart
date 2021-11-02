@@ -267,31 +267,28 @@ class _ProfileState extends State<Profile> {
                       Spacer(),
                       IconButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AlertDialog(
-                                    title: Text("Apa Anda yakin ingin Keluar"),
-                                    actions: [
-                                      Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: Text("Iya")),
-                                            Divider(),
-                                            ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: Text("tidak")),
-                                          ],
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Apa Anda yakin keluar"),
+                                  actions: [
+                                    Row(
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {},
+                                          child: Text("Yes"),
                                         ),
-                                      )
-                                    ],
-                                  )));
+                                        VerticalDivider(
+                                          color: Colors.grey,
+                                        ),
+                                        ElevatedButton(
+                                            onPressed: () {}, child: Text("No"))
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              });
                         },
                         icon: Icon(Icons.login),
                         color: Color(0xff909090),

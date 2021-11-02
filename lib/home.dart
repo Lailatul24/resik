@@ -1,8 +1,6 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:introduction_screen/introduction_screen.dart';
+
 import 'package:resik/detail_produk.dart';
 
 class Home extends StatefulWidget {
@@ -10,11 +8,6 @@ class Home extends StatefulWidget {
 
   @override
   _HomeState createState() => _HomeState();
-}
-
-class produk {
-  String nama, images;
-  produk({required this.nama, required this.images});
 }
 
 class _HomeState extends State<Home> {
@@ -29,14 +22,9 @@ class _HomeState extends State<Home> {
   }
 
   List<String> banner = [
-    "images/a.jpg",
-    "images/b.jpg",
-    "images/iconsayur.png"
-  ];
-  List<produk> _produk = [
-    produk(nama: "meja Botol", images: "images/a.jpg"),
-    produk(nama: "Tas Plastik", images: "images/b.jpg"),
-    produk(nama: "motor rycle", images: "images/iconsayur.png")
+    "assets/images/a.jpg",
+    "assets/images/b.jpg",
+    "assets/images/iconsayur.png"
   ];
 
   @override
