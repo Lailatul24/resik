@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class UbahPin extends StatefulWidget {
   UbahPin({Key? key}) : super(key: key);
@@ -111,6 +112,28 @@ class _UbahPinState extends State<UbahPin> {
                         child: const Text('OK'),
                       ),
                     ),
+                    Transform.rotate(
+                      angle: 335* math.pi/ 180,
+                      child: Stack(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment(3.1,10),
+                                        child: Container(
+                                          height: 200,
+                                          width: 200,
+                                          child: Transform.translate(
+                                            offset: Offset(-5.0, 60.0),
+                                            child: Opacity(
+                                              opacity: 0.3,
+                                              child: Image.asset('images/pohon.png',
+                                              fit: BoxFit.fitHeight,
+                                              ),
+                                            )
+                                        )
+                                      ))
+                                    ],
+                                  ),
+                    )
                   ],
                 ),
               ),

@@ -32,7 +32,8 @@ class _TarikSaldoState extends State<TarikSaldo> {
                       ))
                 ],
               ),
-            )
+            ),
+            
           ],
         ),
       )),

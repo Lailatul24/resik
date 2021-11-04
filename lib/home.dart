@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
                             bottomRight: Radius.circular(45))),
                   ),
                   Positioned(
-                    top: 80,
+                    top: 50,
                     left: 20,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -58,42 +58,70 @@ class _HomeState extends State<Home> {
                         Text(
                           "Selamat Datang Mr....",
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 20,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                           "saldo Anda Rp...",
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 40,
                         ),
                         Container(
                             child: Material(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(22.0)),
-                                elevation: 18.0,
-                                color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(22.0),
+                                    ),
+                                color: Color(0xffFCF2E1).withOpacity(0.5),
                                 clipBehavior: Clip.antiAlias, // Add This
                                 child: MaterialButton(
                                   onPressed: () {},
                                   minWidth: 100,
                                   height: 45,
                                   color: Colors.transparent,
-                                  child: new Text('Tarik Saldo',
-                                      style: new TextStyle(
-                                          fontSize: 16.0, color: Colors.white)),
-                                )))
+                                  child: Row(
+                                    children: [
+                                          SizedBox(
+                                            height: 20,
+                                            width: 20,
+                                            child: Image.asset('images/uanghome.png'),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                      new Text('Tarik Saldo',
+                                          style: new TextStyle(
+                                              fontSize: 16.0, color: Colors.white)),
+                                    ],
+                                  ),
+                                ))),
+                                
                       ],
                     ),
-                  )
-                ],
-              ),
-            ),
+                  ),
+                             Stack(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment(1.1,10),
+                                      child: Container(
+                                        height: 150,
+                                        width: 150,
+                                        child: Transform.translate(
+                                          offset: Offset(-5.0, 60.0),
+                                          child: Image.asset('images/pohon.png',
+                                          fit: BoxFit.fitHeight,),
+                                      )
+                                    ))
+                                  ],
+                                )
+                          ],
+                        ),
+                      ),
             SizedBox(
               height: 20,
             ),
