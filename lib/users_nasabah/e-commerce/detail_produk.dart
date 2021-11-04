@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:resik/keranjang.dart';
+import 'package:resik/users_nasabah/e-commerce/keranjang.dart';
 
 class DetailProduk extends StatefulWidget {
   const DetailProduk({Key? key}) : super(key: key);

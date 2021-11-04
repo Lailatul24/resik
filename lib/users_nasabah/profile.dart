@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resik/register.dart';
+import 'package:resik/users_nasabah/alertDialog.dart';
 import 'package:resik/users_nasabah/saldo.dart';
 import 'package:resik/users_nasabah/ubahpin.dart';
 import 'package:resik/login.dart';
@@ -187,7 +188,7 @@ class _ProfileState extends State<Profile> {
                     shape: RoundedRectangleBorder(),
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
-                  onPressed: () {},
+                  onPressed: () => alertDialog(context),
                   child: Row(
                     children: [
                       SizedBox(
@@ -245,6 +246,8 @@ class _ProfileState extends State<Profile> {
                             title: Text("Apa Anda yakin keluar"),
                             actions: [
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {},

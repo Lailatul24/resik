@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
-import 'package:resik/detail_produk.dart';
+import 'package:resik/users_nasabah/e-commerce/detail_produk.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -75,8 +74,8 @@ class _HomeState extends State<Home> {
                         Container(
                             child: Material(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(22.0),
-                                    ),
+                                  borderRadius: BorderRadius.circular(22.0),
+                                ),
                                 color: Color(0xffFCF2E1).withOpacity(0.5),
                                 clipBehavior: Clip.antiAlias, // Add This
                                 child: MaterialButton(
@@ -86,42 +85,44 @@ class _HomeState extends State<Home> {
                                   color: Colors.transparent,
                                   child: Row(
                                     children: [
-                                          SizedBox(
-                                            height: 20,
-                                            width: 20,
-                                            child: Image.asset('assets/images/uanghome.png'),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
+                                      SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: Image.asset(
+                                            'assets/images/uanghome.png'),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
                                       new Text('Tarik Saldo',
                                           style: new TextStyle(
-                                              fontSize: 16.0, color: Colors.white)),
+                                              fontSize: 16.0,
+                                              color: Colors.white)),
                                     ],
                                   ),
                                 ))),
-                                
                       ],
                     ),
                   ),
-                             Stack(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment(1.1,10),
-                                      child: Container(
-                                        height: 150,
-                                        width: 150,
-                                        child: Transform.translate(
-                                          offset: Offset(-5.0, 60.0),
-                                          child: Image.asset('assets/images/pohon.png',
-                                          fit: BoxFit.fitHeight,),
-                                      )
-                                    ))
-                                  ],
-                                )
-                          ],
-                        ),
-                      ),
+                  Stack(
+                    children: [
+                      Align(
+                          alignment: Alignment(1.1, 10),
+                          child: Container(
+                              height: 150,
+                              width: 150,
+                              child: Transform.translate(
+                                offset: Offset(-5.0, 60.0),
+                                child: Image.asset(
+                                  'assets/images/pohon.png',
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              )))
+                    ],
+                  )
+                ],
+              ),
+            ),
             SizedBox(
               height: 20,
             ),
@@ -193,11 +194,21 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text(
-                "Produk Unik",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Container(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Produk Unik",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Selengkapnya",
+                      ))
+                ],
               ),
             ),
             Container(
@@ -209,7 +220,6 @@ class _HomeState extends State<Home> {
                   children: [
                     Container(
                       width: 180,
-                      height: (MediaQuery.of(context).size.height) * 4,
                       child: Card(
                           color: Color(0xffE9FFE1),
                           child: Column(
@@ -227,7 +237,6 @@ class _HomeState extends State<Home> {
                     ),
                     Container(
                       width: 180,
-                      height: (MediaQuery.of(context).size.height) * 4,
                       child: Card(
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,7 +253,6 @@ class _HomeState extends State<Home> {
                     ),
                     Container(
                       width: 180,
-                      height: (MediaQuery.of(context).size.height) * 4,
                       child: Card(
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,22 +264,14 @@ class _HomeState extends State<Home> {
                             height: 10,
                           ),
                           Text("Barang 1"),
-                          Container(
-                            height: 20,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailProduk()));
-                                },
-                                child: Text("detail")),
-                          )
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailProduk()));
+                              },
+                              child: Text("detail")),
                         ],
                       )),
                     ),
