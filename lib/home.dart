@@ -89,7 +89,7 @@ class _HomeState extends State<Home> {
                                           SizedBox(
                                             height: 20,
                                             width: 20,
-                                            child: Image.asset('images/uanghome.png'),
+                                            child: Image.asset('assets/images/uanghome.png'),
                                           ),
                                           SizedBox(
                                             width: 10,
@@ -113,7 +113,7 @@ class _HomeState extends State<Home> {
                                         width: 150,
                                         child: Transform.translate(
                                           offset: Offset(-5.0, 60.0),
-                                          child: Image.asset('images/pohon.png',
+                                          child: Image.asset('assets/images/pohon.png',
                                           fit: BoxFit.fitHeight,),
                                       )
                                     ))

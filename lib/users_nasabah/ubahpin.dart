@@ -125,7 +125,7 @@ class _UbahPinState extends State<UbahPin> {
                                             offset: Offset(-5.0, 60.0),
                                             child: Opacity(
                                               opacity: 0.3,
-                                              child: Image.asset('images/pohon.png',
+                                              child: Image.asset('assets/images/pohon.png',
                                               fit: BoxFit.fitHeight,
                                               ),
                                             )
