@@ -19,7 +19,7 @@ class Img {
 class _JualSampahState extends State<JualSampah> {
   List<Img> _gambar = [
     Img(images: "assets/images/a.jpg", nama: "barang 1"),
-    Img(images: "assets/images/a.jpg", nama: "barang 1")
+    Img(images: "assets/images/a.jpg", nama: "barang 1"),
   ];
 
   @override
@@ -84,8 +84,8 @@ class _JualSampahState extends State<JualSampah> {
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset(
                           _gambar[0].images,
-                          height: 50,
-                          width: 50,
+                          height: 80,
+                          width: 80,
                         ),
                       ),
                     ),
@@ -138,7 +138,7 @@ class _JualSampahState extends State<JualSampah> {
                   ],
                 ),
               ),
-              Container(
+              FittedBox(
                 child: Row(
                   children: [
                     Padding(
@@ -147,8 +147,8 @@ class _JualSampahState extends State<JualSampah> {
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset(
                           _gambar[0].images,
-                          height: 100,
-                          width: 100,
+                          height: 80,
+                          width: 80,
                         ),
                       ),
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resik/home.dart';
+import 'package:resik/main_page.dart';
 import 'package:resik/users_nasabah/transaksi.dart';
 
 class Sukses extends StatelessWidget {
@@ -73,8 +74,10 @@ class Sukses extends StatelessWidget {
                     height: 50,
                     child: OutlinedButton(
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainPage()));
                         },
                         child: Text(
                           'Kembali ke Home',
