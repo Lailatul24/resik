@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resik/home.dart';
+import 'package:resik/main_page.dart';
 import 'package:resik/users_nasabah/transaksi.dart';
 
 class Sukses extends StatelessWidget {
@@ -26,14 +27,19 @@ class Sukses extends StatelessWidget {
                 ),
                 Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 300,
-                    child: Image(image: AssetImage('images/assetsresik.png'))),
+                    height: 150,
+                    child: Image(
+                        image: AssetImage('assets/images/assetsresik.png'))),
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                  "Pembelian Barang anda akan segera kami proses",
-                  style: TextStyle(fontSize: 18, color: Colors.black54),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Pembelian Barang anda akan segera kami proses",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18, color: Colors.black54),
+                  ),
                 ),
                 SizedBox(
                   height: 20,
@@ -68,8 +74,10 @@ class Sukses extends StatelessWidget {
                     height: 50,
                     child: OutlinedButton(
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainPage()));
                         },
                         child: Text(
                           'Kembali ke Home',

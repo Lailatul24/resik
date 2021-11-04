@@ -289,7 +289,7 @@ class _SaldoState extends State<Saldo> {
                       ),
                     ),
                     Container(
-                      width: 180,
+                      width: 190,
                       height: 72,
                       margin: EdgeInsets.symmetric(vertical: 16),
                       padding: EdgeInsets.all(16),

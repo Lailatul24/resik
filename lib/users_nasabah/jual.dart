@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:resik/home.dart';
+
+import 'package:resik/sukses_page.dart';
 
 class JualSampah extends StatefulWidget {
   const JualSampah({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class Img {
 class _JualSampahState extends State<JualSampah> {
   List<Img> _gambar = [
     Img(images: "assets/images/a.jpg", nama: "barang 1"),
-    Img(images: "assets/images/a.jpg", nama: "barang 1")
+    Img(images: "assets/images/a.jpg", nama: "barang 1"),
   ];
 
   @override
@@ -27,7 +28,7 @@ class _JualSampahState extends State<JualSampah> {
       body: SafeArea(
         child: Container(
           child: Padding(
-            padding: const EdgeInsets.only(right: 20, left: 20),
+            padding: const EdgeInsets.only(right: 10, left: 10),
             child: ListView(children: [
               Container(
                   padding: EdgeInsets.all(10),
@@ -71,8 +72,10 @@ class _JualSampahState extends State<JualSampah> {
                         hintStyle:
                             TextStyle(fontSize: 15, color: Colors.grey[400]))),
               ),
-              Spacer(),
-              Container(
+              SizedBox(
+                height: 15,
+              ),
+              FittedBox(
                 child: Row(
                   children: [
                     Padding(
@@ -81,8 +84,8 @@ class _JualSampahState extends State<JualSampah> {
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset(
                           _gambar[0].images,
-                          height: 100,
-                          width: 100,
+                          height: 80,
+                          width: 80,
                         ),
                       ),
                     ),
@@ -135,7 +138,7 @@ class _JualSampahState extends State<JualSampah> {
                   ],
                 ),
               ),
-              Container(
+              FittedBox(
                 child: Row(
                   children: [
                     Padding(
@@ -144,8 +147,8 @@ class _JualSampahState extends State<JualSampah> {
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset(
                           _gambar[0].images,
-                          height: 100,
-                          width: 100,
+                          height: 80,
+                          width: 80,
                         ),
                       ),
                     ),
@@ -223,7 +226,10 @@ class _JualSampahState extends State<JualSampah> {
                       primary: Color(0xff85d057),
                       onPrimary: Colors.white, // foreground
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Sukses()));
+                    },
                     child: Text(
                       'Jual Sampah',
                       style: TextStyle(
