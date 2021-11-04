@@ -26,14 +26,19 @@ class Sukses extends StatelessWidget {
                 ),
                 Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 300,
-                    child: Image(image: AssetImage('images/assetsresik.png'))),
+                    height: 150,
+                    child: Image(
+                        image: AssetImage('assets/images/assetsresik.png'))),
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                  "Pembelian Barang anda akan segera kami proses",
-                  style: TextStyle(fontSize: 18, color: Colors.black54),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Pembelian Barang anda akan segera kami proses",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18, color: Colors.black54),
+                  ),
                 ),
                 SizedBox(
                   height: 20,

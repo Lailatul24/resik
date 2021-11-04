@@ -103,8 +103,8 @@ class _SaldoState extends State<Saldo> {
                   Container(
                     padding: EdgeInsets.only(right: 10, left: 10),
                     child: SizedBox(
-                      width: 150,
-                      height: 54,
+                      width: 200,
+                      height: 70,
                       child: TextButton(
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.all(23),
@@ -142,8 +142,8 @@ class _SaldoState extends State<Saldo> {
                   Container(
                     padding: EdgeInsets.only(right: 10, left: 50),
                     child: SizedBox(
-                      width: 150,
-                      height: 54,
+                      width: 200,
+                      height: 70,
                       child: TextButton(
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.all(23),
@@ -275,7 +275,7 @@ class _SaldoState extends State<Saldo> {
                       ),
                     ),
                     Container(
-                      width: 180,
+                      width: 190,
                       height: 72,
                       margin: EdgeInsets.symmetric(vertical: 16),
                       padding: EdgeInsets.all(16),
@@ -369,7 +369,7 @@ class _SaldoState extends State<Saldo> {
                                         width: 10,
                                         height: 10,
                                         child: Image.asset(
-                                            'images/arrowupred.png'))
+                                            'assets/images/arrowupred.png'))
                                   ],
                                 ),
                                 Text('Sat, 6 jun 20'),
@@ -428,7 +428,7 @@ class _SaldoState extends State<Saldo> {
                                         width: 10,
                                         height: 10,
                                         child: Image.asset(
-                                            'images/arrowdowngreen.png'))
+                                            'assets/images/arrowdowngreen.png'))
                                   ],
                                 ),
                                 Text('Sat, 6 jun 20')
@@ -486,7 +486,7 @@ class _SaldoState extends State<Saldo> {
                                         width: 10,
                                         height: 10,
                                         child: Image.asset(
-                                            'images/arrowupred.png'))
+                                            'assets/images/arrowupred.png'))
                                   ],
                                 ),
                                 Text('Sat, 6 jun 20')
