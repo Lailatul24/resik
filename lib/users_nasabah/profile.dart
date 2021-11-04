@@ -237,7 +237,30 @@ class _ProfileState extends State<Profile> {
                     shape: RoundedRectangleBorder(),
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text("Apa Anda yakin keluar"),
+                            actions: [
+                              Row(
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text("Yes"),
+                                  ),
+                                  VerticalDivider(
+                                    color: Colors.grey,
+                                  ),
+                                  ElevatedButton(
+                                      onPressed: () {}, child: Text("No"))
+                                ],
+                              ),
+                            ],
+                          );
+                        });
+                  },
                   child: Row(
                     children: [
                       SizedBox(
@@ -268,32 +291,8 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                       Spacer(),
-                      IconButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text("Apa Anda yakin keluar"),
-                                  actions: [
-                                    Row(
-                                      children: [
-                                        ElevatedButton(
-                                          onPressed: () {},
-                                          child: Text("Yes"),
-                                        ),
-                                        VerticalDivider(
-                                          color: Colors.grey,
-                                        ),
-                                        ElevatedButton(
-                                            onPressed: () {}, child: Text("No"))
-                                      ],
-                                    ),
-                                  ],
-                                );
-                              });
-                        },
-                        icon: Icon(Icons.login),
+                      Icon(
+                        Icons.login,
                         color: Color(0xff909090),
                       ),
                     ],
