@@ -21,7 +21,7 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 60,
           ),
-          Container(
+          FittedBox(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -61,6 +61,9 @@ class _ProfileState extends State<Profile> {
                     primary: Color(0xFF000000),
                     minimumSize: Size(100, 40),
                   ),
+                ),
+                SizedBox(
+                  width: 15,
                 )
               ],
             ),

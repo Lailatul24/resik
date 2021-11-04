@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resik/users_nasabah/tukarpulsa.dart';
+import 'package:resik/users_nasabah/tariksaldo.dart';
 
 class Saldo extends StatefulWidget {
   Saldo({Key? key}) : super(key: key);
@@ -103,8 +104,8 @@ class _SaldoState extends State<Saldo> {
                   Container(
                     padding: EdgeInsets.only(right: 10, left: 10),
                     child: SizedBox(
-                      width: 200,
-                      height: 70,
+                      width: 195,
+                      height: 75,
                       child: TextButton(
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.all(23),
@@ -121,7 +122,10 @@ class _SaldoState extends State<Saldo> {
                         },
                         child: Row(
                           children: [
-                            Text("Tukar Pulsa"),
+                            Text(
+                              "Tukar Pulsa",
+                              style: TextStyle(fontSize: 18),
+                            ),
                             Spacer(),
                             Container(
                               decoration: BoxDecoration(
@@ -142,8 +146,8 @@ class _SaldoState extends State<Saldo> {
                   Container(
                     padding: EdgeInsets.only(right: 10, left: 50),
                     child: SizedBox(
-                      width: 200,
-                      height: 70,
+                      width: 180,
+                      height: 75,
                       child: TextButton(
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.all(23),
@@ -160,14 +164,17 @@ class _SaldoState extends State<Saldo> {
                         },
                         child: Row(
                           children: [
-                            Text("Donasikan"),
+                            Text(
+                              "Donasikan",
+                              style: TextStyle(fontSize: 18),
+                            ),
                             Spacer(),
                             Container(
                               decoration: BoxDecoration(
                                   color: Colors.white, shape: BoxShape.circle),
                               child: SizedBox(
-                                height: 30,
-                                width: 30,
+                                height: 40,
+                                width: 40,
                                 child: Image.asset(
                                     'assets/images/iconarrowyelow.png',
                                     fit: BoxFit.fitHeight),
@@ -183,54 +190,61 @@ class _SaldoState extends State<Saldo> {
               SizedBox(
                 height: 10,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
+              FittedBox(
                 alignment: Alignment.centerLeft,
-                child: Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: SizedBox(
-                    width: 200,
-                    height: 65,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: SizedBox(
+                        width: 200,
+                        height: 80,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            backgroundColor: Color(0xffFCF2E1),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TarikSaldo()));
+                          },
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Text(
+                                  "Tarik Saldo",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 28,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle),
+                                child: SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                  child: Image.asset(
+                                      'assets/images/iconarrowyelow.png',
+                                      fit: BoxFit.fitHeight),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                        backgroundColor: Color(0xffFCF2E1),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TukarPulsa()));
-                      },
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Text(
-                              "Tarik Saldo",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 28,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white, shape: BoxShape.circle),
-                            child: SizedBox(
-                              height: 30,
-                              width: 30,
-                              child: Image.asset(
-                                  'assets/images/iconarrowyelow.png',
-                                  fit: BoxFit.fitHeight),
-                            ),
-                          )
-                        ],
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 300,
+                    )
+                  ],
                 ),
               ),
               SizedBox(
