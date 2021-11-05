@@ -174,7 +174,7 @@ class _JualSampahState extends State<JualSampah> {
                         ),
                       ),
                       SizedBox(
-                        width: 15,
+                        width: 10,
                       ),
                       Container(
                         child: Column(
@@ -192,22 +192,26 @@ class _JualSampahState extends State<JualSampah> {
                             Container(
                               child: Row(
                                 children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
+                                  OutlinedButton(
+                                    onPressed: add,
+                                    child: Icon(
                                       Icons.add,
-                                      color: Colors.grey[400],
-                                      size: 26,
+                                      color: Colors.white,
                                     ),
+                                    style: OutlinedButton.styleFrom(
+                                        shape: CircleBorder(),
+                                        backgroundColor: Color(0xff85d057)),
                                   ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text("01"),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.minimize_outlined,
-                                        color: Colors.grey[400], size: 26),
+                                  Text("$_n"),
+                                  OutlinedButton(
+                                    onPressed: minus,
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                    ),
+                                    style: OutlinedButton.styleFrom(
+                                        shape: CircleBorder(),
+                                        backgroundColor: Color(0xff85d057)),
                                   ),
                                   Text(
                                     "Rp. 100",
@@ -238,7 +242,7 @@ class _JualSampahState extends State<JualSampah> {
                         ),
                       ),
                       SizedBox(
-                        width: 15,
+                        width: 10,
                       ),
                       Container(
                         child: Column(
@@ -256,22 +260,26 @@ class _JualSampahState extends State<JualSampah> {
                             Container(
                               child: Row(
                                 children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
+                                  OutlinedButton(
+                                    onPressed: add,
+                                    child: Icon(
                                       Icons.add,
-                                      color: Colors.grey[400],
-                                      size: 26,
+                                      color: Colors.white,
                                     ),
+                                    style: OutlinedButton.styleFrom(
+                                        shape: CircleBorder(),
+                                        backgroundColor: Color(0xff85d057)),
                                   ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text("01"),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.minimize_outlined,
-                                        color: Colors.grey[400], size: 26),
+                                  Text("$_n"),
+                                  OutlinedButton(
+                                    onPressed: minus,
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                    ),
+                                    style: OutlinedButton.styleFrom(
+                                        shape: CircleBorder(),
+                                        backgroundColor: Color(0xff85d057)),
                                   ),
                                   Text(
                                     "Rp. 100",
@@ -302,7 +310,7 @@ class _JualSampahState extends State<JualSampah> {
                         ),
                       ),
                       SizedBox(
-                        width: 15,
+                        width: 10,
                       ),
                       Container(
                         child: Column(
@@ -320,86 +328,26 @@ class _JualSampahState extends State<JualSampah> {
                             Container(
                               child: Row(
                                 children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
+                                  OutlinedButton(
+                                    onPressed: add,
+                                    child: Icon(
                                       Icons.add,
-                                      color: Colors.grey[400],
-                                      size: 26,
+                                      color: Colors.white,
                                     ),
+                                    style: OutlinedButton.styleFrom(
+                                        shape: CircleBorder(),
+                                        backgroundColor: Color(0xff85d057)),
                                   ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text("01"),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.minimize_outlined,
-                                        color: Colors.grey[400], size: 26),
-                                  ),
-                                  Text(
-                                    "Rp. 100",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                FittedBox(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Image.asset(
-                            _gambar[0].images,
-                            height: 80,
-                            width: 80,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _gambar[0].nama,
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
+                                  Text("$_n"),
+                                  OutlinedButton(
+                                    onPressed: minus,
+                                    child: Icon(
                                       Icons.add,
-                                      color: Colors.grey[400],
-                                      size: 26,
+                                      color: Colors.white,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text("01"),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.minimize_outlined,
-                                        color: Colors.grey[400], size: 26),
+                                    style: OutlinedButton.styleFrom(
+                                        shape: CircleBorder(),
+                                        backgroundColor: Color(0xff85d057)),
                                   ),
                                   Text(
                                     "Rp. 100",

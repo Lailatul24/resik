@@ -201,7 +201,7 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     "Produk Unik",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   TextButton(
                       onPressed: () {},
@@ -212,14 +212,15 @@ class _HomeState extends State<Home> {
               ),
             ),
             Container(
-              height: 250,
+              height: 300,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
                     Container(
-                      width: 180,
+                      width: 200,
+                      height: 150,
                       child: Card(
                           color: Color(0xffE9FFE1),
                           child: Column(
@@ -229,51 +230,95 @@ class _HomeState extends State<Home> {
                                   borderRadius: BorderRadius.circular(10.0),
                                   child: Image.asset("assets/images/a.jpg")),
                               SizedBox(
-                                height: 15,
+                                height: 10,
                               ),
-                              Text("Barang 1")
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text("Barang 1"),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 10),
+                                child: ElevatedButton(
+                                  child: Text("Detail Produk"),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailProduk()));
+                                  },
+                                ),
+                              )
                             ],
                           )),
                     ),
                     Container(
-                      width: 180,
+                      width: 200,
+                      height: 150,
                       child: Card(
+                          color: Color(0xffE9FFE1),
                           child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.asset("assets/images/a.jpg")),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text("Barang 1")
-                        ],
-                      )),
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.asset("assets/images/a.jpg")),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text("Barang 1"),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 10),
+                                child: ElevatedButton(
+                                  child: Text("Detail Produk"),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailProduk()));
+                                  },
+                                ),
+                              )
+                            ],
+                          )),
                     ),
                     Container(
-                      width: 180,
+                      width: 200,
+                      height: 150,
                       child: Card(
+                          color: Color(0xffE9FFE1),
                           child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.asset("assets/images/a.jpg")),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text("Barang 1"),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DetailProduk()));
-                              },
-                              child: Text("detail")),
-                        ],
-                      )),
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.asset("assets/images/a.jpg")),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text("Barang 1"),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 10),
+                                child: ElevatedButton(
+                                  child: Text("Detail Produk"),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailProduk()));
+                                  },
+                                ),
+                              )
+                            ],
+                          )),
                     ),
                   ],
                 ),
