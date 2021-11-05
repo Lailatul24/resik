@@ -29,6 +29,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
           child: SingleChildScrollView(
         child: Column(
@@ -229,15 +230,12 @@ class _HomeState extends State<Home> {
                               ClipRRect(
                                   borderRadius: BorderRadius.circular(10.0),
                                   child: Image.asset("assets/images/a.jpg")),
-                              SizedBox(
-                                height: 10,
-                              ),
                               Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                padding: const EdgeInsets.only(left: 8, top: 8),
                                 child: Text("Barang 1"),
                               ),
                               Container(
-                                padding: EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.only(left: 8),
                                 child: ElevatedButton(
                                   child: Text("Detail Produk"),
                                   onPressed: () {
@@ -263,11 +261,8 @@ class _HomeState extends State<Home> {
                               ClipRRect(
                                   borderRadius: BorderRadius.circular(10.0),
                                   child: Image.asset("assets/images/a.jpg")),
-                              SizedBox(
-                                height: 10,
-                              ),
                               Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                padding: const EdgeInsets.only(left: 8, top: 8),
                                 child: Text("Barang 1"),
                               ),
                               Container(
@@ -288,7 +283,7 @@ class _HomeState extends State<Home> {
                     ),
                     Container(
                       width: 200,
-                      height: 150,
+                      height: 160,
                       child: Card(
                           color: Color(0xffE9FFE1),
                           child: Column(
@@ -297,11 +292,8 @@ class _HomeState extends State<Home> {
                               ClipRRect(
                                   borderRadius: BorderRadius.circular(10.0),
                                   child: Image.asset("assets/images/a.jpg")),
-                              SizedBox(
-                                height: 10,
-                              ),
                               Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                padding: const EdgeInsets.only(left: 8, top: 8),
                                 child: Text("Barang 1"),
                               ),
                               Container(

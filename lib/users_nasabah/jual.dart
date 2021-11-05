@@ -138,7 +138,7 @@ class _JualSampahState extends State<JualSampah> {
                                   OutlinedButton(
                                     onPressed: minus,
                                     child: Icon(
-                                      Icons.add,
+                                      Icons.remove,
                                       color: Colors.white,
                                     ),
                                     style: OutlinedButton.styleFrom(

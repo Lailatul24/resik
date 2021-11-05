@@ -13,7 +13,10 @@ class _DetailProdukState extends State<DetailProduk> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Detail Produk"),
+          title: Text(
+            "Detail Produk",
+            style: TextStyle(color: Colors.black),
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
@@ -77,32 +80,37 @@ class _DetailProdukState extends State<DetailProduk> {
                     SizedBox(
                       height: 50,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xff85d057),
-                            onPrimary: Colors.white, // foreground
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Keranjang()));
-                          },
-                          child: Text(
-                            'Pesan',
-                            style: TextStyle(
-                                fontSize: 19,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Roboto"),
-                          )),
-                    ),
                   ],
                 ),
               ),
-            ))
+            )),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xff85d057),
+                        onPrimary: Colors.white, // foreground
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Keranjang()));
+                      },
+                      child: Text(
+                        'Pesan',
+                        style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Roboto"),
+                      )),
+                ),
+              ),
+            ),
           ]),
         ));
   }
