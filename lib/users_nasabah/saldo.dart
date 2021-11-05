@@ -197,8 +197,8 @@ class _SaldoState extends State<Saldo> {
                     Container(
                       padding: EdgeInsets.only(left: 10),
                       child: SizedBox(
-                        width: 200,
-                        height: 80,
+                        width: 220,
+                        height: 93,
                         child: TextButton(
                           style: TextButton.styleFrom(
                             shape: RoundedRectangleBorder(
@@ -218,7 +218,7 @@ class _SaldoState extends State<Saldo> {
                                 padding: const EdgeInsets.only(left: 20),
                                 child: Text(
                                   "Tarik Saldo",
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: 19),
                                 ),
                               ),
                               SizedBox(
@@ -229,8 +229,8 @@ class _SaldoState extends State<Saldo> {
                                     color: Colors.white,
                                     shape: BoxShape.circle),
                                 child: SizedBox(
-                                  height: 40,
-                                  width: 40,
+                                  height: 45,
+                                  width: 45,
                                   child: Image.asset(
                                       'assets/images/iconarrowyelow.png',
                                       fit: BoxFit.fitHeight),

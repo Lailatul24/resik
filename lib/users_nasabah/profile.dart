@@ -12,6 +12,17 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
+class Img {
+  String images;
+  Img({required this.images});
+}
+
+  List<Img> _gambar = [
+    Img(images: "assets/images/profile.png"),
+    Img(images: "assets/images/a.jpg"),
+  ];
+
+
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
@@ -31,7 +42,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 CircleAvatar(
                   radius: 39,
-                  backgroundImage: AssetImage('assets/images/user.png'),
+                  backgroundImage: AssetImage(_gambar[0].images),
                   backgroundColor: Colors.grey,
                 ),
                 SizedBox(

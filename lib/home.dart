@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:resik/users_nasabah/e-commerce/detail_produk.dart';
+import 'package:resik/users_nasabah/saldo.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -70,7 +71,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                         SizedBox(
-                          height: 40,
+                          height: 28,
                         ),
                         Container(
                             child: Material(
@@ -80,7 +81,10 @@ class _HomeState extends State<Home> {
                                 color: Color(0xffFCF2E1).withOpacity(0.5),
                                 clipBehavior: Clip.antiAlias, // Add This
                                 child: MaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => Saldo()));
+                                  },
                                   minWidth: 100,
                                   height: 45,
                                   color: Colors.transparent,
@@ -110,8 +114,8 @@ class _HomeState extends State<Home> {
                       Align(
                           alignment: Alignment(1.1, 10),
                           child: Container(
-                              height: 150,
-                              width: 150,
+                              height: 130,
+                              width: 130,
                               child: Transform.translate(
                                 offset: Offset(-5.0, 60.0),
                                 child: Image.asset(
