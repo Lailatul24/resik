@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+//import 'package:flutter/material.dart';
+//import 'package:http/http.dart' as http;
 
-class ApiProvider {
-  var url = '';
-}
+//class ApiProvider {
+  //var url = '';
+//}

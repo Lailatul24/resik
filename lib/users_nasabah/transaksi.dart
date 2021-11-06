@@ -78,9 +78,21 @@ class _TransaksiState extends State<Transaksi> {
                                 height: 36,
                                 color: Color(0xff85d057),
                                 child: TextButton(
-                                  child: Text(
-                                    "Qr Code",
-                                    style: TextStyle(color: Colors.white),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "Qr Code",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: Image.asset('images/qrscan.png'),
+                                      )
+                                    ],
                                   ),
                                   onPressed: () {},
                                 ),
@@ -154,9 +166,21 @@ class _TransaksiState extends State<Transaksi> {
                                 height: 36,
                                 color: Color(0xff85d057),
                                 child: TextButton(
-                                  child: Text(
-                                    "Qr Code",
-                                    style: TextStyle(color: Colors.white),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "Qr Code",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: Image.asset('images/qrscan.png'),
+                                      )
+                                    ],
                                   ),
                                   onPressed: () {},
                                 ),

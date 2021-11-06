@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resik/users_nasabah/tukarpulsa.dart';
 import 'package:resik/users_nasabah/tariksaldo.dart';
+import 'package:resik/users_nasabah/donasi.dart';
 
 class Saldo extends StatefulWidget {
   Saldo({Key? key}) : super(key: key);
@@ -160,7 +161,7 @@ class _SaldoState extends State<Saldo> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TukarPulsa()));
+                                  builder: (context) => Donasi()));
                         },
                         child: Row(
                           children: [
