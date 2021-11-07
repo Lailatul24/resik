@@ -81,7 +81,7 @@ class _TransaksiState extends State<Transaksi> {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: 10,
+                                        width: 5,
                                       ),
                                       Text(
                                         "Qr Code",
@@ -90,7 +90,8 @@ class _TransaksiState extends State<Transaksi> {
                                       SizedBox(
                                         height: 20,
                                         width: 20,
-                                        child: Image.asset('images/qrscan.png'),
+                                        child: Image.asset(
+                                            'assets/images/qrscan.png'),
                                       )
                                     ],
                                   ),
@@ -169,7 +170,7 @@ class _TransaksiState extends State<Transaksi> {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: 10,
+                                        width: 5,
                                       ),
                                       Text(
                                         "Qr Code",
@@ -178,7 +179,8 @@ class _TransaksiState extends State<Transaksi> {
                                       SizedBox(
                                         height: 20,
                                         width: 20,
-                                        child: Image.asset('images/qrscan.png'),
+                                        child: Image.asset(
+                                            'assets/images/qrscan.png'),
                                       )
                                     ],
                                   ),
