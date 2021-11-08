@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:resik/main_page.dart';
 import 'package:resik/register.dart';
@@ -123,8 +123,10 @@ class _LoginState extends State<Login> {
                                 onPressed: () {
                                   Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MainPage()));
+                                      PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        duration: Duration(milliseconds: 400),
+                                        child: MainPage()));
                                 },
                                 child: Text(
                                   'Login',
