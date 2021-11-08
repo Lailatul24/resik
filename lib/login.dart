@@ -124,9 +124,9 @@ class _LoginState extends State<Login> {
                                   Navigator.push(
                                       context,
                                       PageTransition(
-                                        type: PageTransitionType.rightToLeft,
-                                        duration: Duration(milliseconds: 400),
-                                        child: MainPage()));
+                                          type: PageTransitionType.rightToLeft,
+                                          duration: Duration(milliseconds: 500),
+                                          child: MainPage()));
                                 },
                                 child: Text(
                                   'Login',
