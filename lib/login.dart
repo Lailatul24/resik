@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:resik/home.dart';
 import 'package:resik/main_page.dart';
 import 'package:resik/register.dart';
 
@@ -84,7 +83,7 @@ class _LoginState extends State<Login> {
                             height: 20,
                           ),
                           Text(
-                            'Email',
+                            'Password',
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold),
                           ),
