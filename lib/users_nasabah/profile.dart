@@ -4,6 +4,7 @@ import 'package:resik/users_nasabah/alertDialog.dart';
 import 'package:resik/users_nasabah/saldo.dart';
 import 'package:resik/users_nasabah/ubahpin.dart';
 import 'package:resik/login.dart';
+import 'package:resik/users_nasabah/kritiksaran.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -17,11 +18,10 @@ class Img {
   Img({required this.images});
 }
 
-  List<Img> _gambar = [
-    Img(images: "assets/images/profile.png"),
-    Img(images: "assets/images/a.jpg"),
-  ];
-
+List<Img> _gambar = [
+  Img(images: "assets/images/profile.png"),
+  Img(images: "assets/images/a.jpg"),
+];
 
 class _ProfileState extends State<Profile> {
   @override
@@ -172,6 +172,59 @@ class _ProfileState extends State<Profile> {
                           ),
                           Text(
                             'Mengubah Pin',
+                            style: TextStyle(
+                                color: Color(0xff808080),
+                                fontSize: 12,
+                                fontFamily: "Nunito Sans"),
+                          )
+                        ],
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Color(0xff909090),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 18,
+              ),
+              SizedBox(
+                width: 450,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.all(20),
+                    shape: RoundedRectangleBorder(),
+                    backgroundColor: Color(0xFFF5F6F9),
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => KritikSaran()));
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 15,
+                        height: 50,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Kritik & Saran',
+                            style: TextStyle(
+                                color: Color(0xff303030),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                fontFamily: "Nunito Sans"),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Tempat Masukan Kritik dan Saran',
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontSize: 12,

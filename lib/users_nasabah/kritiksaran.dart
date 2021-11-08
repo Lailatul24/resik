@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class TarikSaldo extends StatefulWidget {
-  TarikSaldo({Key? key}) : super(key: key);
+class KritikSaran extends StatefulWidget {
+  KritikSaran({Key? key}) : super(key: key);
 
   @override
-  _TarikSaldoState createState() => _TarikSaldoState();
+  _KritikSaranState createState() => _KritikSaranState();
 }
 
-class _TarikSaldoState extends State<TarikSaldo> {
+class _KritikSaranState extends State<KritikSaran> {
   @override
   Widget build(BuildContext context) {
+    final maxLines = 6;
     return Scaffold(
       body: SafeArea(
           child: Padding(
@@ -35,36 +36,42 @@ class _TarikSaldoState extends State<TarikSaldo> {
                     width: 50,
                   ),
                   Text(
-                    'Tarik Saldo',
+                    'Kritik & Saran',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   )
                 ],
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 82,
             ),
-            Text(
-              'Jumlah',
-              style: TextStyle(
-                  fontFamily: "Poppins",
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                'Saran anda akan membantu kami kedepannya',
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+              ),
             ),
             SizedBox(
-              height: 40,
+              height: 10,
             ),
-            TextField(
+            Container(
+              margin: EdgeInsets.all(12),
+              height: maxLines * 30.0,
+              child: TextField(
+                maxLines: maxLines,
                 decoration: InputDecoration(
                     filled: true,
                     fillColor: Color(0xffE5E5E5),
-                    hintText: "Jumlah Nominal",
+                    hintText: "Masukan Saran !!",
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10.0),
-                    ))),
+                    )),
+              ),
+            ),
             SizedBox(
-              height: 40,
+              height: 10,
             ),
             Container(
               padding: EdgeInsets.only(left: 30, right: 30),
@@ -77,7 +84,7 @@ class _TarikSaldoState extends State<TarikSaldo> {
                   ),
                   onPressed: () {},
                   child: Text(
-                    'Tarik uang',
+                    'Kirim',
                     style: TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,

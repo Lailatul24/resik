@@ -3,7 +3,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="#FDEFE1"/>
+            <solid android:color="#85D057"/>
         </shape>
     </item>
     <!-- You can insert your own image assets here -->

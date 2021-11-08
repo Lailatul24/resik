@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class TarikSaldo extends StatefulWidget {
-  TarikSaldo({Key? key}) : super(key: key);
+class Donasi extends StatefulWidget {
+  Donasi({Key? key}) : super(key: key);
 
   @override
-  _TarikSaldoState createState() => _TarikSaldoState();
+  _DonasiState createState() => _DonasiState();
 }
 
-class _TarikSaldoState extends State<TarikSaldo> {
+class _DonasiState extends State<Donasi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,21 +35,31 @@ class _TarikSaldoState extends State<TarikSaldo> {
                     width: 50,
                   ),
                   Text(
-                    'Tarik Saldo',
+                    'Donasikan',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   )
                 ],
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 80,
             ),
             Text(
-              'Jumlah',
+              'Donasi ke yang membutuhkan',
               style: TextStyle(
                   fontFamily: "Poppins",
                   fontSize: 17,
                   fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Bersedekah tidak akan membuatmu miskin',
+              style: TextStyle(
+                  fontFamily: "Poppins",
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500),
             ),
             SizedBox(
               height: 40,
@@ -77,7 +87,7 @@ class _TarikSaldoState extends State<TarikSaldo> {
                   ),
                   onPressed: () {},
                   child: Text(
-                    'Tarik uang',
+                    'Donasikan',
                     style: TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
