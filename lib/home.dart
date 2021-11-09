@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:resik/users_nasabah/e-commerce/detail_produk.dart';
 import 'package:resik/users_nasabah/saldo.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -204,20 +205,18 @@ class _HomeState extends State<Home> {
                     .toList(),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: map<Widget>(banner, (index, url) {
-                return Container(
-                  width: 7.0,
-                  height: 7.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _current == index
-                          ? Color.fromRGBO(0, 0, 0, 0.9)
-                          : Color.fromRGBO(0, 0, 0, 0.4)),
-                );
-              }),
+            Container(
+              alignment: Alignment.center,
+              child: AnimatedSmoothIndicator(
+                //*pakai animatesmoothindicator agar tanpa controller
+                //!dan pakai _current dari carousel
+                activeIndex: _current,
+                count: 3,
+                effect: ExpandingDotsEffect(
+                  dotColor: Color(0xffB7F5A1),
+                  activeDotColor: Color(0xffA0E547),
+                ),
+              ),
             ),
             SizedBox(
               height: 10,
