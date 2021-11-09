@@ -80,9 +80,6 @@ class _TransaksiState extends State<Transaksi> {
                                 child: TextButton(
                                   child: Row(
                                     children: [
-                                      SizedBox(
-                                        width: 5,
-                                      ),
                                       Text(
                                         "Qr Code",
                                         style: TextStyle(color: Colors.white),
@@ -169,9 +166,6 @@ class _TransaksiState extends State<Transaksi> {
                                 child: TextButton(
                                   child: Row(
                                     children: [
-                                      SizedBox(
-                                        width: 5,
-                                      ),
                                       Text(
                                         "Qr Code",
                                         style: TextStyle(color: Colors.white),

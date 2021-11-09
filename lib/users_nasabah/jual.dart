@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -124,231 +125,45 @@ class _JualSampahState extends State<JualSampah> {
                             Container(
                               child: Row(
                                 children: [
-                                  OutlinedButton(
-                                    onPressed: minus,
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                        shape: CircleBorder(),
-                                        backgroundColor: Color(0xff85d057)),
-                                  ),
+                                  Container(
+                                      margin: EdgeInsets.all(10),
+                                      width: 35,
+                                      height: 35,
+                                      child: TextButton(
+                                        child: Align(
+                                            alignment: Alignment.center,
+                                            child: Icon(
+                                              Icons.remove,
+                                              size: 20,
+                                              color: Color(0xff909090),
+                                            )),
+                                        onPressed: minus,
+                                        style: TextButton.styleFrom(
+                                            backgroundColor: Color(0xffE0E0E0),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10))),
+                                      )),
                                   Text("$_n"),
-                                  OutlinedButton(
-                                    onPressed: add,
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                        shape: CircleBorder(),
-                                        backgroundColor: Color(0xff85d057)),
-                                  ),
-                                  Text(
-                                    "Rp. 100",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                FittedBox(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Image.asset(
-                            _gambar[0].images,
-                            height: 80,
-                            width: 80,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _gambar[0].nama,
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  OutlinedButton(
-                                    onPressed: minus,
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                        shape: CircleBorder(),
-                                        backgroundColor: Color(0xff85d057)),
-                                  ),
-                                  Text("$_n"),
-                                  OutlinedButton(
-                                    onPressed: add,
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                        shape: CircleBorder(),
-                                        backgroundColor: Color(0xff85d057)),
-                                  ),
-                                  Text(
-                                    "Rp. 100",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                FittedBox(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Image.asset(
-                            _gambar[0].images,
-                            height: 80,
-                            width: 80,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _gambar[0].nama,
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  OutlinedButton(
-                                    onPressed: minus,
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                        shape: CircleBorder(),
-                                        backgroundColor: Color(0xff85d057)),
-                                  ),
-                                  Text("$_n"),
-                                  OutlinedButton(
-                                    onPressed: add,
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                        shape: CircleBorder(),
-                                        backgroundColor: Color(0xff85d057)),
-                                  ),
-                                  Text(
-                                    "Rp. 100",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                FittedBox(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Image.asset(
-                            _gambar[0].images,
-                            height: 80,
-                            width: 80,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _gambar[0].nama,
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  OutlinedButton(
-                                    onPressed: minus,
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                        shape: CircleBorder(),
-                                        backgroundColor: Color(0xff85d057)),
-                                  ),
-                                  Text("$_n"),
-                                  OutlinedButton(
-                                    onPressed: add,
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                        shape: CircleBorder(),
-                                        backgroundColor: Color(0xff85d057)),
-                                  ),
+                                  Container(
+                                      margin: EdgeInsets.all(10),
+                                      width: 35,
+                                      height: 35,
+                                      child: TextButton(
+                                        child: Align(
+                                            alignment: Alignment.center,
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 20,
+                                              color: Color(0xff909090),
+                                            )),
+                                        onPressed: add,
+                                        style: TextButton.styleFrom(
+                                            backgroundColor: Color(0xffE0E0E0),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10))),
+                                      )),
                                   Text(
                                     "Rp. 100",
                                     style:

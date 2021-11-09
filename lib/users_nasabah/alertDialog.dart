@@ -27,8 +27,11 @@ void alertDialog(BuildContext context) {
             ),
             Align(
               alignment: Alignment.center,
-              child: Text(
-                  "Silahkan login/ register telebih dahulu \n untuk melakukan transaksi"),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Text(
+                    "Silahkan login/ register telebih dahulu \n untuk melakukan transaksi"),
+              ),
             ),
             SizedBox(
               height: 50,
