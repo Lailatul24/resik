@@ -82,8 +82,31 @@ class _HomeState extends State<Home> {
                                 clipBehavior: Clip.antiAlias, // Add This
                                 child: MaterialButton(
                                   onPressed: () {
-                                    Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => Saldo()));
+                                    Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                            transitionDuration:
+                                                Duration(seconds: 2),
+                                            transitionsBuilder: (BuildContext
+                                                    context,
+                                                Animation<double> animation,
+                                                Animation<double> secAnimation,
+                                                Widget child) {
+                                              animation = CurvedAnimation(
+                                                  parent: animation,
+                                                  curve: Curves.elasticInOut);
+                                              return ScaleTransition(
+                                                alignment: Alignment.center,
+                                                scale: animation,
+                                                child: child,
+                                              );
+                                            },
+                                            pageBuilder: (BuildContext context,
+                                                Animation<double> animation,
+                                                Animation<double>
+                                                    secAnimation) {
+                                              return Saldo();
+                                            }));
                                   },
                                   minWidth: 100,
                                   height: 45,

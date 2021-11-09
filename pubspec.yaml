@@ -32,6 +32,9 @@ dependencies:
   flutter_svg: ^0.23.0
   introduction_screen: ^2.1.0
   http: ^0.13.3
+  simple_animations: ^4.0.0
+  page_transition: ^2.0.4
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:
