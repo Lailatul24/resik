@@ -112,7 +112,7 @@ class _ProfileState extends State<Profile> {
                                 color: Color(0xff303030),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                fontFamily: "Nunito Sans"),
+                                fontFamily: "NunitoSans"),
                           ),
                           SizedBox(
                             height: 10,
@@ -122,7 +122,7 @@ class _ProfileState extends State<Profile> {
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontSize: 12,
-                                fontFamily: "Nunito Sans"),
+                                fontFamily: "NunitoSans"),
                           )
                         ],
                       ),
@@ -165,7 +165,7 @@ class _ProfileState extends State<Profile> {
                                 color: Color(0xff303030),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                fontFamily: "Nunito Sans"),
+                                fontFamily: "NunitoSans"),
                           ),
                           SizedBox(
                             height: 10,
@@ -175,7 +175,7 @@ class _ProfileState extends State<Profile> {
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontSize: 12,
-                                fontFamily: "Nunito Sans"),
+                                fontFamily: "NunitoSans"),
                           )
                         ],
                       ),
@@ -218,7 +218,7 @@ class _ProfileState extends State<Profile> {
                                 color: Color(0xff303030),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                fontFamily: "Nunito Sans"),
+                                fontFamily: "NunitoSans"),
                           ),
                           SizedBox(
                             height: 10,
@@ -228,7 +228,7 @@ class _ProfileState extends State<Profile> {
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontSize: 12,
-                                fontFamily: "Nunito Sans"),
+                                fontFamily: "NunitoSans"),
                           )
                         ],
                       ),
@@ -268,7 +268,7 @@ class _ProfileState extends State<Profile> {
                                 color: Color(0xff303030),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                fontFamily: "Nunito Sans"),
+                                fontFamily: "NunitoSans"),
                           ),
                           SizedBox(
                             height: 10,
@@ -278,7 +278,7 @@ class _ProfileState extends State<Profile> {
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontSize: 12,
-                                fontFamily: "Nunito Sans"),
+                                fontFamily: "NunitoSans"),
                           )
                         ],
                       ),
@@ -343,7 +343,7 @@ class _ProfileState extends State<Profile> {
                                 color: Color(0xff303030),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                fontFamily: "Nunito Sans"),
+                                fontFamily: "NunitoSans"),
                           ),
                           SizedBox(
                             height: 10,
@@ -353,7 +353,7 @@ class _ProfileState extends State<Profile> {
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontSize: 12,
-                                fontFamily: "Nunito Sans"),
+                                fontFamily: "NunitoSans"),
                           )
                         ],
                       ),
