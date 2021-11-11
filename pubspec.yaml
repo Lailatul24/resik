@@ -35,12 +35,9 @@ dependencies:
   simple_animations: ^4.0.0
   page_transition: ^2.0.4
   smooth_page_indicator: ^1.0.0+2
-<<<<<<< HEAD
   rxdart: ^0.27.2
-=======
   qr_flutter: ^4.0.0
   
->>>>>>> b04a051306f4410dd3687cfd72f224dd43400569
 
 dev_dependencies:
   flutter_test:
