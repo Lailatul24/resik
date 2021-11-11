@@ -44,7 +44,6 @@ class _JualSampahState extends State<JualSampah> {
   @override
   void initState() {
     super.initState();
-
     con.getSampahId(idDesa);
   }
 
@@ -112,6 +111,7 @@ class _JualSampahState extends State<JualSampah> {
                     child: StreamBuilder<GetSampah>(
                         stream: con.resSampah.stream,
                         builder: (context, AsyncSnapshot<GetSampah> snapshot) {
+                          print("data");
                           if (snapshot.hasData) {
                             return ListView.builder(
                                 itemCount: snapshot.data!.data!.length,
