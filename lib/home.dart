@@ -213,9 +213,10 @@ class _HomeState extends State<Home> {
                 activeIndex: _current,
                 count: 3,
                 effect: ExpandingDotsEffect(
-                  dotColor: Color(0xffB7F5A1),
-                  activeDotColor: Color(0xffA0E547),
-                ),
+                    dotColor: Color(0xffB7F5A1),
+                    activeDotColor: Color(0xffA0E547),
+                    dotWidth: 10,
+                    dotHeight: 10),
               ),
             ),
             SizedBox(

@@ -160,7 +160,7 @@ class _ProfileState extends State<Profile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Ubah Pin',
+                            'Ubah Password',
                             style: TextStyle(
                                 color: Color(0xff303030),
                                 fontWeight: FontWeight.bold,
@@ -171,7 +171,7 @@ class _ProfileState extends State<Profile> {
                             height: 10,
                           ),
                           Text(
-                            'Mengubah Pin',
+                            'Mengubah Password',
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontSize: 12,

@@ -1,12 +1,14 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:resik/bloc/homeController.dart';
+import 'package:resik/model/SampahModel.dart';
 
 import 'package:resik/sukses_page.dart';
 
 class JualSampah extends StatefulWidget {
-  const JualSampah({Key? key}) : super(key: key);
+  final String? idDesa;
+  const JualSampah({Key? key, this.idDesa}) : super(key: key);
 
   @override
   _JualSampahState createState() => _JualSampahState();
@@ -20,6 +22,13 @@ class Img {
 }
 
 class _JualSampahState extends State<JualSampah> {
+  final con = HomeController();
+
+  String idDesa = '';
+  String? gambar = '';
+  String nama = '';
+  String harga = '';
+
   void add() {
     setState(() {
       _n++;
@@ -32,10 +41,12 @@ class _JualSampahState extends State<JualSampah> {
     });
   }
 
-  List<Img> _gambar = [
-    Img(images: "assets/images/a.jpg", nama: "barang 1"),
-    Img(images: "assets/images/a.jpg", nama: "barang 1"),
-  ];
+  @override
+  void initState() {
+    super.initState();
+
+    con.getSampahId(idDesa);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,90 +103,134 @@ class _JualSampahState extends State<JualSampah> {
                 SizedBox(
                   height: 15,
                 ),
-                FittedBox(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Image.asset(
-                            _gambar[0].images,
-                            height: 80,
-                            width: 80,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _gambar[0].nama,
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  Container(
-                                      margin: EdgeInsets.all(10),
-                                      width: 35,
-                                      height: 35,
-                                      child: TextButton(
-                                        child: Align(
-                                            alignment: Alignment.center,
-                                            child: Icon(
-                                              Icons.remove,
-                                              size: 20,
-                                              color: Color(0xff909090),
-                                            )),
-                                        onPressed: minus,
-                                        style: TextButton.styleFrom(
-                                            backgroundColor: Color(0xffE0E0E0),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10))),
-                                      )),
-                                  Text("$_n"),
-                                  Container(
-                                      margin: EdgeInsets.all(10),
-                                      width: 35,
-                                      height: 35,
-                                      child: TextButton(
-                                        child: Align(
-                                            alignment: Alignment.center,
-                                            child: Icon(
-                                              Icons.add,
-                                              size: 20,
-                                              color: Color(0xff909090),
-                                            )),
-                                        onPressed: add,
-                                        style: TextButton.styleFrom(
-                                            backgroundColor: Color(0xffE0E0E0),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10))),
-                                      )),
-                                  Text(
-                                    "Rp. 100",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                Container(
+                  height: 200,
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      con.getSampahId(idDesa);
+                    },
+                    child: StreamBuilder<GetSampah>(
+                        stream: con.resSampah.stream,
+                        builder: (context, AsyncSnapshot<GetSampah> snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                                itemCount: snapshot.data!.data!.length,
+                                itemBuilder: (context, int i) {
+                                  return Container(
+                                    height: 200,
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(10),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            child: Image.asset(
+                                              snapshot.data!.data![i].image!,
+                                              height: 80,
+                                              width: 80,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Container(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                snapshot
+                                                    .data!.data![i].namaSampah!,
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Container(
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                        margin:
+                                                            EdgeInsets.all(10),
+                                                        width: 35,
+                                                        height: 35,
+                                                        child: TextButton(
+                                                          child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Icon(
+                                                                Icons.remove,
+                                                                size: 20,
+                                                                color: Color(
+                                                                    0xff909090),
+                                                              )),
+                                                          onPressed: minus,
+                                                          style: TextButton.styleFrom(
+                                                              backgroundColor:
+                                                                  Color(
+                                                                      0xffE0E0E0),
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10))),
+                                                        )),
+                                                    Text("$_n"),
+                                                    Container(
+                                                        margin:
+                                                            EdgeInsets.all(10),
+                                                        width: 35,
+                                                        height: 35,
+                                                        child: TextButton(
+                                                          child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Icon(
+                                                                Icons.add,
+                                                                size: 20,
+                                                                color: Color(
+                                                                    0xff909090),
+                                                              )),
+                                                          onPressed: add,
+                                                          style: TextButton.styleFrom(
+                                                              backgroundColor:
+                                                                  Color(
+                                                                      0xffE0E0E0),
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10))),
+                                                        )),
+                                                    Text(
+                                                      "Rp. 100",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                });
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        }),
                   ),
                 ),
               ]),

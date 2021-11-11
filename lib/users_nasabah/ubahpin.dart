@@ -1,181 +1,75 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class UbahPin extends StatefulWidget {
-  UbahPin({Key? key}) : super(key: key);
+  const UbahPin({Key? key}) : super(key: key);
 
   @override
   _UbahPinState createState() => _UbahPinState();
 }
 
 class _UbahPinState extends State<UbahPin> {
+  bool inHiddenPass = true;
+  bool _isHidden = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text("UbahPassword"),
+      ),
       body: SafeArea(
-          child: ListView(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10),
-            height: 70,
-            child: Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 32,
-                    color: Color(0xff85d0757),
+          child: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Text("Password Lama"),
+            TextField(
+              obscureText: _isHidden,
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color(0xffE5E5E5),
+                  hintText: "Masukkan Password Lama",
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                )
-              ],
+                  suffixIcon: InkWell(
+                    onTap: togglebutton,
+                    child: Icon(
+                      _isHidden ? Icons.visibility : Icons.visibility_off,
+                    ),
+                  )),
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 50),
-                padding: EdgeInsets.only(top: 20),
-                child: Text(
-                  'PIN',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Color(0xff303030),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      fontFamily: "Nunito Sans"),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 50),
-                padding: EdgeInsets.only(top: 20),
-                child: Text(
-                  'Ubah Pin Saya',
-                  style: TextStyle(
-                      color: Color(0xff909090),
-                      fontSize: 13,
-                      fontFamily: "DM Sans"),
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 50),
-                padding: EdgeInsets.only(top: 20),
-                child: Text(
-                  'PIN Code',
-                  style: TextStyle(
-                      color: Color(0xff303030),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      fontFamily: "DM Sans"),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(28),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  children: [
-                    FittedBox(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _textFieldOTP(first: true, last: false),
-                          _textFieldOTP(first: false, last: false),
-                          _textFieldOTP(first: false, last: false),
-                          _textFieldOTP(first: false, last: true),
-                        ],
-                      ),
+            SizedBox(
+              height: 15,
+            ),
+            Text("Password Baru"),
+            TextField(
+              obscureText: _isHidden,
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color(0xffE5E5E5),
+                  hintText: "Masukkan Password Baru",
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  suffixIcon: InkWell(
+                    onTap: togglebutton,
+                    child: Icon(
+                      _isHidden ? Icons.visibility : Icons.visibility_off,
                     ),
-                    SizedBox(
-                      height: 22,
-                    ),
-                    SizedBox(
-                      height: 49,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Color(0xff85d057),
-                            onPrimary: Color(0xffFFFFFF),
-                            shape: StadiumBorder()),
-                        onPressed: () {},
-                        child: const Text('OK'),
-                      ),
-                    ),
-                    Transform.rotate(
-                      angle: 335* math.pi/ 180,
-                      child: Stack(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment(3.1,10),
-                                        child: Container(
-                                          height: 200,
-                                          width: 200,
-                                          child: Transform.translate(
-                                            offset: Offset(-5.0, 60.0),
-                                            child: Opacity(
-                                              opacity: 0.3,
-                                              child: Image.asset('assets/images/pohon.png',
-                                              fit: BoxFit.fitHeight,
-                                              ),
-                                            )
-                                        )
-                                      ))
-                                    ],
-                                  ),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          )
-        ],
+                  )),
+            ),
+          ],
+        ),
       )),
     );
   }
 
-  Widget _textFieldOTP({bool? first, last}) {
-    return Container(
-      height: 85,
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: TextField(
-          autofocus: true,
-          onChanged: (value) {
-            if (value.length == 1 && last == false) {
-              FocusScope.of(context).nextFocus();
-            }
-            if (value.length == 0 && first == false) {
-              FocusScope.of(context).previousFocus();
-            }
-          },
-          showCursor: false,
-          readOnly: false,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          keyboardType: TextInputType.number,
-          maxLength: 1,
-          decoration: InputDecoration(
-            counter: Offstage(),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Color(0xff303030)),
-                borderRadius: BorderRadius.circular(12)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Color(0xff85d0757)),
-                borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-      ),
-    );
+  void togglebutton() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 }

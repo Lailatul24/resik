@@ -98,108 +98,106 @@ class _SaldoState extends State<Saldo> {
                   ],
                 ),
               ),
-              FittedBox(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(right: 10, left: 10),
-                    child: SizedBox(
-                      width: 195,
-                      height: 75,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.all(23),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          backgroundColor: Color(0xffCDFDBD),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TukarPulsa()));
-                        },
-                        child: Row(
-                          children: [
-                            Text(
-                              "Tukar Pulsa",
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            Spacer(),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white, shape: BoxShape.circle),
-                              child: SizedBox(
-                                height: 40,
-                                width: 40,
-                                child: Image.asset(
-                                    'assets/images/iconarrowgreen.png',
-                                    fit: BoxFit.fitHeight),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(right: 10, left: 50),
-                    child: SizedBox(
-                      width: 180,
-                      height: 75,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.all(23),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          backgroundColor: Color(0xffFCF2E1),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Donasi()));
-                        },
-                        child: Row(
-                          children: [
-                            Text(
-                              "Donasikan",
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            Spacer(),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white, shape: BoxShape.circle),
-                              child: SizedBox(
-                                height: 40,
-                                width: 40,
-                                child: Image.asset(
-                                    'assets/images/iconarrowyelow.png',
-                                    fit: BoxFit.fitHeight),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )),
-              SizedBox(
-                height: 10,
-              ),
-              FittedBox(
-                alignment: Alignment.centerLeft,
-                child: Row(
+              Container(
+                height: 100,
+                width: 500,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
                     Container(
-                      padding: EdgeInsets.only(left: 10),
+                      padding: EdgeInsets.all(10),
                       child: SizedBox(
-                        width: 220,
-                        height: 93,
+                        height: 50,
+                        width: 150,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            backgroundColor: Color(0xffCDFDBD),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TukarPulsa()));
+                          },
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Tukar Pulsa",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle),
+                                  child: SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Image.asset(
+                                        'assets/images/iconarrowgreen.png',
+                                        fit: BoxFit.fitHeight),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: SizedBox(
+                        height: 50,
+                        width: 150,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            backgroundColor: Color(0xffFCF2E1),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Donasi()));
+                          },
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Donasikan",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle),
+                                  child: SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Image.asset(
+                                        'assets/images/iconarrowyelow.png',
+                                        fit: BoxFit.fitHeight),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: SizedBox(
+                        height: 50,
+                        width: 150,
                         child: TextButton(
                           style: TextButton.styleFrom(
                             shape: RoundedRectangleBorder(
@@ -213,38 +211,34 @@ class _SaldoState extends State<Saldo> {
                                 MaterialPageRoute(
                                     builder: (context) => TarikSaldo()));
                           },
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Text(
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Text(
                                   "Tarik Saldo",
-                                  style: TextStyle(fontSize: 19),
+                                  style: TextStyle(fontSize: 18),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 28,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle),
-                                child: SizedBox(
-                                  height: 45,
-                                  width: 45,
-                                  child: Image.asset(
-                                      'assets/images/iconarrowyelow.png',
-                                      fit: BoxFit.fitHeight),
+                                SizedBox(
+                                  height: 20,
                                 ),
-                              )
-                            ],
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle),
+                                  child: SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Image.asset(
+                                        'assets/images/iconarrowyelow.png',
+                                        fit: BoxFit.fitHeight),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 300,
-                    )
                   ],
                 ),
               ),
