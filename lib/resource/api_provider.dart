@@ -11,7 +11,7 @@ class ApiProvider {
 
   Future<GetSampah> getSampahId(String idDesa) async {
     var body = jsonEncode({'id_desa': idDesa});
-    var url = Uri.parse('$uri/C_sampah/get_sampah/$idDesa');
+    var url = Uri.parse('$uri/C_sampah/get_sampah');
 
     try {
       final res = await http
