@@ -9,7 +9,6 @@ class Transaksi extends StatefulWidget {
 }
 
 class _TransaksiState extends State<Transaksi> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +100,9 @@ class _TransaksiState extends State<Transaksi> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Qrcode(data: 'KLJKHKJ342848932fdsjf',)));
+                                            builder: (context) => Qrcode(
+                                                  data: 'KLJKHKJ342848932fdsjf',
+                                                )));
                                   },
                                 ),
                               ),
@@ -195,7 +196,9 @@ class _TransaksiState extends State<Transaksi> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Qrcode(data: 'DAIDJ090890DHHASD',)));
+                                            builder: (context) => Qrcode(
+                                                  data: 'DAIDJ090890DHHASD',
+                                                )));
                                   },
                                 ),
                               ),
