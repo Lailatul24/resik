@@ -62,14 +62,18 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Roboto"),
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         Text(
                           "saldo Anda Rp...",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontFamily: "Roboto"),
                         ),
                         SizedBox(
                           height: 28,
@@ -229,7 +233,10 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     "Produk Unik",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Poppins"),
                   ),
                   TextButton(
                       onPressed: () {},

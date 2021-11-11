@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resik/users_nasabah/qrcode.dart';
 
 class Transaksi extends StatefulWidget {
   const Transaksi({Key? key}) : super(key: key);
@@ -80,6 +81,9 @@ class _TransaksiState extends State<Transaksi> {
                                 child: TextButton(
                                   child: Row(
                                     children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
                                       Text(
                                         "Qr Code",
                                         style: TextStyle(color: Colors.white),
@@ -92,7 +96,12 @@ class _TransaksiState extends State<Transaksi> {
                                       )
                                     ],
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Qrcode()));
+                                  },
                                 ),
                               ),
                               Container(
@@ -166,6 +175,9 @@ class _TransaksiState extends State<Transaksi> {
                                 child: TextButton(
                                   child: Row(
                                     children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
                                       Text(
                                         "Qr Code",
                                         style: TextStyle(color: Colors.white),
@@ -178,7 +190,12 @@ class _TransaksiState extends State<Transaksi> {
                                       )
                                     ],
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Qrcode()));
+                                  },
                                 ),
                               ),
                               Container(

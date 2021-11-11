@@ -179,6 +179,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.0"
+<<<<<<< HEAD
   rxdart:
     dependency: "direct main"
     description:
@@ -186,6 +187,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.2"
+=======
+  qr:
+    dependency: transitive
+    description:
+      name: qr
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  qr_flutter:
+    dependency: "direct main"
+    description:
+      name: qr_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
+>>>>>>> b04a051306f4410dd3687cfd72f224dd43400569
   simple_animations:
     dependency: "direct main"
     description:
