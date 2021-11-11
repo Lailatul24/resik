@@ -37,6 +37,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   rxdart: ^0.27.2
   qr_flutter: ^4.0.0
+  rxdart: ^0.27.2
   
 
 dev_dependencies:

@@ -82,7 +82,7 @@ class _TransaksiState extends State<Transaksi> {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: 10,
+                                        width: 5,
                                       ),
                                       Text(
                                         "Qr Code",
@@ -176,7 +176,7 @@ class _TransaksiState extends State<Transaksi> {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: 10,
+                                        width: 5,
                                       ),
                                       Text(
                                         "Qr Code",
