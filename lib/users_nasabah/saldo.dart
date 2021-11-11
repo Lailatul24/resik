@@ -14,6 +14,8 @@ class _SaldoState extends State<Saldo> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final double itemHeight = (size.height - kToolbarHeight - 15) / 7;
+    final double itemWidth = size.width / 2;
 
     return Scaffold(
       body: SafeArea(
@@ -99,15 +101,21 @@ class _SaldoState extends State<Saldo> {
                 ),
               ),
               Container(
-                height: 100,
+                height: 200,
                 width: 500,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
+                child: GridView.count(
+                  primary: false,
+                  padding: const EdgeInsets.all(10),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 2,
+                  childAspectRatio: (itemWidth / itemHeight),
                   children: [
                     Container(
+                      height: 20,
                       padding: EdgeInsets.all(10),
                       child: SizedBox(
-                        height: 50,
+                        height: 30,
                         width: 150,
                         child: TextButton(
                           style: TextButton.styleFrom(
@@ -125,6 +133,9 @@ class _SaldoState extends State<Saldo> {
                           child: Container(
                             child: Row(
                               children: [
+                                SizedBox(
+                                  width: 5,
+                                ),
                                 Text(
                                   "Tukar Pulsa",
                                   style: TextStyle(fontSize: 18),
