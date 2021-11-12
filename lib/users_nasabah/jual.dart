@@ -28,6 +28,12 @@ class _JualSampahState extends State<JualSampah> {
   String? gambar = '';
   String nama = '';
   String harga = '';
+  List qtyList = [];
+  List totalHarga = [];
+  List postDetail = [];
+  List hargaSetor = [];
+
+  
 
   void add() {
     setState(() {
@@ -45,6 +51,7 @@ class _JualSampahState extends State<JualSampah> {
   void initState() {
     super.initState();
     con.getSampahId("DSA05");
+    
   }
 
   @override
