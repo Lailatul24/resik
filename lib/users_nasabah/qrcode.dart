@@ -59,7 +59,7 @@ class _QrcodeState extends State<Qrcode> {
                     version: QrVersions.auto,
                     backgroundColor: Color(0xFFC5C5C5),
                     foregroundColor: Color(0xff000000),
-                    data: ''),
+                    data: widget.data),
               ),
               SizedBox(
                 height: 30,

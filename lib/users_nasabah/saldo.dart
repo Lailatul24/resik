@@ -133,9 +133,6 @@ class _SaldoState extends State<Saldo> {
                           child: Container(
                             child: Row(
                               children: [
-                                SizedBox(
-                                  width: 5,
-                                ),
                                 Text(
                                   "Tukar Pulsa",
                                   style: TextStyle(fontSize: 18),
