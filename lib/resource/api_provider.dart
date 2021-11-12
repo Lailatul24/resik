@@ -14,14 +14,9 @@ class ApiProvider {
     var url = Uri.parse('$uri/C_sampah/get_sampah');
 
     try {
-      final res = await http
-          .post(url,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: body)
-          .timeout(const Duration(seconds: 11));
-
+      final res =
+          await http.post(url, body: body).timeout(const Duration(seconds: 11));
+      // print(res.body);
       if (res.statusCode == 200) {
         return GetSampah.fromJson(res.body);
       } else if (res.statusCode == 404) {

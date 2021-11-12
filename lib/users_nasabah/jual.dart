@@ -44,7 +44,7 @@ class _JualSampahState extends State<JualSampah> {
   @override
   void initState() {
     super.initState();
-    con.getSampahId(idDesa);
+    con.getSampahId("DSA05");
   }
 
   @override
@@ -103,21 +103,20 @@ class _JualSampahState extends State<JualSampah> {
                   height: 15,
                 ),
                 Container(
-                  height: 200,
+                  height: MediaQuery.of(context).size.height,
                   child: RefreshIndicator(
                     onRefresh: () async {
-                      con.getSampahId(idDesa);
+                      con.getSampahId("DSA05");
                     },
                     child: StreamBuilder<GetSampah>(
                         stream: con.resSampah.stream,
                         builder: (context, AsyncSnapshot<GetSampah> snapshot) {
-                          print("data");
                           if (snapshot.hasData) {
                             return ListView.builder(
                                 itemCount: snapshot.data!.data!.length,
-                                itemBuilder: (context, int i) {
+                                itemBuilder: (context, index) {
+                                  Datum sampah = snapshot.data!.data![index];
                                   return Container(
-                                    height: 200,
                                     child: Row(
                                       children: [
                                         Padding(
@@ -125,8 +124,8 @@ class _JualSampahState extends State<JualSampah> {
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
-                                            child: Image.asset(
-                                              snapshot.data!.data![i].image!,
+                                            child: Image.network(
+                                              sampah.image!,
                                               height: 80,
                                               width: 80,
                                             ),
@@ -143,8 +142,7 @@ class _JualSampahState extends State<JualSampah> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                snapshot
-                                                    .data!.data![i].namaSampah!,
+                                                sampah.namaSampah!,
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight:
@@ -212,7 +210,8 @@ class _JualSampahState extends State<JualSampah> {
                                                                               10))),
                                                         )),
                                                     Text(
-                                                      "Rp. 100",
+                                                      "Rp : " +
+                                                          sampah.hargaJual!,
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
