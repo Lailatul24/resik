@@ -1,10 +1,13 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:resik/main_page.dart';
 import 'package:resik/style/theme.dart';
 
 class Qrcode extends StatefulWidget {
-  Qrcode({Key? key}) : super(key: key);
+  final String data;
+  Qrcode({Key? key, required this.data}) : super(key: key);
 
   @override
   _QrcodeState createState() => _QrcodeState();
@@ -58,7 +61,7 @@ class _QrcodeState extends State<Qrcode> {
                     version: QrVersions.auto,
                     backgroundColor: Color(0xFFC5C5C5),
                     foregroundColor: Color(0xff000000),
-                    data: "0987656"),
+                    data: ''),
               ),
               SizedBox(
                 height: 30,

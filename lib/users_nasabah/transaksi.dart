@@ -100,7 +100,9 @@ class _TransaksiState extends State<Transaksi> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Qrcode()));
+                                            builder: (context) => Qrcode(
+                                                  data: 'KLJKHKJ342848932fdsjf',
+                                                )));
                                   },
                                 ),
                               ),
@@ -194,7 +196,9 @@ class _TransaksiState extends State<Transaksi> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Qrcode()));
+                                            builder: (context) => Qrcode(
+                                                  data: 'DAIDJ090890DHHASD',
+                                                )));
                                   },
                                 ),
                               ),
