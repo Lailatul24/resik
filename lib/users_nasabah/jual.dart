@@ -33,25 +33,16 @@ class _JualSampahState extends State<JualSampah> {
   List postDetail = [];
   List hargaSetor = [];
 
-  
-
-  void add() {
-    setState(() {
-      _n++;
-    });
-  }
-
-  void minus() {
-    setState(() {
-      if (_n != 0) _n--;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
     con.getSampahId("DSA05");
-    
+    //! menggunakan qtyList
+    con.resSampah.listen((value) {
+      for (var i = 0; i < value.data!.length; i++) {
+        qtyList.add(0);
+      }
+    });
   }
 
   @override
@@ -120,6 +111,8 @@ class _JualSampahState extends State<JualSampah> {
                         builder: (context, AsyncSnapshot<GetSampah> snapshot) {
                           if (snapshot.hasData) {
                             return ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
                                 itemCount: snapshot.data!.data!.length,
                                 itemBuilder: (context, index) {
                                   Datum sampah = snapshot.data!.data![index];
@@ -160,35 +153,69 @@ class _JualSampahState extends State<JualSampah> {
                                               ),
                                               Container(
                                                 child: Row(
-                                                  children: [
-                                                    Container(
-                                                        margin:
-                                                            EdgeInsets.all(10),
-                                                        width: 35,
-                                                        height: 35,
-                                                        child: TextButton(
-                                                          child: Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
+                                                  children: <Widget>[
+                                                    qtyList[index] != 0
+                                                        ? Container(
+                                                            margin:
+                                                                EdgeInsets.all(
+                                                                    10),
+                                                            width: 35,
+                                                            height: 35,
+                                                            child: TextButton(
+                                                              child: Align(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .remove,
+                                                                    size: 20,
+                                                                    color: Color(
+                                                                        0xff909090),
+                                                                  )),
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  qtyList[index] =
+                                                                      qtyList[index] -
+                                                                          1;
+                                                                });
+                                                              },
+                                                              style: TextButton.styleFrom(
+                                                                  backgroundColor:
+                                                                      Color(
+                                                                          0xffE0E0E0),
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10))),
+                                                            ),
+                                                          )
+                                                        : Container(
+                                                            margin:
+                                                                EdgeInsets.all(
+                                                                    10),
+                                                            width: 35,
+                                                            height: 35,
+                                                            child: TextButton(
+                                                              onPressed: () {},
                                                               child: Icon(
                                                                 Icons.remove,
                                                                 size: 20,
                                                                 color: Color(
                                                                     0xff909090),
-                                                              )),
-                                                          onPressed: minus,
-                                                          style: TextButton.styleFrom(
-                                                              backgroundColor:
-                                                                  Color(
-                                                                      0xffE0E0E0),
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
+                                                              ),
+                                                              style: TextButton.styleFrom(
+                                                                  backgroundColor:
+                                                                      Color(
+                                                                          0xffE0E0E0),
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
                                                                               10))),
-                                                        )),
-                                                    Text("$_n"),
+                                                            ),
+                                                          ),
+                                                    Text(qtyList[index]
+                                                        .toString()),
                                                     Container(
                                                         margin:
                                                             EdgeInsets.all(10),
@@ -205,7 +232,13 @@ class _JualSampahState extends State<JualSampah> {
                                                                 color: Color(
                                                                     0xff909090),
                                                               )),
-                                                          onPressed: add,
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              qtyList[index] =
+                                                                  qtyList[index] +
+                                                                      1;
+                                                            });
+                                                          },
                                                           style: TextButton.styleFrom(
                                                               backgroundColor:
                                                                   Color(
@@ -242,55 +275,83 @@ class _JualSampahState extends State<JualSampah> {
               ]),
             ),
           ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(8),
-                      padding: const EdgeInsets.all(5.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Total"),
-                          Text(
-                            "Rp 50.xxx",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          )
-                        ],
+          DraggableScrollableSheet(
+              initialChildSize: 0.20,
+              minChildSize: 0.20,
+              maxChildSize: 0.50,
+              builder: (BuildContext c, s) {
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xff85d057),
-                            onPrimary: Colors.white, // foreground
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10.0,
+                        )
+                      ]),
+                  child: ListView(
+                    controller: s,
+                    children: <Widget>[
+                      Center(
+                        child: Container(
+                          height: 8,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Sukses()));
-                          },
-                          child: Text(
-                            'Jual Sampah',
-                            style: TextStyle(
-                                fontSize: 19,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Roboto"),
-                          )),
-                    ),
-                  ],
-                ),
-              ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(5.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total"),
+                            Text(
+                              "Rp 50.xxx",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xff85d057),
+                    onPrimary: Colors.white, // foreground
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Sukses()));
+                  },
+                  child: Text(
+                    'Jual Sampah',
+                    style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Roboto"),
+                  )),
             ),
-          )
+          ),
         ]),
       ),
     );
