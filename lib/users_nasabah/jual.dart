@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/model/SampahModel.dart';
@@ -308,20 +309,8 @@ class _JualSampahState extends State<JualSampah> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.all(8),
-                        padding: const EdgeInsets.all(5.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Total"),
-                            Text(
-                              "Rp 50.xxx",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
+                        child: Center(child: Text('Detail Swipe Up')),
+                      )
                     ],
                   ),
                 );
@@ -330,23 +319,42 @@ class _JualSampahState extends State<JualSampah> {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 50,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xff85d057),
-                    onPrimary: Colors.white, // foreground
+              height: 100,
+              child: ListView(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Total"),
+                        Text(
+                          "Rp 50.xxx",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Sukses()));
-                  },
-                  child: Text(
-                    'Jual Sampah',
-                    style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Roboto"),
-                  )),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xff85d057),
+                        onPrimary: Colors.white, // foreground
+                      ),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Sukses()));
+                      },
+                      child: Text(
+                        'Jual Sampah',
+                        style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Roboto"),
+                      )),
+                ],
+              ),
             ),
           ),
         ]),
