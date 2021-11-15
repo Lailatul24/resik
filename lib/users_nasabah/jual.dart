@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/model/SampahModel.dart';
-
 import 'package:resik/sukses_page.dart';
 
 class JualSampah extends StatefulWidget {

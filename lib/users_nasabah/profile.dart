@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:resik/register.dart';
 import 'package:resik/users_nasabah/alertDialog.dart';
 import 'package:resik/users_nasabah/saldo.dart';
@@ -314,14 +317,23 @@ class _ProfileState extends State<Profile> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if (Platform.isAndroid) {
+                                        SystemNavigator.pop();
+                                      } else if (Platform.isIOS) {
+                                        exit(0);
+                                      }
+                                    },
                                     child: Text("Yes"),
                                   ),
                                   VerticalDivider(
                                     color: Colors.grey,
                                   ),
                                   ElevatedButton(
-                                      onPressed: () {}, child: Text("No"))
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("No"))
                                 ],
                               ),
                             ],

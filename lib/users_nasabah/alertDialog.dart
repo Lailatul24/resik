@@ -12,7 +12,11 @@ void alertDialog(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Login Account"),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.close))
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.close))
                 ],
               ),
               Divider()
