@@ -9,7 +9,7 @@ class HomeController {
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
 
-  void getSampahId(String idDesa) async {
+  Future getSampahId(String idDesa) async {
     try {
       GetSampah sampahModel = await repostory.getSampahId(idDesa);
       _sampahFetchar.sink.add(sampahModel);

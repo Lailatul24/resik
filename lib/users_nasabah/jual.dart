@@ -22,6 +22,7 @@ class Img {
 class _JualSampahState extends State<JualSampah> {
   final con = HomeController();
 
+  String idSampah = '';
   String idDesa = '';
   String? gambar = '';
   String nama = '';
@@ -30,6 +31,9 @@ class _JualSampahState extends State<JualSampah> {
   List totalHarga = [];
   List postDetail = [];
   List hargaSetor = [];
+  List namaSampah = [];
+
+  Color setor = Colors.grey;
 
   @override
   void initState() {
@@ -39,6 +43,10 @@ class _JualSampahState extends State<JualSampah> {
     con.resSampah.listen((value) {
       for (var i = 0; i < value.data!.length; i++) {
         qtyList.add(0);
+        totalHarga.add(0);
+        postDetail.add(0);
+        namaSampah.add(0);
+        hargaSetor.add(0);
       }
     });
   }
@@ -113,6 +121,23 @@ class _JualSampahState extends State<JualSampah> {
                                 shrinkWrap: true,
                                 itemCount: snapshot.data!.data!.length,
                                 itemBuilder: (context, index) {
+                                  if (qtyList[index] != 0) {
+                                    postDetail[index] = {
+                                      "id_sampah":
+                                          snapshot.data!.data![index].idSampah!,
+                                      "Jumlah": qtyList[index],
+                                      "harga":
+                                          snapshot.data!.data![index].hargaSetor
+                                    };
+                                    namaSampah[index] =
+                                        snapshot.data!.data![index].namaSampah;
+                                    hargaSetor[index] =
+                                        snapshot.data!.data![index].hargaSetor;
+                                  } else {
+                                    postDetail[index] = 0;
+                                    namaSampah[index] = 0;
+                                    hargaSetor[index] = 0;
+                                  }
                                   Datum sampah = snapshot.data!.data![index];
                                   return Container(
                                     child: Row(
@@ -176,6 +201,25 @@ class _JualSampahState extends State<JualSampah> {
                                                                   qtyList[index] =
                                                                       qtyList[index] -
                                                                           1;
+                                                                  totalHarga[
+                                                                      index] = int.parse(snapshot
+                                                                          .data!
+                                                                          .data![
+                                                                              index]
+                                                                          .hargaSetor!) *
+                                                                      qtyList[
+                                                                          index];
+                                                                  if (totalHarga.reduce((a,
+                                                                              b) =>
+                                                                          a +
+                                                                          b) ==
+                                                                      0) {
+                                                                    setor = Colors
+                                                                        .grey;
+                                                                  } else {
+                                                                    setor = Colors
+                                                                        .green;
+                                                                  }
                                                                 });
                                                               },
                                                               style: TextButton.styleFrom(
@@ -235,6 +279,25 @@ class _JualSampahState extends State<JualSampah> {
                                                               qtyList[index] =
                                                                   qtyList[index] +
                                                                       1;
+                                                              totalHarga[
+                                                                  index] = int.parse(snapshot
+                                                                      .data!
+                                                                      .data![
+                                                                          index]
+                                                                      .hargaSetor!) *
+                                                                  qtyList[
+                                                                      index];
+                                                              if (totalHarga.reduce(
+                                                                      (a, b) =>
+                                                                          a +
+                                                                          b) ==
+                                                                  0) {
+                                                                setor =
+                                                                    Colors.grey;
+                                                              } else {
+                                                                setor = Colors
+                                                                    .green;
+                                                              }
                                                             });
                                                           },
                                                           style: TextButton.styleFrom(
@@ -269,14 +332,14 @@ class _JualSampahState extends State<JualSampah> {
                           }
                         }),
                   ),
-                ),
+                ), //
               ]),
             ),
           ),
           DraggableScrollableSheet(
-              initialChildSize: 0.20,
-              minChildSize: 0.20,
-              maxChildSize: 0.50,
+              initialChildSize: 0.23,
+              minChildSize: 0.23,
+              maxChildSize: 0.57,
               builder: (BuildContext c, s) {
                 return Container(
                   padding: EdgeInsets.symmetric(
@@ -310,6 +373,122 @@ class _JualSampahState extends State<JualSampah> {
                       ),
                       Container(
                         child: Center(child: Text('Detail Swipe Up')),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Center(
+                            child: Text(
+                              "Detail Setor",
+                              style: TextStyle(
+                                  fontFamily: "Open Sans",
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Center(
+                                  child: Text(
+                                    'Nama Sampah',
+                                    style: TextStyle(fontFamily: "Open Sans"),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                  child: Center(
+                                child: Text(
+                                  'Jumlah',
+                                  style: TextStyle(fontFamily: "Open Sans"),
+                                ),
+                              )),
+                              Container(
+                                child: Center(
+                                  child: Text(
+                                    'harga',
+                                    style: TextStyle(fontFamily: "Open Sans"),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                  child: Center(
+                                child: Text(
+                                  'total',
+                                  style: TextStyle(fontFamily: "Open Sans"),
+                                ),
+                              ))
+                            ],
+                          ),
+                          Container(
+                            height: 250,
+                            child: ListView.builder(
+                                padding: EdgeInsets.only(top: 0),
+                                itemCount: namaSampah.length,
+                                itemBuilder: (context, index) {
+                                  return namaSampah[index] != 0
+                                      ? Container(
+                                          padding: EdgeInsets.all(8),
+                                          margin: EdgeInsets.only(
+                                            left: 2,
+                                            right: 2,
+                                          ),
+                                          decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                    color: Colors.black,
+                                                    width: 1.0),
+                                              ),
+                                              color: Colors.grey),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Container(
+                                                width: 110,
+                                                height: 30,
+                                                child: Text(
+                                                  "${namaSampah[index]}",
+                                                  style: TextStyle(
+                                                      fontFamily: "Open Sans"),
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 30,
+                                                child: Text(
+                                                  "${qtyList[index]}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontFamily: "Open Sans"),
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 30,
+                                                child: Text(
+                                                  "${hargaSetor[index]}",
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontFamily: "Open Sans"),
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 30,
+                                                child: Text(
+                                                  "Rp. ${totalHarga[index]}",
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontFamily: "Open Sans"),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : Container();
+                                }),
+                          ),
+                        ],
                       )
                     ],
                   ),
@@ -323,6 +502,7 @@ class _JualSampahState extends State<JualSampah> {
               child: ListView(
                 children: [
                   Container(
+                    color: Colors.white,
                     margin: EdgeInsets.all(8),
                     padding: const EdgeInsets.all(5.0),
                     child: Row(
