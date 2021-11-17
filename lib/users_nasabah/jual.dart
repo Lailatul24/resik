@@ -536,217 +536,210 @@ class _JualSampahState extends State<JualSampah> {
                                   );
                                 }),
                       )),
-            DraggableScrollableSheet(
-                initialChildSize: 0.23,
-                minChildSize: 0.23,
-                maxChildSize: 0.57,
-                builder: (BuildContext c, s) {
-                  return Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 10.0,
-                          )
-                        ]),
-                    child: ListView(
-                      controller: s,
-                      children: <Widget>[
-                        Center(
-                          child: Container(
-                            height: 8,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: Center(child: Text('Detail Swipe Up')),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Center(
-                              child: Text(
-                                "Detail Setor",
-                                style: TextStyle(
-                                    fontFamily: "Open Sans",
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  child: Center(
-                                    child: Text(
-                                      'Nama Sampah',
-                                      style: TextStyle(fontFamily: "Open Sans"),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                    child: Center(
-                                  child: Text(
-                                    'Jumlah',
-                                    style: TextStyle(fontFamily: "Open Sans"),
-                                  ),
-                                )),
-                                Container(
-                                  child: Center(
-                                    child: Text(
-                                      'harga',
-                                      style: TextStyle(fontFamily: "Open Sans"),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                    child: Center(
-                                  child: Text(
-                                    'total',
-                                    style: TextStyle(fontFamily: "Open Sans"),
-                                  ),
-                                ))
-                              ],
-                            ),
-                            Container(
-                              height: 250,
-                              child: ListView.builder(
-                                  padding: EdgeInsets.only(top: 0),
-                                  itemCount: namaSampah.length,
-                                  itemBuilder: (context, index) {
-                                    return namaSampah[index] != 0
-                                        ? Container(
-                                            padding: EdgeInsets.all(8),
-                                            margin: EdgeInsets.only(
-                                              left: 2,
-                                              right: 2,
-                                            ),
-                                            decoration: BoxDecoration(
-                                                border: Border(
-                                                  bottom: BorderSide(
-                                                      color: Colors.black,
-                                                      width: 1.0),
-                                                ),
-                                                color: Colors.grey),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Container(
-                                                  width: 110,
-                                                  height: 30,
-                                                  child: Text(
-                                                    "${namaSampah[index]}",
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            "Open Sans"),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  height: 30,
-                                                  child: Text(
-                                                    "${qtyList[index]}",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            "Open Sans"),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  height: 30,
-                                                  child: Text(
-                                                    "${hargaSetor[index]}",
-                                                    textAlign: TextAlign.right,
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            "Open Sans"),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  height: 30,
-                                                  child: Text(
-                                                    "Rp. ${totalHarga[index]}",
-                                                    textAlign: TextAlign.right,
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            "Open Sans"),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        : Container();
-                                  }),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                }),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 100,
-                child: ListView(
-                  children: [
-                    Container(
-                      color: Colors.white,
-                      margin: EdgeInsets.all(8),
-                      padding: const EdgeInsets.all(5.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Total"),
-                          Text(
-                            "Rp 50.xxx",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          )
-                        ],
+          ]),
+        ),
+      ),
+      DraggableScrollableSheet(
+          initialChildSize: 0.23,
+          minChildSize: 0.23,
+          maxChildSize: 0.57,
+          builder: (BuildContext c, s) {
+            return Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 10.0,
+                    )
+                  ]),
+              child: ListView(
+                controller: s,
+                children: <Widget>[
+                  Center(
+                    child: Container(
+                      height: 8,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(5),
                       ),
                     ),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(0xff85d057),
-                          onPrimary: Colors.white, // foreground
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Sukses()));
-                        },
+                  ),
+                  Container(
+                    child: Center(child: Text('Detail Swipe Up')),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Center(
                         child: Text(
-                          'Jual Sampah',
+                          "Detail Setor",
                           style: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Roboto"),
-                        )),
+                              fontFamily: "Open Sans",
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Center(
+                              child: Text(
+                                'Nama Sampah',
+                                style: TextStyle(fontFamily: "Open Sans"),
+                              ),
+                            ),
+                          ),
+                          Container(
+                              child: Center(
+                            child: Text(
+                              'Jumlah',
+                              style: TextStyle(fontFamily: "Open Sans"),
+                            ),
+                          )),
+                          Container(
+                            child: Center(
+                              child: Text(
+                                'harga',
+                                style: TextStyle(fontFamily: "Open Sans"),
+                              ),
+                            ),
+                          ),
+                          Container(
+                              child: Center(
+                            child: Text(
+                              'total',
+                              style: TextStyle(fontFamily: "Open Sans"),
+                            ),
+                          ))
+                        ],
+                      ),
+                      Container(
+                        height: 250,
+                        child: ListView.builder(
+                            padding: EdgeInsets.only(top: 0),
+                            itemCount: namaSampah.length,
+                            itemBuilder: (context, index) {
+                              return namaSampah[index] != 0
+                                  ? Container(
+                                      padding: EdgeInsets.all(8),
+                                      margin: EdgeInsets.only(
+                                        left: 2,
+                                        right: 2,
+                                      ),
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                                color: Colors.black,
+                                                width: 1.0),
+                                          ),
+                                          color: Colors.grey),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Container(
+                                            width: 110,
+                                            height: 30,
+                                            child: Text(
+                                              "${namaSampah[index]}",
+                                              style: TextStyle(
+                                                  fontFamily: "Open Sans"),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 30,
+                                            child: Text(
+                                              "${qtyList[index]}",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontFamily: "Open Sans"),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 30,
+                                            child: Text(
+                                              "${hargaSetor[index]}",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(
+                                                  fontFamily: "Open Sans"),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 30,
+                                            child: Text(
+                                              "Rp. ${totalHarga[index]}",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(
+                                                  fontFamily: "Open Sans"),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : Container();
+                            }),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            );
+          }),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 100,
+          child: ListView(
+            children: [
+              Container(
+                color: Colors.white,
+                margin: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Total"),
+                    Text(
+                      "Rp 50.xxx",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    )
                   ],
                 ),
               ),
-            ),
-          ]),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xff85d057),
+                    onPrimary: Colors.white, // foreground
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Sukses()));
+                  },
+                  child: Text(
+                    'Jual Sampah',
+                    style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Roboto"),
+                  )),
+            ],
+          ),
         ),
-      )
+      ),
     ])));
   }
 }
