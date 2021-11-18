@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/model/SampahModel.dart';
@@ -35,8 +36,25 @@ class _JualSampahState extends State<JualSampah> {
   List namaSampah = [];
   List<Datum> _listSampah = <Datum>[];
   List<Datum> _listSearch = <Datum>[];
-  // late List<Datum> _listSearch;
+
   var _controller = TextEditingController();
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    _listSampah.clear();
+    con.getSampahId("idDesa");
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    _listSampah.clear();
+    con.getSampahId("idDesa");
+    _refreshController.loadComplete();
+  }
 
   Color setor = Colors.grey;
 
@@ -316,225 +334,229 @@ class _JualSampahState extends State<JualSampah> {
                             ),
                           );
                         })
-                    : Container(
-                        child: _listSearch.isEmpty
-                            ? Center(
-                                child: Column(
-                                children: <Widget>[
-                                  Image.asset(
-                                    "assets/images/maintanence.png",
-                                    scale: 3,
-                                  ),
-                                  Text(
-                                      "Belum ada Partner Toko / Warung di dekat anda"),
-                                ],
-                              ))
-                            : ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: _listSearch.length,
-                                itemBuilder: (context, index) {
-                                  if (qtyList[index] != 0) {
-                                    postDetail[index] = {
-                                      "id_sampah": _listSampah[index].idSampah!,
-                                      "Jumlah": qtyList[index],
-                                      "harga": _listSampah[index].hargaSetor
-                                    };
-                                    namaSampah[index] =
-                                        _listSampah[index].namaSampah;
-                                    hargaSetor[index] =
-                                        _listSampah[index].hargaSetor;
-                                  } else {
-                                    postDetail[index] = 0;
-                                    namaSampah[index] = 0;
-                                    hargaSetor[index] = 0;
-                                  }
-                                  Datum sampah = _listSampah[index];
-                                  return Container(
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.network(
-                                              sampah.image!,
-                                              height: 80,
-                                              width: 80,
+                    : SmartRefresher(
+                        enablePullDown: true,
+                        enablePullUp: false,
+                        header: WaterDropMaterialHeader(),
+                        controller: _refreshController,
+                        onRefresh: _onRefresh,
+                        onLoading: _onLoading,
+                        child: Container(
+                          child: _listSearch.isEmpty
+                              ? Center(
+                                  child: Column(
+                                  children: <Widget>[
+                                    Image.asset(
+                                      "assets/images/maintanence.png",
+                                      scale: 3,
+                                    ),
+                                    Text(
+                                        "Belum ada Partner Toko / Warung di dekat anda"),
+                                  ],
+                                ))
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: _listSearch.length,
+                                  itemBuilder: (context, index) {
+                                    if (qtyList[index] != 0) {
+                                      postDetail[index] = {
+                                        "id_sampah":
+                                            _listSampah[index].idSampah!,
+                                        "Jumlah": qtyList[index],
+                                        "harga": _listSampah[index].hargaSetor
+                                      };
+                                      namaSampah[index] =
+                                          _listSampah[index].namaSampah;
+                                      hargaSetor[index] =
+                                          _listSampah[index].hargaSetor;
+                                    } else {
+                                      postDetail[index] = 0;
+                                      namaSampah[index] = 0;
+                                      hargaSetor[index] = 0;
+                                    }
+                                    Datum sampah = _listSampah[index];
+                                    return Container(
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              child: Image.network(
+                                                sampah.image!,
+                                                height: 80,
+                                                width: 80,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                sampah.namaSampah!,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              SizedBox(
-                                                height: 20,
-                                              ),
-                                              Container(
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    qtyList[index] != 0
-                                                        ? Container(
-                                                            margin:
-                                                                EdgeInsets.all(
-                                                                    10),
-                                                            width: 35,
-                                                            height: 35,
-                                                            child: TextButton(
-                                                              child: Align(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .remove,
-                                                                    size: 20,
-                                                                    color: Color(
-                                                                        0xff909090),
-                                                                  )),
-                                                              onPressed: () {
-                                                                setState(() {
-                                                                  qtyList[index] =
-                                                                      qtyList[index] -
-                                                                          1;
-                                                                  totalHarga[
-                                                                      index] = int.parse(
-                                                                          _listSampah[index]
-                                                                              .hargaSetor!) *
-                                                                      qtyList[
-                                                                          index];
-                                                                  if (totalHarga.reduce((a,
-                                                                              b) =>
-                                                                          a +
-                                                                          b) ==
-                                                                      0) {
-                                                                    setor = Colors
-                                                                        .grey;
-                                                                  } else {
-                                                                    setor = Colors
-                                                                        .green;
-                                                                  }
-                                                                });
-                                                              },
-                                                              style: TextButton.styleFrom(
-                                                                  backgroundColor:
-                                                                      Color(
-                                                                          0xffE0E0E0),
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10))),
-                                                            ),
-                                                          )
-                                                        : Container(
-                                                            margin:
-                                                                EdgeInsets.all(
-                                                                    10),
-                                                            width: 35,
-                                                            height: 35,
-                                                            child: TextButton(
-                                                              onPressed: () {},
-                                                              child: Icon(
-                                                                Icons.remove,
-                                                                size: 20,
-                                                                color: Color(
-                                                                    0xff909090),
-                                                              ),
-                                                              style: TextButton.styleFrom(
-                                                                  backgroundColor:
-                                                                      Color(
-                                                                          0xffE0E0E0),
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10))),
-                                                            ),
-                                                          ),
-                                                    Text(qtyList[index]
-                                                        .toString()),
-                                                    Container(
-                                                        margin:
-                                                            EdgeInsets.all(10),
-                                                        width: 35,
-                                                        height: 35,
-                                                        child: TextButton(
-                                                          child: Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Icon(
-                                                                Icons.add,
-                                                                size: 20,
-                                                                color: Color(
-                                                                    0xff909090),
-                                                              )),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              qtyList[index] =
-                                                                  qtyList[index] +
-                                                                      1;
-                                                              totalHarga[
-                                                                  index] = int.parse(
-                                                                      _listSampah[
-                                                                              index]
-                                                                          .hargaSetor!) *
-                                                                  qtyList[
-                                                                      index];
-                                                              if (totalHarga.reduce(
-                                                                      (a, b) =>
-                                                                          a +
-                                                                          b) ==
-                                                                  0) {
-                                                                setor =
-                                                                    Colors.grey;
-                                                              } else {
-                                                                setor = Colors
-                                                                    .green;
-                                                              }
-                                                            });
-                                                          },
-                                                          style: TextButton.styleFrom(
-                                                              backgroundColor:
-                                                                  Color(
-                                                                      0xffE0E0E0),
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10))),
-                                                        )),
-                                                    Text(
-                                                      "Rp : " +
-                                                          sampah.hargaJual!,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )
-                                                  ],
-                                                ),
-                                              )
-                                            ],
+                                          SizedBox(
+                                            width: 10,
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }),
+                                          Container(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  sampah.namaSampah!,
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Container(
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      qtyList[index] != 0
+                                                          ? Container(
+                                                              margin: EdgeInsets
+                                                                  .all(10),
+                                                              width: 35,
+                                                              height: 35,
+                                                              child: TextButton(
+                                                                child: Align(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .remove,
+                                                                      size: 20,
+                                                                      color: Color(
+                                                                          0xff909090),
+                                                                    )),
+                                                                onPressed: () {
+                                                                  setState(() {
+                                                                    qtyList[index] =
+                                                                        qtyList[index] -
+                                                                            1;
+                                                                    totalHarga[
+                                                                        index] = int.parse(_listSampah[index]
+                                                                            .hargaSetor!) *
+                                                                        qtyList[
+                                                                            index];
+                                                                    if (totalHarga.reduce((a,
+                                                                                b) =>
+                                                                            a +
+                                                                            b) ==
+                                                                        0) {
+                                                                      setor = Colors
+                                                                          .grey;
+                                                                    } else {
+                                                                      setor = Colors
+                                                                          .green;
+                                                                    }
+                                                                  });
+                                                                },
+                                                                style: TextButton.styleFrom(
+                                                                    backgroundColor:
+                                                                        Color(
+                                                                            0xffE0E0E0),
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10))),
+                                                              ),
+                                                            )
+                                                          : Container(
+                                                              margin: EdgeInsets
+                                                                  .all(10),
+                                                              width: 35,
+                                                              height: 35,
+                                                              child: TextButton(
+                                                                onPressed:
+                                                                    () {},
+                                                                child: Icon(
+                                                                  Icons.remove,
+                                                                  size: 20,
+                                                                  color: Color(
+                                                                      0xff909090),
+                                                                ),
+                                                                style: TextButton.styleFrom(
+                                                                    backgroundColor:
+                                                                        Color(
+                                                                            0xffE0E0E0),
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10))),
+                                                              ),
+                                                            ),
+                                                      Text(qtyList[index]
+                                                          .toString()),
+                                                      Container(
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  10),
+                                                          width: 35,
+                                                          height: 35,
+                                                          child: TextButton(
+                                                            child: Align(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                child: Icon(
+                                                                  Icons.add,
+                                                                  size: 20,
+                                                                  color: Color(
+                                                                      0xff909090),
+                                                                )),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                qtyList[index] =
+                                                                    qtyList[index] +
+                                                                        1;
+                                                                totalHarga[
+                                                                    index] = int.parse(
+                                                                        _listSampah[index]
+                                                                            .hargaSetor!) *
+                                                                    qtyList[
+                                                                        index];
+                                                                if (totalHarga.reduce(
+                                                                        (a, b) =>
+                                                                            a +
+                                                                            b) ==
+                                                                    0) {
+                                                                  setor = Colors
+                                                                      .grey;
+                                                                } else {
+                                                                  setor = Colors
+                                                                      .green;
+                                                                }
+                                                              });
+                                                            },
+                                                            style: TextButton.styleFrom(
+                                                                backgroundColor:
+                                                                    Color(
+                                                                        0xffE0E0E0),
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10))),
+                                                          )),
+                                                      Text(
+                                                        "Rp : " +
+                                                            sampah.hargaJual!,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      )
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                        ),
                       )),
           ]),
         ),
