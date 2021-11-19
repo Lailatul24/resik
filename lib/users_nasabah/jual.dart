@@ -45,7 +45,7 @@ class _JualSampahState extends State<JualSampah> {
   void _onRefresh() async {
     await Future.delayed(Duration(milliseconds: 1000));
     _listSampah.clear();
-    con.getSampahId("idDesa");
+    con.getSampahId("DSA05");
     _refreshController.refreshCompleted();
   }
 
@@ -153,7 +153,7 @@ class _JualSampahState extends State<JualSampah> {
                 height: MediaQuery.of(context).size.height,
                 child: _listSearch == null
                     ? ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: ScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: _listSearch.length,
                         itemBuilder: (context, index) {
@@ -342,6 +342,7 @@ class _JualSampahState extends State<JualSampah> {
                         onRefresh: _onRefresh,
                         onLoading: _onLoading,
                         child: Container(
+                          height: 400,
                           child: _listSearch.isEmpty
                               ? Center(
                                   child: Column(
@@ -355,6 +356,7 @@ class _JualSampahState extends State<JualSampah> {
                                   ],
                                 ))
                               : ListView.builder(
+                                physics: ScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount: _listSearch.length,
                                   itemBuilder: (context, index) {
