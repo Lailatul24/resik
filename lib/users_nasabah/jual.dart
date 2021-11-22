@@ -342,6 +342,7 @@ class _JualSampahState extends State<JualSampah> {
                         onRefresh: _onRefresh,
                         onLoading: _onLoading,
                         child: Container(
+                          padding: EdgeInsets.only(bottom: 30),
                           height: 400,
                           child: _listSearch.isEmpty
                               ? Center(
