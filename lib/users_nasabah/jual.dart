@@ -45,14 +45,16 @@ class _JualSampahState extends State<JualSampah> {
   void _onRefresh() async {
     await Future.delayed(Duration(milliseconds: 1000));
     _listSampah.clear();
-    con.getSampahId("idDesa");
+    con.getSampahId("DSA05");
+
     _refreshController.refreshCompleted();
   }
 
   void _onLoading() async {
     await Future.delayed(Duration(milliseconds: 1000));
     _listSampah.clear();
-    con.getSampahId("idDesa");
+    con.getSampahId("DSA05");
+
     _refreshController.loadComplete();
   }
 
@@ -142,7 +144,7 @@ class _JualSampahState extends State<JualSampah> {
                   setState(() {
                     _listSearch = _listSampah.where((element) {
                       var namaSampah = element.namaSampah!.toLowerCase();
-                      return namaSampah.contains(value);
+                      return namaSampah.contains(value.toLowerCase());
                     }).toList();
                   });
                 },
@@ -152,188 +154,57 @@ class _JualSampahState extends State<JualSampah> {
             Container(
                 height: MediaQuery.of(context).size.height,
                 child: _listSearch == null
-                    ? ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: _listSearch.length,
-                        itemBuilder: (context, index) {
-                          if (qtyList[index] != 0) {
-                            postDetail[index] = {
-                              "id_sampah": _listSampah[index].idSampah!,
-                              "Jumlah": qtyList[index],
-                              "harga": _listSampah[index].hargaSetor
-                            };
-                            namaSampah[index] = _listSampah[index].namaSampah;
-                            hargaSetor[index] = _listSampah[index].hargaSetor;
-                          } else {
-                            postDetail[index] = 0;
-                            namaSampah[index] = 0;
-                            hargaSetor[index] = 0;
-                          }
-                          Datum sampah = _listSampah[index];
-                          return Container(
+                    ? Expanded(
+                        child: ListView.builder(
+                          padding: EdgeInsets.only(top: 8),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, _) => Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
                             child: Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Image.network(
-                                      sampah.image!,
-                                      height: 80,
-                                      width: 80,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
+                              children: <Widget>[
                                 Container(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        sampah.namaSampah!,
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            qtyList[index] != 0
-                                                ? Container(
-                                                    margin: EdgeInsets.all(10),
-                                                    width: 35,
-                                                    height: 35,
-                                                    child: TextButton(
-                                                      child: Align(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: Icon(
-                                                            Icons.remove,
-                                                            size: 20,
-                                                            color: Color(
-                                                                0xff909090),
-                                                          )),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          qtyList[index] =
-                                                              qtyList[index] -
-                                                                  1;
-                                                          totalHarga[
-                                                              index] = int.parse(
-                                                                  _listSampah[
-                                                                          index]
-                                                                      .hargaSetor!) *
-                                                              qtyList[index];
-                                                          if (totalHarga.reduce(
-                                                                  (a, b) =>
-                                                                      a + b) ==
-                                                              0) {
-                                                            setor = Colors.grey;
-                                                          } else {
-                                                            setor =
-                                                                Colors.green;
-                                                          }
-                                                        });
-                                                      },
-                                                      style: TextButton.styleFrom(
-                                                          backgroundColor:
-                                                              Color(0xffE0E0E0),
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                    ),
-                                                  )
-                                                : Container(
-                                                    margin: EdgeInsets.all(10),
-                                                    width: 35,
-                                                    height: 35,
-                                                    child: TextButton(
-                                                      onPressed: () {},
-                                                      child: Icon(
-                                                        Icons.remove,
-                                                        size: 20,
-                                                        color:
-                                                            Color(0xff909090),
-                                                      ),
-                                                      style: TextButton.styleFrom(
-                                                          backgroundColor:
-                                                              Color(0xffE0E0E0),
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                    ),
-                                                  ),
-                                            Text(qtyList[index].toString()),
-                                            Container(
-                                                margin: EdgeInsets.all(10),
-                                                width: 35,
-                                                height: 35,
-                                                child: TextButton(
-                                                  child: Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Icon(
-                                                        Icons.add,
-                                                        size: 20,
-                                                        color:
-                                                            Color(0xff909090),
-                                                      )),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      qtyList[index] =
-                                                          qtyList[index] + 1;
-                                                      totalHarga[index] =
-                                                          int.parse(_listSampah[
-                                                                      index]
-                                                                  .hargaSetor!) *
-                                                              qtyList[index];
-                                                      if (totalHarga.reduce(
-                                                              (a, b) =>
-                                                                  a + b) ==
-                                                          0) {
-                                                        setor = Colors.grey;
-                                                      } else {
-                                                        setor = Colors.green;
-                                                      }
-                                                    });
-                                                  },
-                                                  style: TextButton.styleFrom(
-                                                      backgroundColor:
-                                                          Color(0xffE0E0E0),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                )),
-                                            Text(
-                                              "Rp : " + sampah.hargaJual!,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
+                                  margin: EdgeInsets.only(bottom: 12),
+                                  height: 110,
+                                  width: 110,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.white),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          bottom: 8, top: 8, left: 8),
+                                      height: 10,
+                                      width: 150,
+                                      color: Colors.white,
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(bottom: 8, left: 8),
+                                      height: 10,
+                                      width: 200,
+                                      color: Colors.white,
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 8),
+                                      height: 10,
+                                      width: 80,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
-                          );
-                        })
+                          ),
+                          itemCount: 3,
+                        ),
+                      )
                     : SmartRefresher(
                         enablePullDown: true,
                         enablePullUp: false,
@@ -350,11 +221,11 @@ class _JualSampahState extends State<JualSampah> {
                                       "assets/images/maintanence.png",
                                       scale: 3,
                                     ),
-                                    Text(
-                                        "Belum ada Partner Toko / Warung di dekat anda"),
+                                    Text("Data Sampah tidak ditemukan"),
                                   ],
                                 ))
                               : ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount: _listSearch.length,
                                   itemBuilder: (context, index) {
