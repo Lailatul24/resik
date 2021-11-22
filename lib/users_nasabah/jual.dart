@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/model/SampahModel.dart';
 import 'package:resik/sukses_page.dart';
@@ -140,10 +139,16 @@ class _JualSampahState extends State<JualSampah> {
                         TextStyle(fontSize: 15, color: Colors.grey[400])),
                 onChanged: (value) {
                   setState(() {
-                    _listSearch = _listSampah.where((element) {
-                      var namaSampah = element.namaSampah!.toLowerCase();
-                      return namaSampah.contains(value);
-                    }).toList();
+
+                    
+                    _listSearch = _listSampah.where((element) => 
+                    (element.namaSampah!.toLowerCase().contains(value.toLowerCase()) 
+                    )).toList();
+                    
+                    // _listSearch = _listSampah.where((element) {
+                    //   var namaSampah = element.namaSampah!.toLowerCase();
+                    //   return namaSampah.contains(value);
+                    // }).toList();
                   });
                 },
               ),
@@ -342,7 +347,7 @@ class _JualSampahState extends State<JualSampah> {
                         onRefresh: _onRefresh,
                         onLoading: _onLoading,
                         child: Container(
-                          padding: EdgeInsets.only(bottom: 30),
+                          padding: EdgeInsets.only(bottom: 70),
                           height: 400,
                           child: _listSearch.isEmpty
                               ? Center(
@@ -357,7 +362,7 @@ class _JualSampahState extends State<JualSampah> {
                                   ],
                                 ))
                               : ListView.builder(
-                                physics: ScrollPhysics(),
+                                physics: BouncingScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount: _listSearch.length,
                                   itemBuilder: (context, index) {
@@ -653,7 +658,7 @@ class _JualSampahState extends State<JualSampah> {
                       Container(
                         height: 250,
                         child: ListView.builder(
-                            padding: EdgeInsets.only(top: 0),
+                            padding: EdgeInsets.only(top: 0,bottom: 68),
                             itemCount: namaSampah.length,
                             itemBuilder: (context, index) {
                               return namaSampah[index] != 0
@@ -727,6 +732,7 @@ class _JualSampahState extends State<JualSampah> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: 100,
+          color: Colors.white,
           child: ListView(
             children: [
               Container(
@@ -767,4 +773,16 @@ class _JualSampahState extends State<JualSampah> {
       ),
     ])));
   }
+  // void searchOperation(value){
+  //   _listSearch.clear();
+  //   if(
+  //     _listSearch != null {
+  //       for (int i = 0; i < _listSampah.length; i++){
+  //         String data = _listSampah[index];
+  //         if (data)
+  //       }
+  //     }
+  //   )
+  // }
+  
 }
