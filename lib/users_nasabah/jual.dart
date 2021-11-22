@@ -46,7 +46,10 @@ class _JualSampahState extends State<JualSampah> {
     await Future.delayed(Duration(milliseconds: 1000));
     _listSampah.clear();
     con.getSampahId("DSA05");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6fdf15e3279c80236729c0308a729a6e7dd0faae
     _refreshController.refreshCompleted();
   }
 
@@ -154,12 +157,35 @@ class _JualSampahState extends State<JualSampah> {
             Container(
                 height: MediaQuery.of(context).size.height,
                 child: _listSearch == null
+<<<<<<< HEAD
                     ? Expanded(
                         child: ListView.builder(
                           padding: EdgeInsets.only(top: 8),
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, _) => Padding(
                             padding: const EdgeInsets.only(left: 12.0),
+=======
+                    ? ListView.builder(
+                        physics: ScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: _listSearch.length,
+                        itemBuilder: (context, index) {
+                          if (qtyList[index] != 0) {
+                            postDetail[index] = {
+                              "id_sampah": _listSampah[index].idSampah!,
+                              "Jumlah": qtyList[index],
+                              "harga": _listSampah[index].hargaSetor
+                            };
+                            namaSampah[index] = _listSampah[index].namaSampah;
+                            hargaSetor[index] = _listSampah[index].hargaSetor;
+                          } else {
+                            postDetail[index] = 0;
+                            namaSampah[index] = 0;
+                            hargaSetor[index] = 0;
+                          }
+                          Datum sampah = _listSampah[index];
+                          return Container(
+>>>>>>> 6fdf15e3279c80236729c0308a729a6e7dd0faae
                             child: Row(
                               children: <Widget>[
                                 Container(
@@ -213,6 +239,7 @@ class _JualSampahState extends State<JualSampah> {
                         onRefresh: _onRefresh,
                         onLoading: _onLoading,
                         child: Container(
+                          height: 400,
                           child: _listSearch.isEmpty
                               ? Center(
                                   child: Column(
@@ -225,7 +252,11 @@ class _JualSampahState extends State<JualSampah> {
                                   ],
                                 ))
                               : ListView.builder(
+<<<<<<< HEAD
                                   physics: NeverScrollableScrollPhysics(),
+=======
+                                physics: ScrollPhysics(),
+>>>>>>> 6fdf15e3279c80236729c0308a729a6e7dd0faae
                                   shrinkWrap: true,
                                   itemCount: _listSearch.length,
                                   itemBuilder: (context, index) {
