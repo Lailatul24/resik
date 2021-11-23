@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:resik/home.dart';
 import 'package:resik/main_page.dart';
 import 'package:resik/users_nasabah/transaksi.dart';
 

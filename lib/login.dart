@@ -1,8 +1,9 @@
 import 'dart:ui';
-import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
+import 'package:resik/bloc/homeController.dart';
 import 'package:resik/main_page.dart';
 import 'package:resik/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -12,8 +13,58 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final con = HomeController();
+
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+  final token = TextEditingController();
+
   bool inHiddenPass = true;
   bool _isHidden = true;
+
+  void login() async {
+    String username = emailController.text;
+    String pass = passController.text;
+
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    if (emailController.text != '' && passController.text != '') {
+      con.login(context, username, pass);
+      con.resLogin.listen((value) async {
+        if (value.hasil!) {
+          await shared.setString('token', value.token!);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MainPage(),
+            ),
+          );
+        }
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Form Harus Diisi')),
+      );
+    }
+  }
+
+  void getPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != '' && token != null) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(),
+          ));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPref();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +122,7 @@ class _LoginState extends State<Login> {
                             height: 20,
                           ),
                           TextField(
+                              controller: emailController,
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Color(0xffE5E5E5),
@@ -91,6 +143,7 @@ class _LoginState extends State<Login> {
                             height: 20,
                           ),
                           TextField(
+                            controller: passController,
                             obscureText: _isHidden,
                             decoration: InputDecoration(
                                 filled: true,
@@ -120,14 +173,7 @@ class _LoginState extends State<Login> {
                                   primary: Color(0xff85d057),
                                   onPrimary: Colors.white, // foreground
                                 ),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          type: PageTransitionType.rightToLeft,
-                                          duration: Duration(milliseconds: 500),
-                                          child: MainPage()));
-                                },
+                                onPressed: () => login(),
                                 child: Text(
                                   'Login',
                                   style: TextStyle(

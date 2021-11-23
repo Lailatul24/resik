@@ -1,13 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:resik/bloc/homeController.dart';
+import 'package:resik/intro.dart';
 import 'package:resik/register.dart';
 import 'package:resik/users_nasabah/alertDialog.dart';
 import 'package:resik/users_nasabah/saldo.dart';
 import 'package:resik/users_nasabah/ubahpin.dart';
 import 'package:resik/login.dart';
 import 'package:resik/users_nasabah/kritiksaran.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -27,6 +27,8 @@ List<Img> _gambar = [
 ];
 
 class _ProfileState extends State<Profile> {
+  final con = HomeController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -317,12 +319,16 @@ class _ProfileState extends State<Profile> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   ElevatedButton(
-                                    onPressed: () {
-                                      if (Platform.isAndroid) {
-                                        SystemNavigator.pop();
-                                      } else if (Platform.isIOS) {
-                                        exit(0);
-                                      }
+                                    onPressed: () async {
+                                      final SharedPreferences shared =
+                                          await SharedPreferences.getInstance();
+                                      shared.remove('token');
+                                      print('token');
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => IntroPage(),
+                                          ));
                                     },
                                     child: Text("Yes"),
                                   ),

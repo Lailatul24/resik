@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:resik/main_page.dart';
-import 'package:resik/style/theme.dart';
 
 class Qrcode extends StatefulWidget {
   final String data;

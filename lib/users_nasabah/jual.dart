@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/model/SampahModel.dart';
 import 'package:resik/sukses_page.dart';
@@ -141,10 +140,9 @@ class _JualSampahState extends State<JualSampah> {
                         TextStyle(fontSize: 15, color: Colors.grey[400])),
                 onChanged: (value) {
                   setState(() {
-                    _listSearch = _listSampah.where((element) {
-                      var namaSampah = element.namaSampah!.toLowerCase();
-                      return namaSampah.contains(value.toLowerCase());
-                    }).toList();
+                    _listSearch = _listSampah
+                        .where((element) => element.namaSampah!.contains(value))
+                        .toList();
                   });
                 },
               ),
@@ -153,69 +151,70 @@ class _JualSampahState extends State<JualSampah> {
             Container(
                 height: MediaQuery.of(context).size.height,
                 child: _listSearch == null
-                    ? ListView.builder(
-                        physics: ScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: _listSearch.length,
-                        itemBuilder: (context, index) {
-                          if (qtyList[index] != 0) {
-                            postDetail[index] = {
-                              "id_sampah": _listSampah[index].idSampah!,
-                              "Jumlah": qtyList[index],
-                              "harga": _listSampah[index].hargaSetor
-                            };
-                            namaSampah[index] = _listSampah[index].namaSampah;
-                            hargaSetor[index] = _listSampah[index].hargaSetor;
-                          } else {
-                            postDetail[index] = 0;
-                            namaSampah[index] = 0;
-                            hargaSetor[index] = 0;
-                          }
-                          Datum sampah = _listSampah[index];
-                          return Container(
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.only(bottom: 12),
-                                  height: 110,
-                                  width: 110,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: Colors.white),
+                    ? Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        color: Colors.white,
+                        // padding: EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Expanded(
+                              child: ListView.builder(
+                                padding: EdgeInsets.only(top: 8),
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, _) => Padding(
+                                  padding: const EdgeInsets.only(left: 12.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(bottom: 12),
+                                        height: 110,
+                                        width: 110,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: Colors.white),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                bottom: 8, top: 8, left: 8),
+                                            height: 10,
+                                            width: 150,
+                                            color: Colors.white,
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                bottom: 8, left: 8),
+                                            height: 10,
+                                            width: 200,
+                                            color: Colors.white,
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(left: 8),
+                                            height: 10,
+                                            width: 80,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(
+                                            height: 3,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          bottom: 8, top: 8, left: 8),
-                                      height: 10,
-                                      width: 150,
-                                      color: Colors.white,
-                                    ),
-                                    Container(
-                                      margin:
-                                          EdgeInsets.only(bottom: 8, left: 8),
-                                      height: 10,
-                                      width: 200,
-                                      color: Colors.white,
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 8),
-                                      height: 10,
-                                      width: 80,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      height: 3,
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                itemCount: 7,
+                              ),
                             ),
-                          );
-                        })
+                          ],
+                        ))
                     : SmartRefresher(
                         enablePullDown: true,
                         enablePullUp: false,
