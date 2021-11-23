@@ -11,4 +11,8 @@ class Repostory {
       api.login(context, username, pass);
 
   Future produk() => api.produk();
+
+  Future ubahPass(BuildContext context, String user, String passBaru,
+          String passLama) =>
+      api.ubahPass(context, user, passBaru, passLama);
 }

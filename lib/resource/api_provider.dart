@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
 import 'package:resik/model/SampahModel.dart';
+import 'package:resik/model/UbahPass.dart';
 
 class ApiProvider {
   var uri = "https://banksampahpasuruan.com/banksampah_ws/restapi";
@@ -50,9 +51,6 @@ class ApiProvider {
           .timeout(const Duration(seconds: 11));
       print(res.body);
       if (res.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Anda Berhasil Login!')),
-        );
         return LoginModel.fromJson(res.body);
       } else if (res.statusCode == 400) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -113,14 +111,14 @@ class ApiProvider {
           .timeout(const Duration(seconds: 11));
       if (res.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Anda Berhasil Login!')),
+          SnackBar(content: Text('Berhasil')),
         );
-        return LoginModel.fromJson(res.body);
+        return UbahPassword.fromJson(res.body);
       } else if (res.statusCode == 400) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal Login')),
+          SnackBar(content: Text('Gagal')),
         );
-        return LoginModel.fromJson(res.body);
+        return UbahPassword.fromJson(res.body);
       } else {
         throw Exception("Failur Respons!");
       }

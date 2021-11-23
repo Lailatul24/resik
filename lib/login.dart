@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/main_page.dart';
 import 'package:resik/register.dart';
@@ -19,6 +20,7 @@ class _LoginState extends State<Login> {
   final passController = TextEditingController();
   final token = TextEditingController();
 
+  bool validate = false;
   bool inHiddenPass = true;
   bool _isHidden = true;
 
@@ -27,10 +29,16 @@ class _LoginState extends State<Login> {
     String pass = passController.text;
 
     SharedPreferences shared = await SharedPreferences.getInstance();
-    if (emailController.text != '' && passController.text != '') {
+    if (emailController.text.isEmpty && passController.text.isEmpty) {
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Wajib Disi')),
+        );
+      });
+    } else {
       con.login(context, username, pass);
       con.resLogin.listen((value) async {
-        if (value.hasil!) {
+        if (value.hasil == true) {
           await shared.setString('token', value.token!);
           Navigator.pushReplacement(
             context,
@@ -38,26 +46,23 @@ class _LoginState extends State<Login> {
               builder: (context) => MainPage(),
             ),
           );
+        } else {
+          Fluttertoast.showToast(
+              msg: 'Username dan password salah',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.grey,
+              textColor: Colors.white,
+              fontSize: 16.0);
         }
       });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Form Harus Diisi')),
-      );
     }
   }
 
   void getPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
-
-    if (token != '' && token != null) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MainPage(),
-          ));
-    }
+    prefs.getString('token');
   }
 
   @override
@@ -121,16 +126,23 @@ class _LoginState extends State<Login> {
                           SizedBox(
                             height: 20,
                           ),
-                          TextField(
-                              controller: emailController,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Color(0xffE5E5E5),
-                                  hintText: "Masukkan Email",
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ))),
+                          TextFormField(
+                            controller: emailController,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Color(0xffE5E5E5),
+                                hintText: "Masukkan Email",
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                )),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please Input Username';
+                              }
+                              return null;
+                            },
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -142,7 +154,7 @@ class _LoginState extends State<Login> {
                           SizedBox(
                             height: 20,
                           ),
-                          TextField(
+                          TextFormField(
                             controller: passController,
                             obscureText: _isHidden,
                             decoration: InputDecoration(
@@ -161,6 +173,12 @@ class _LoginState extends State<Login> {
                                         : Icons.visibility_off,
                                   ),
                                 )),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please Input Password';
+                              }
+                              return null;
+                            },
                           ),
                           SizedBox(
                             height: 50,
