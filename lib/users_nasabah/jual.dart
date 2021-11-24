@@ -626,7 +626,7 @@ class _JualSampahState extends State<JualSampah> {
                   children: [
                     Text("Total"),
                     Text(
-                      "Rp 50.xxx",
+                      "Rp. ${totalHarga.reduce((a, b) => a + b)}",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     )
