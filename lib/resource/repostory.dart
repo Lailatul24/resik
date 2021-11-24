@@ -10,5 +10,8 @@ class Repostory {
   Future login(BuildContext context, String username, String pass) =>
       api.login(context, username, pass);
 
+  Future komentar(BuildContext context, String komen, token) => 
+      api.komentar(context, komen, token);
+
   Future produk() => api.produk();
 }
