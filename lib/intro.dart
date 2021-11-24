@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:resik/login.dart';
+import 'package:resik/main_page.dart';
 
 class IntroPage extends StatefulWidget {
   IntroPage({Key? key}) : super(key: key);
@@ -119,7 +120,7 @@ class _IntroPageState extends State<IntroPage> {
                 shape: StadiumBorder()),
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Login()));
+                  context, MaterialPageRoute(builder: (context) => MainPage()));
             },
             child: const Text('Masuk Aplikasi!'),
           ),
@@ -136,7 +137,7 @@ class _IntroPageState extends State<IntroPage> {
     ];
 
     return clicked
-        ? Login()
+        ? MainPage()
         : IntroductionScreen(
             pages: pages,
             dotsDecorator: DotsDecorator(

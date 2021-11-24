@@ -14,4 +14,8 @@ class Repostory {
       api.komentar(context, komen, token);
 
   Future produk() => api.produk();
+
+  Future ubahPass(BuildContext context, String user, String passBaru,
+          String passLama) =>
+      api.ubahPass(context, user, passBaru, passLama);
 }

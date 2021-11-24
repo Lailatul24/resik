@@ -1,11 +1,11 @@
 // To parse this JSON data, do
 //
-//     final logout = logoutFromMap(jsonString);
+//     final ubahPassword = ubahPasswordFromMap(jsonString);
 
 import 'dart:convert';
 
-class Logout {
-  Logout({
+class UbahPassword {
+  UbahPassword({
     this.hasil,
     this.message,
   });
@@ -13,11 +13,12 @@ class Logout {
   bool? hasil;
   String? message;
 
-  factory Logout.fromJson(String str) => Logout.fromMap(json.decode(str));
+  factory UbahPassword.fromJson(String str) =>
+      UbahPassword.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Logout.fromMap(Map<String, dynamic> json) => Logout(
+  factory UbahPassword.fromMap(Map<String, dynamic> json) => UbahPassword(
         hasil: json["hasil"],
         message: json["message"],
       );

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/intro.dart';
@@ -322,13 +324,12 @@ class _ProfileState extends State<Profile> {
                                     onPressed: () async {
                                       final SharedPreferences shared =
                                           await SharedPreferences.getInstance();
-                                      shared.remove('token');
-                                      print('token');
-                                      Navigator.pushReplacement(
+                                      shared.clear();
+                                      Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => IntroPage(),
-                                          ));
+                                              builder: (context) =>
+                                                  IntroPage()));
                                     },
                                     child: Text("Yes"),
                                   ),
