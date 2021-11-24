@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
 import 'package:resik/model/SampahModel.dart';
+import 'package:resik/model/KomentarModel.dart';
+
 import 'package:resik/model/UbahPass.dart';
 
 class ApiProvider {
@@ -134,4 +136,45 @@ class ApiProvider {
       throw Exception(e.toString());
     }
   }
+
+   Future komentar(BuildContext context, String komentar, token) async {
+    var body = jsonEncode({'komentar': komentar , 'token': token});
+    var urll = Uri.parse(url + '/komentar/add');
+
+    try {
+      final res = await http
+          .post(urll,
+          headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+              }, 
+          body: body)
+          .timeout(const Duration(seconds: 11));
+      print(res.body);
+      if (res.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('FeedBack anda sudah Dikirim')),
+        );
+        return LoginModel.fromJson(res.body);
+      } else if (res.statusCode == 400) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Gagal Mengirim Feedback')),
+        );
+        return LoginModel.fromJson(res.body);
+      } else {
+        throw Exception("Failur Respons!");
+      }
+    } on SocketException catch (e) {
+      throw Exception(e.toString());
+    } on HttpException {
+      {
+        throw Exception("Tidak Menemukan Post");
+      }
+    } on FormatException {
+      throw Exception("Request Salah");
+    } on TimeoutException catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
 }

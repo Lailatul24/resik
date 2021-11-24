@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:resik/bloc/homeController.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:resik/main_page.dart';
 
 class KritikSaran extends StatefulWidget {
   KritikSaran({Key? key}) : super(key: key);
@@ -9,6 +12,24 @@ class KritikSaran extends StatefulWidget {
 }
 
 class _KritikSaranState extends State<KritikSaran> {
+  final con = HomeController();
+  final tokenController = TextEditingController();
+  final komenController = TextEditingController();
+ void komentar() async{
+   String komen = komenController.text;
+   
+   SharedPreferences pref = await SharedPreferences.getInstance();
+   String? token = pref.getString('token');
+   if (komenController.text != ''){
+     con.komentar(context, komen, token);
+     con.resKomentar.listen((value) async{
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainPage(),),);
+      });
+   }else {
+     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Harus Di isi')),);
+   }
+   
+ }
   @override
   Widget build(BuildContext context) {
     final maxLines = 6;
@@ -59,6 +80,7 @@ class _KritikSaranState extends State<KritikSaran> {
               margin: EdgeInsets.all(12),
               height: maxLines * 30.0,
               child: TextField(
+                controller: komenController,
                 maxLines: maxLines,
                 decoration: InputDecoration(
                     filled: true,
@@ -82,7 +104,7 @@ class _KritikSaranState extends State<KritikSaran> {
                     primary: Color(0xff85d057),
                     onPrimary: Colors.white, // foreground
                   ),
-                  onPressed: () {},
+                  onPressed: () => komentar(),
                   child: Text(
                     'Kirim',
                     style: TextStyle(
