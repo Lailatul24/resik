@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:resik/bloc/homeController.dart';
+import 'package:resik/model/KomentarModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:resik/main_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class KritikSaran extends StatefulWidget {
   KritikSaran({Key? key}) : super(key: key);
@@ -15,25 +17,59 @@ class _KritikSaranState extends State<KritikSaran> {
   final con = HomeController();
   final tokenController = TextEditingController();
   final komenController = TextEditingController();
+Future<bool> hasAlreadyStarted() async{
+  try {
+  final SharedPreferences pref = await SharedPreferences.getInstance();
+  if (pref.getBool("first")==null || pref.getBool("first")==true)
+  {
+    print(pref.getBool("first_run"));
+        pref.setBool("first_run", false);
+        return false;
+  }else {
+        print(pref.getBool("first_run"));
+        return true;
+      }
+  // String? token = pref.getString('token'); 
+  }catch(error){
+    print('error');
+    return false;
+  }
+} 
  void komentar() async{
    String komen = komenController.text;
    
    SharedPreferences pref = await SharedPreferences.getInstance();
    String? token = pref.getString('token');
+  //  if (tokenController.text == null){
+  //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login Dulu')),);
+  //  }else{
+  //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login fulu!!!')),);
+  //  }
    if (komenController.text != ''){
      con.komentar(context, komen, token);
      con.resKomentar.listen((value) async{
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainPage(),),);
       });
    }else {
-     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Harus Di isi')),);
+      Fluttertoast.showToast(
+              msg: 'Form Harus Di isi!',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.grey,
+              textColor: Colors.white,
+              fontSize: 16.0);
    }
    
  }
   @override
   Widget build(BuildContext context) {
     final maxLines = 6;
-    return Scaffold(
+    return FutureBuilder(
+      future: hasAlreadyStarted(),
+      builder: (BuildContext context, token){
+        if (token.hasData){
+         return Scaffold(
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -138,5 +174,10 @@ class _KritikSaranState extends State<KritikSaran> {
         ),
       )),
     );
+        }
+        return MainPage();
+      },
+    );
+    // 
   }
 }
