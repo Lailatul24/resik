@@ -30,6 +30,15 @@ List<Img> _gambar = [
 
 class _ProfileState extends State<Profile> {
   final con = HomeController();
+  Future<void> komen() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+      String? token = pref.getString('token');
+      token == null ? KritikSaran() : alertDialog(context);
+  }
+  Future foto()async{
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getString('token');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +49,61 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 60,
           ),
-          FittedBox(
+          FutureBuilder(
+            future: SharedPreferences.getInstance(),
+            builder: (context, AsyncSnapshot<SharedPreferences>pref) {
+              var x = pref.data;
+              if(x?.getString('token')== null){
+                return FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 40,
+                    ),
+                    CircleAvatar(
+                      radius: 39,
+                      backgroundImage: AssetImage(_gambar[0].images),
+                      backgroundColor: Colors.grey,
+                    ),
+                    SizedBox(
+                      width: 60,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Login()));
+                      },
+                      child: Text('Login'),
+                      style: ElevatedButton.styleFrom(
+                        elevation: 10,
+                        primary: Color(0xff85d057),
+                        minimumSize: Size(100, 40),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 17,
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Register()));
+                      },
+                      child: Text('Daftar'),
+                      style: OutlinedButton.styleFrom(
+                        primary: Color(0xFF000000),
+                        minimumSize: Size(100, 40),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    )
+                  ],
+                ),
+              );
+                
+              }
+              return Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -49,43 +112,36 @@ class _ProfileState extends State<Profile> {
                 ),
                 CircleAvatar(
                   radius: 39,
-                  backgroundImage: AssetImage(_gambar[0].images),
+                  backgroundImage: AssetImage('assets/images/profile.png'),
                   backgroundColor: Colors.grey,
                 ),
                 SizedBox(
-                  width: 60,
+                  width: 40,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Login()));
-                  },
-                  child: Text('Login'),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 10,
-                    primary: Color(0xff85d057),
-                    minimumSize: Size(100, 40),
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Sanburn',
+                      style: TextStyle(
+                          color: Color(0xff303030),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          fontFamily: "Nunito Sans"),
+                    ),
+                    Text(
+                      'dimas@gmail.com',
+                      style: TextStyle(
+                          color: Color(0xff808080),
+                          fontSize: 14,
+                          fontFamily: "Nunito Sans"),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  width: 17,
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Register()));
-                  },
-                  child: Text('Daftar'),
-                  style: OutlinedButton.styleFrom(
-                    primary: Color(0xFF000000),
-                    minimumSize: Size(100, 40),
-                  ),
-                ),
-                SizedBox(
-                  width: 15,
-                )
               ],
             ),
+          );
+            }
           ),
           SizedBox(
             height: 30,
@@ -100,8 +156,10 @@ class _ProfileState extends State<Profile> {
                     shape: RoundedRectangleBorder(),
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
-                  onPressed: () {
-                    Navigator.push(context,
+                  onPressed: () async{
+                    SharedPreferences pref = await SharedPreferences.getInstance();
+                       String? token = pref.getString('token');
+                          token == null ? alertDialog(context) :  Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Saldo()));
                   },
                   child: Row(
@@ -153,8 +211,10 @@ class _ProfileState extends State<Profile> {
                     shape: RoundedRectangleBorder(),
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
-                  onPressed: () {
-                    Navigator.push(context,
+                  onPressed: () async{
+                    SharedPreferences pref = await SharedPreferences.getInstance();
+                       String? token = pref.getString('token');
+                          token == null ? alertDialog(context) :  Navigator.push(context,
                         MaterialPageRoute(builder: (context) => UbahPin()));
                   },
                   child: Row(
@@ -206,8 +266,10 @@ class _ProfileState extends State<Profile> {
                     shape: RoundedRectangleBorder(),
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
-                  onPressed: () {
-                    Navigator.push(context,
+                  onPressed: () async{
+                    SharedPreferences pref = await SharedPreferences.getInstance();
+                       String? token = pref.getString('token');
+                          token == null ? alertDialog(context) :  Navigator.push(context,
                         MaterialPageRoute(builder: (context) => KritikSaran()));
                   },
                   child: Row(

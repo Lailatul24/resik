@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:resik/bloc/homeController.dart';
-import 'package:resik/model/KomentarModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:resik/main_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -17,24 +16,6 @@ class _KritikSaranState extends State<KritikSaran> {
   final con = HomeController();
   final tokenController = TextEditingController();
   final komenController = TextEditingController();
-Future<bool> hasAlreadyStarted() async{
-  try {
-  final SharedPreferences pref = await SharedPreferences.getInstance();
-  if (pref.getBool("first")==null || pref.getBool("first")==true)
-  {
-    print(pref.getBool("first_run"));
-        pref.setBool("first_run", false);
-        return false;
-  }else {
-        print(pref.getBool("first_run"));
-        return true;
-      }
-  // String? token = pref.getString('token'); 
-  }catch(error){
-    print('error');
-    return false;
-  }
-} 
  void komentar() async{
    String komen = komenController.text;
    
@@ -65,11 +46,7 @@ Future<bool> hasAlreadyStarted() async{
   @override
   Widget build(BuildContext context) {
     final maxLines = 6;
-    return FutureBuilder(
-      future: hasAlreadyStarted(),
-      builder: (BuildContext context, token){
-        if (token.hasData){
-         return Scaffold(
+    return Scaffold(
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -174,10 +151,5 @@ Future<bool> hasAlreadyStarted() async{
         ),
       )),
     );
-        }
-        return MainPage();
-      },
-    );
-    // 
   }
 }
