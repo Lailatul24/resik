@@ -145,7 +145,7 @@ class ApiProvider {
   }
 
   Future komentar(BuildContext context, String komentar, token) async {
-    var body = jsonEncode({'komentar': komentar, 'token': token});
+    var body = jsonEncode({'komentar': komentar});
     var urll = Uri.parse(url + '/komentar/add');
 
     try {
@@ -162,12 +162,12 @@ class ApiProvider {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('FeedBack anda sudah Dikirim')),
         );
-        return LoginModel.fromJson(res.body);
+        return KomentarModel.fromJson(res.body);
       } else if (res.statusCode == 400) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Gagal Mengirim Feedback')),
         );
-        return LoginModel.fromJson(res.body);
+        return KomentarModel.fromJson(res.body);
       } else {
         throw Exception("Failur Respons!");
       }

@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:resik/bloc/homeController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:resik/main_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class KritikSaran extends StatefulWidget {
   KritikSaran({Key? key}) : super(key: key);
@@ -20,6 +21,11 @@ class _KritikSaranState extends State<KritikSaran> {
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
+    //  if (tokenController.text == null){
+    //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login Dulu')),);
+    //  }else{
+    //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login fulu!!!')),);
+    //  }
     if (komenController.text != '') {
       con.komentar(context, komen, token);
       con.resKomentar.listen((value) async {
@@ -31,9 +37,14 @@ class _KritikSaranState extends State<KritikSaran> {
         );
       });
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Harus Di isi')),
-      );
+      Fluttertoast.showToast(
+          msg: 'Form Harus Di isi!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 
