@@ -8,21 +8,19 @@ import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
 import 'package:resik/model/SampahModel.dart';
 import 'package:resik/model/KomentarModel.dart';
-
 import 'package:resik/model/UbahPass.dart';
 
 class ApiProvider {
-  var uri = "https://banksampahpasuruan.com/banksampah_ws/restapi";
   var url = "http://147.139.193.105/resik/v1";
 
-  Future<GetSampah> getSampahId(String idDesa) async {
-    var body = jsonEncode({'id_desa': idDesa});
-    var url = Uri.parse('$uri/C_sampah/get_sampah');
+  Future<GetSampah> getSampahId(String token) async {
+    var urll = Uri.parse('$url/sampah/listsampah');
 
     try {
-      final res =
-          await http.post(url, body: body).timeout(const Duration(seconds: 11));
-      // print(res.body);
+      final res = await http.post(urll, headers: {
+        'Authorization': token
+      }).timeout(const Duration(seconds: 11));
+      print(res.body);
       if (res.statusCode == 200) {
         return GetSampah.fromJson(res.body);
       } else if (res.statusCode == 404) {
@@ -101,16 +99,25 @@ class ApiProvider {
     }
   }
 
-  Future ubahPass(BuildContext context, String user, String passBaru,
-      String passLama) async {
-    var body = jsonEncode(
-        {'username': user, 'passwordLama': passLama, 'passwordBaru': passBaru});
+  Future ubahPass(BuildContext context, String username, String passBaru,
+      String passLama, String token) async {
+    var body = jsonEncode({
+      'username': username,
+      'passwordLama': passLama,
+      'passwordBaru': passBaru
+    });
     var urll = Uri.parse(url + '/nasabah/editpassword');
 
     try {
       final res = await http
-          .post(urll, body: body)
+          .post(urll,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+              },
+              body: body)
           .timeout(const Duration(seconds: 11));
+      print(res.body);
       if (res.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Berhasil')),
@@ -137,18 +144,18 @@ class ApiProvider {
     }
   }
 
-   Future komentar(BuildContext context, String komentar, token) async {
-    var body = jsonEncode({'komentar': komentar , 'token': token});
+  Future komentar(BuildContext context, String komentar, token) async {
+    var body = jsonEncode({'komentar': komentar, 'token': token});
     var urll = Uri.parse(url + '/komentar/add');
 
     try {
       final res = await http
           .post(urll,
-          headers: {
+              headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token
-              }, 
-          body: body)
+              },
+              body: body)
           .timeout(const Duration(seconds: 11));
       print(res.body);
       if (res.statusCode == 200) {
@@ -176,5 +183,4 @@ class ApiProvider {
       throw Exception(e.toString());
     }
   }
-
 }

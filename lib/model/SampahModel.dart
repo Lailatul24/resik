@@ -6,72 +6,80 @@ import 'dart:convert';
 
 class GetSampah {
   GetSampah({
-    this.status,
-    this.data,
-    this.message,
+    this.hasil,
+    this.result,
   });
 
-  bool? status;
-  List<Datum>? data;
-  String? message;
+  bool? hasil;
+  List<Result>? result;
 
   factory GetSampah.fromJson(String str) => GetSampah.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
   factory GetSampah.fromMap(Map<String, dynamic> json) => GetSampah(
-        status: json["status"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
-        message: json["message"],
+        hasil: json["hasil"],
+        result: List<Result>.from(json["result"].map((x) => Result.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
-        "status": status,
-        "data": List<dynamic>.from(data!.map((x) => x.toMap())),
-        "message": message,
+        "hasil": hasil,
+        "result": List<dynamic>.from(result!.map((x) => x.toMap())),
       };
 }
 
-class Datum {
-  Datum({
-    this.idSampah,
-    this.idJenis,
-    this.jenisSampah,
-    this.namaSampah,
+class Result {
+  Result({
+    this.id,
+    this.nama,
+    this.kode,
+    this.jenis,
+    this.jumlah,
     this.hargaSetor,
     this.hargaJual,
-    this.image,
+    this.foto,
+    this.createdAt,
+    this.v,
   });
 
-  String? idSampah;
-  String? idJenis;
-  String? jenisSampah;
-  String? namaSampah;
-  String? hargaSetor;
-  String? hargaJual;
-  String? image;
+  String? id;
+  String? nama;
+  String? kode;
+  String? jenis;
+  String? jumlah;
+  int? hargaSetor;
+  int? hargaJual;
+  String? foto;
+  DateTime? createdAt;
+  int? v;
 
-  factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
+  factory Result.fromJson(String str) => Result.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Datum.fromMap(Map<String, dynamic> json) => Datum(
-        idSampah: json["id_sampah"],
-        idJenis: json["id_jenis"],
-        jenisSampah: json["jenis_sampah"],
-        namaSampah: json["nama_sampah"],
-        hargaSetor: json["harga_setor"],
-        hargaJual: json["harga_jual"],
-        image: json["image"],
+  factory Result.fromMap(Map<String, dynamic> json) => Result(
+        id: json["_id"],
+        nama: json["Nama"],
+        kode: json["Kode"],
+        jenis: json["Jenis"],
+        jumlah: json["Jumlah"],
+        hargaSetor: json["HargaSetor"],
+        hargaJual: json["HargaJual"],
+        foto: json["Foto"],
+        createdAt: DateTime.parse(json["CreatedAt"]),
+        v: json["__v"],
       );
 
   Map<String, dynamic> toMap() => {
-        "id_sampah": idSampah,
-        "id_jenis": idJenis,
-        "jenis_sampah": jenisSampah,
-        "nama_sampah": namaSampah,
-        "harga_setor": hargaSetor,
-        "harga_jual": hargaJual,
-        "image": image,
+        "_id": id,
+        "Nama": nama,
+        "Kode": kode,
+        "Jenis": jenis,
+        "Jumlah": jumlah,
+        "HargaSetor": hargaSetor,
+        "HargaJual": hargaJual,
+        "Foto": foto,
+        "CreatedAt": createdAt!.toIso8601String(),
+        "__v": v,
       };
 }

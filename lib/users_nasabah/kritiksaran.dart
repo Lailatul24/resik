@@ -15,21 +15,28 @@ class _KritikSaranState extends State<KritikSaran> {
   final con = HomeController();
   final tokenController = TextEditingController();
   final komenController = TextEditingController();
- void komentar() async{
-   String komen = komenController.text;
-   
-   SharedPreferences pref = await SharedPreferences.getInstance();
-   String? token = pref.getString('token');
-   if (komenController.text != ''){
-     con.komentar(context, komen, token);
-     con.resKomentar.listen((value) async{
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainPage(),),);
+  void komentar() async {
+    String komen = komenController.text;
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+    if (komenController.text != '') {
+      con.komentar(context, komen, token);
+      con.resKomentar.listen((value) async {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(),
+          ),
+        );
       });
-   }else {
-     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Harus Di isi')),);
-   }
-   
- }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Harus Di isi')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final maxLines = 6;

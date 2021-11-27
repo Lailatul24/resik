@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/intro.dart';
+import 'package:resik/prefs/prefrences.dart';
 import 'package:resik/register.dart';
 import 'package:resik/users_nasabah/alertDialog.dart';
 import 'package:resik/users_nasabah/saldo.dart';
@@ -321,10 +322,8 @@ class _ProfileState extends State<Profile> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   ElevatedButton(
-                                    onPressed: () async {
-                                      final SharedPreferences shared =
-                                          await SharedPreferences.getInstance();
-                                      shared.clear();
+                                    onPressed: () {
+                                      removeToken();
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
