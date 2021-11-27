@@ -24,9 +24,9 @@ class HomeController {
   PublishSubject<KomentarModel> get resKomentar => _komentarFetchar;
   PublishSubject<UbahPassword> get resUbahPass => _ubahpassFetchar;
 
-  Future getSampahId(String idDesa) async {
+  Future getSampahId(String token) async {
     try {
-      GetSampah sampahModel = await repostory.getSampahId(idDesa);
+      GetSampah sampahModel = await repostory.getSampahId(token);
       _sampahFetchar.sink.add(sampahModel);
     } catch (e) {
       print(e.toString());
@@ -50,20 +50,21 @@ class HomeController {
       print(e.toString());
     }
   }
-  void komentar(BuildContext context, String komen, token) async{
-    try{
+
+  void komentar(BuildContext context, String komen, token) async {
+    try {
       KomentarModel komentar = await repostory.komentar(context, komen, token);
       _komentarFetchar.sink.add(komentar);
-    }catch (e){
+    } catch (e) {
       print(e.toString());
     }
   }
 
-  ubahPass(BuildContext context, String user, String passBaru,
+  ubahPass(BuildContext context, String username, String token, String passBaru,
       String passLama) async {
     try {
-      UbahPassword ubah =
-          await repostory.ubahPass(context, user, passBaru, passLama);
+      UbahPassword ubah = await repostory.ubahPass(
+          context, token, username, passBaru, passLama);
       _ubahpassFetchar.sink.add(ubah);
     } catch (e) {
       print(e.toString());

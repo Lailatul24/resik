@@ -14,7 +14,7 @@ class _UbahPinState extends State<UbahPin> {
 
   var _passBaru = TextEditingController();
   var _passLama = TextEditingController();
-  var user = TextEditingController();
+  var username = TextEditingController();
 
   bool inHiddenPass = true;
   bool _isHidden = true;
@@ -22,16 +22,20 @@ class _UbahPinState extends State<UbahPin> {
   ubahPass() async {
     String passBaru = _passBaru.text;
     String passLama = _passLama.text;
-    String username = user.text;
+    String user = username.text;
 
-    if (username == '' || passLama == '' || passBaru == '') {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+
+    if (user.isEmpty || passLama.isEmpty || passBaru.isEmpty) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Form Harus Diisi !!')));
     } else {
-      con.ubahPass(context, username, passBaru, passLama);
+      con.ubahPass(context, token!, user, passBaru, passLama);
+      username.text = '';
       _passLama.text = '';
       _passBaru.text = '';
-      user.text = '';
+
       setState(() {});
     }
   }
@@ -39,6 +43,7 @@ class _UbahPinState extends State<UbahPin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Color(0xff85d057),
         title: Text("UbahPassword"),
@@ -50,6 +55,31 @@ class _UbahPinState extends State<UbahPin> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Username",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Container(
+              height: 50,
+              child: TextField(
+                controller: username,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color(0xffE5E5E5),
+                  hintText: "Masukkan username",
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(

@@ -1,13 +1,18 @@
+import 'dart:async';
+import 'dart:ffi';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/model/SampahModel.dart';
+import 'package:resik/prefs/prefrences.dart';
 import 'package:resik/sukses_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class JualSampah extends StatefulWidget {
-  final String? idDesa;
-  const JualSampah({Key? key, this.idDesa}) : super(key: key);
+  final String? token;
+  const JualSampah({Key? key, this.token}) : super(key: key);
 
   @override
   _JualSampahState createState() => _JualSampahState();
@@ -23,20 +28,18 @@ class Img {
 class _JualSampahState extends State<JualSampah> {
   final con = HomeController();
 
-  String idSampah = '';
-  String idDesa = '';
-  String? gambar = '';
-  String nama = '';
-  String harga = '';
+  String? token;
   List qtyList = [];
   List totalHarga = [];
   List postDetail = [];
   List hargaSetor = [];
   List namaSampah = [];
-  List<Datum> _listSampah = <Datum>[];
-  List<Datum> _listSearch = <Datum>[];
+  List<Result> _listSampah = <Result>[];
+  List<Result> _listSearch = <Result>[];
 
   var _controller = TextEditingController();
+  Timer? debounce;
+  String search = '';
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -44,14 +47,13 @@ class _JualSampahState extends State<JualSampah> {
   void _onRefresh() async {
     await Future.delayed(Duration(milliseconds: 1000));
     _listSampah.clear();
-    con.getSampahId("DSA05");
+
     _refreshController.refreshCompleted();
   }
 
   void _onLoading() async {
     await Future.delayed(Duration(milliseconds: 1000));
     _listSampah.clear();
-    con.getSampahId("DSA05");
 
     _refreshController.loadComplete();
   }
@@ -60,16 +62,21 @@ class _JualSampahState extends State<JualSampah> {
 
   @override
   void initState() {
+    getToken().then((value) {
+      con.getSampahId(value);
+      setState(() {
+        token = value;
+      });
+    });
     super.initState();
-    con.getSampahId("DSA05");
     //! menggunakan qtyList
     con.resSampah.listen((value) {
-      for (var i = 0; i < value.data!.length; i++) {
+      for (var i = 0; i < value.result!.length; i++) {
         qtyList.add(0);
-        totalHarga.add(0);
         postDetail.add(0);
         namaSampah.add(0);
         hargaSetor.add(0);
+        totalHarga.add(0);
       }
 
       if (mounted)
@@ -80,12 +87,19 @@ class _JualSampahState extends State<JualSampah> {
                 _listSampah.clear();
               });
           } else {
-            _listSampah.addAll(value.data!);
+            _listSampah.addAll(value.result!);
             _listSearch = _listSampah;
           }
         });
     });
   }
+
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _listSampah.clear();
+  //   _listSearch.clear();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -123,41 +137,33 @@ class _JualSampahState extends State<JualSampah> {
                   ],
                 )),
             Container(
-              padding: EdgeInsets.all(10),
-              height: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Color(0xffF0FFEB)),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Color(0xff85d057),
-                    ),
-                    hintText: "Search Sampah",
-                    hintStyle:
-                        TextStyle(fontSize: 15, color: Colors.grey[400])),
-                onChanged: (value) {
-                  setState(() {
-                    _listSearch = _listSampah
-                        .where((element) => (element.namaSampah!
-                            .toLowerCase()
-                            .contains(value.toLowerCase())))
-                        .toList();
-
-                    // _listSearch = _listSampah.where((element) {
-                    //   var namaSampah = element.namaSampah!.toLowerCase();
-                    //   return namaSampah.contains(value);
-                    // }).toList();
-                  });
-                },
-              ),
-            ),
+                padding: EdgeInsets.all(10),
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Color(0xffF0FFEB)),
+                child: TextField(
+                  controller: _controller,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Color(0xff85d057),
+                      ),
+                      hintText: "Search Sampah",
+                      hintStyle:
+                          TextStyle(fontSize: 15, color: Colors.grey[400])),
+                  onChanged: (value) {
+                    _listSampah.where((element) {
+                      var sampah = element.nama!.toLowerCase();
+                      return sampah.contains(value);
+                    }).toList();
+                  },
+                )),
             SizedBox(height: 15),
             Container(
                 height: MediaQuery.of(context).size.height,
-                child: _listSearch == null
+                child: _listSearch.isEmpty
                     ? Container(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
@@ -217,7 +223,7 @@ class _JualSampahState extends State<JualSampah> {
                                     ],
                                   ),
                                 ),
-                                itemCount: 7,
+                                itemCount: 6,
                               ),
                             ),
                           ],
@@ -233,16 +239,7 @@ class _JualSampahState extends State<JualSampah> {
                           padding: EdgeInsets.only(bottom: 70),
                           height: 400,
                           child: _listSearch.isEmpty
-                              ? Center(
-                                  child: Column(
-                                  children: <Widget>[
-                                    Image.asset(
-                                      "assets/images/maintanence.png",
-                                      scale: 3,
-                                    ),
-                                    Text("Data Sampah tidak ditemukan"),
-                                  ],
-                                ))
+                              ? Center(child: CircularProgressIndicator())
                               : ListView.builder(
                                   physics: BouncingScrollPhysics(),
                                   shrinkWrap: true,
@@ -250,13 +247,12 @@ class _JualSampahState extends State<JualSampah> {
                                   itemBuilder: (context, index) {
                                     if (qtyList[index] != 0) {
                                       postDetail[index] = {
-                                        "id_sampah":
-                                            _listSampah[index].idSampah!,
+                                        "id_sampah": _listSampah[index].id,
                                         "Jumlah": qtyList[index],
                                         "harga": _listSampah[index].hargaSetor
                                       };
                                       namaSampah[index] =
-                                          _listSampah[index].namaSampah;
+                                          _listSampah[index].nama;
                                       hargaSetor[index] =
                                           _listSampah[index].hargaSetor;
                                     } else {
@@ -264,21 +260,16 @@ class _JualSampahState extends State<JualSampah> {
                                       namaSampah[index] = 0;
                                       hargaSetor[index] = 0;
                                     }
-                                    Datum sampah = _listSampah[index];
+                                    Result sampah = _listSampah[index];
                                     return Container(
                                       child: Row(
                                         children: [
                                           Padding(
                                             padding: EdgeInsets.all(10),
                                             child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                              child: Image.network(
-                                                sampah.image!,
-                                                height: 80,
-                                                width: 80,
-                                              ),
-                                            ),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                child: Text("data")),
                                           ),
                                           SizedBox(
                                             width: 10,
@@ -291,7 +282,7 @@ class _JualSampahState extends State<JualSampah> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  sampah.namaSampah!,
+                                                  sampah.nama!,
                                                   style: TextStyle(
                                                       fontSize: 15,
                                                       fontWeight:
@@ -327,8 +318,8 @@ class _JualSampahState extends State<JualSampah> {
                                                                         qtyList[index] -
                                                                             1;
                                                                     totalHarga[
-                                                                        index] = int.parse(_listSampah[index]
-                                                                            .hargaSetor!) *
+                                                                        index] = _listSampah[index]
+                                                                            .hargaSetor! *
                                                                         qtyList[
                                                                             index];
                                                                     if (totalHarga.reduce((a,
@@ -401,9 +392,9 @@ class _JualSampahState extends State<JualSampah> {
                                                                     qtyList[index] +
                                                                         1;
                                                                 totalHarga[
-                                                                    index] = int.parse(
-                                                                        _listSampah[index]
-                                                                            .hargaSetor!) *
+                                                                    index] = _listSampah[
+                                                                            index]
+                                                                        .hargaSetor! *
                                                                     qtyList[
                                                                         index];
                                                                 if (totalHarga.reduce(
@@ -430,7 +421,8 @@ class _JualSampahState extends State<JualSampah> {
                                                           )),
                                                       Text(
                                                         "Rp : " +
-                                                            sampah.hargaJual!,
+                                                            sampah.hargaSetor!
+                                                                .toString(),
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight
@@ -541,7 +533,7 @@ class _JualSampahState extends State<JualSampah> {
                         height: 250,
                         child: ListView.builder(
                             padding: EdgeInsets.only(top: 0, bottom: 68),
-                            itemCount: namaSampah.length,
+                            itemCount: _listSampah.length,
                             itemBuilder: (context, index) {
                               return namaSampah[index] != 0
                                   ? Container(
@@ -612,46 +604,55 @@ class _JualSampahState extends State<JualSampah> {
       Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: 100,
-          color: Colors.white,
-          child: ListView(
-            children: [
-              Container(
-                color: Colors.white,
-                margin: EdgeInsets.all(8),
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Total"),
-                    Text(
-                      "",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xff85d057),
-                    onPrimary: Colors.white, // foreground
-                  ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Sukses()));
-                  },
-                  child: Text(
-                    'Jual Sampah',
-                    style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Roboto"),
-                  )),
-            ],
-          ),
-        ),
+            width: MediaQuery.of(context).size.width,
+            height: 100,
+            color: Colors.white,
+            child: ListView.builder(
+                itemCount: _listSampah.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Container(
+                        color: Colors.white,
+                        margin: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(5.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total"),
+                            Text(
+                              "Rp. ${totalHarga.reduce((a, b) => a + b)}",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xff85d057),
+                              onPrimary: Colors.white, // foreground
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Sukses()));
+                            },
+                            child: Text(
+                              'Jual Sampah',
+                              style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Roboto"),
+                            )),
+                      ),
+                    ],
+                  );
+                })),
       ),
     ])));
   }
@@ -667,4 +668,18 @@ class _JualSampahState extends State<JualSampah> {
   //   )
   // }
 
+  // void _onSearch(String value) {
+  //   _listSearch.clear();
+  //   if (value.isEmpty) {
+  //     setState(() {});
+  //     return;
+  //   }
+
+  //   _listSearch.forEach((element) {
+  //     if (element.nama!.toLowerCase().contains(value.toLowerCase()))
+  //       _listSearch.add(element);
+  //   });
+
+  //   setState(() {});
+  // }
 }
