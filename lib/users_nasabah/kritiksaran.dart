@@ -16,33 +16,38 @@ class _KritikSaranState extends State<KritikSaran> {
   final con = HomeController();
   final tokenController = TextEditingController();
   final komenController = TextEditingController();
- void komentar() async{
-   String komen = komenController.text;
-   
-   SharedPreferences pref = await SharedPreferences.getInstance();
-   String? token = pref.getString('token');
-  //  if (tokenController.text == null){
-  //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login Dulu')),);
-  //  }else{
-  //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login fulu!!!')),);
-  //  }
-   if (komenController.text != ''){
-     con.komentar(context, komen, token);
-     con.resKomentar.listen((value) async{
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainPage(),),);
+  void komentar() async {
+    String komen = komenController.text;
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+    //  if (tokenController.text == null){
+    //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login Dulu')),);
+    //  }else{
+    //    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login fulu!!!')),);
+    //  }
+    if (komenController.text != '') {
+      con.komentar(context, komen, token);
+      con.resKomentar.listen((value) async {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(),
+          ),
+        );
       });
-   }else {
+    } else {
       Fluttertoast.showToast(
-              msg: 'Form Harus Di isi!',
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.grey,
-              textColor: Colors.white,
-              fontSize: 16.0);
-   }
-   
- }
+          msg: 'Form Harus Di isi!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final maxLines = 6;
