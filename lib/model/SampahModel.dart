@@ -16,10 +16,12 @@ class GetSampah {
   factory GetSampah.fromJson(String str) => GetSampah.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
-
+//! adding json["result"] !=null ? // and : <Result>[],
   factory GetSampah.fromMap(Map<String, dynamic> json) => GetSampah(
         hasil: json["hasil"],
-        result: List<Result>.from(json["result"].map((x) => Result.fromMap(x))),
+        result: json["result"] != null
+            ? List<Result>.from(json["result"].map((x) => Result.fromMap(x)))
+            : <Result>[],
       );
 
   Map<String, dynamic> toMap() => {
