@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resik/bloc/homeController.dart';
+import 'package:resik/prefs/prefrences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UbahPin extends StatefulWidget {
@@ -27,16 +29,38 @@ class _UbahPinState extends State<UbahPin> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
 
-    if (user.isEmpty || passLama.isEmpty || passBaru.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Form Harus Diisi !!')));
+    if (_passBaru.text != '' || _passLama.text != '' || username.text != '') {
+      con.ubahPass(context, user, token!, passBaru, passLama);
+      con.resUbahPass.listen((value) async {
+        if (value.hasil == true) {
+          Fluttertoast.showToast(
+              msg: 'berhasil',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.grey,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        } else {
+          Fluttertoast.showToast(
+              msg: 'gagal',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.grey,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        }
+      });
     } else {
-      con.ubahPass(context, token!, user, passBaru, passLama);
-      username.text = '';
-      _passLama.text = '';
-      _passBaru.text = '';
-
-      setState(() {});
+      Fluttertoast.showToast(
+          msg: 'Form Harus Di isi!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 

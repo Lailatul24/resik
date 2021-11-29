@@ -28,7 +28,6 @@ class Img {
 class _JualSampahState extends State<JualSampah> {
   final con = HomeController();
 
-  String? token;
   List qtyList = [];
   List totalHarga = [];
   List postDetail = [];
@@ -59,15 +58,15 @@ class _JualSampahState extends State<JualSampah> {
   }
 
   Color setor = Colors.grey;
+  getPref() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+    return token;
+  }
 
   @override
   void initState() {
-    getToken().then((value) {
-      con.getSampahId(value);
-      setState(() {
-        token = value;
-      });
-    });
+    getPref();
     super.initState();
     //! menggunakan qtyList
     con.resSampah.listen((value) {

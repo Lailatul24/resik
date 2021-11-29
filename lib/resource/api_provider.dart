@@ -119,14 +119,8 @@ class ApiProvider {
           .timeout(const Duration(seconds: 11));
       print(res.body);
       if (res.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Berhasil')),
-        );
         return UbahPassword.fromJson(res.body);
       } else if (res.statusCode == 400) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal')),
-        );
         return UbahPassword.fromJson(res.body);
       } else {
         throw Exception("Failur Respons!");

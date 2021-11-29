@@ -19,7 +19,8 @@ class GetSampah {
 
   factory GetSampah.fromMap(Map<String, dynamic> json) => GetSampah(
         hasil: json["hasil"],
-        result: List<Result>.from(json["result"].map((x) => Result.fromMap(x))),
+        result:
+            List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
       );
 
   Map<String, dynamic> toMap() => {
