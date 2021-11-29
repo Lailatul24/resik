@@ -40,7 +40,7 @@ class _KritikSaranState extends State<KritikSaran> {
       Fluttertoast.showToast(
           msg: 'Form Harus Di isi!',
           toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
+          gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.grey,
           textColor: Colors.white,
