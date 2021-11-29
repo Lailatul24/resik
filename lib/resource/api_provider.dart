@@ -17,7 +17,7 @@ class ApiProvider {
     var urll = Uri.parse('$url/sampah/listsampah');
 
     try {
-      final res = await http.post(urll, headers: {
+      final res = await http.get(urll, headers: {
         'Authorization': token
       }).timeout(const Duration(seconds: 11));
       print(res.body);

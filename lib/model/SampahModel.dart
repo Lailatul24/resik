@@ -16,12 +16,10 @@ class GetSampah {
   factory GetSampah.fromJson(String str) => GetSampah.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
-//! adding json["result"] !=null ? // and : <Result>[],
+
   factory GetSampah.fromMap(Map<String, dynamic> json) => GetSampah(
         hasil: json["hasil"],
-        result: json["result"] != null
-            ? List<Result>.from(json["result"].map((x) => Result.fromMap(x)))
-            : <Result>[],
+        result: List<Result>.from(json["result"].map((x) => Result.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -47,7 +45,7 @@ class Result {
   String? id;
   String? nama;
   String? kode;
-  String? jenis;
+  Jenis? jenis;
   String? jumlah;
   int? hargaSetor;
   int? hargaJual;
@@ -63,7 +61,7 @@ class Result {
         id: json["_id"],
         nama: json["Nama"],
         kode: json["Kode"],
-        jenis: json["Jenis"],
+        jenis: Jenis.fromMap(json["Jenis"]),
         jumlah: json["Jumlah"],
         hargaSetor: json["HargaSetor"],
         hargaJual: json["HargaJual"],
@@ -76,10 +74,50 @@ class Result {
         "_id": id,
         "Nama": nama,
         "Kode": kode,
-        "Jenis": jenis,
+        "Jenis": jenis!.toMap(),
         "Jumlah": jumlah,
         "HargaSetor": hargaSetor,
         "HargaJual": hargaJual,
+        "Foto": foto,
+        "CreatedAt": createdAt!.toIso8601String(),
+        "__v": v,
+      };
+}
+
+class Jenis {
+  Jenis({
+    this.id,
+    this.nama,
+    this.kode,
+    this.foto,
+    this.createdAt,
+    this.v,
+  });
+
+  String? id;
+  String? nama;
+  String? kode;
+  String? foto;
+  DateTime? createdAt;
+  int? v;
+
+  factory Jenis.fromJson(String str) => Jenis.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Jenis.fromMap(Map<String, dynamic> json) => Jenis(
+        id: json["_id"],
+        nama: json["Nama"],
+        kode: json["Kode"],
+        foto: json["Foto"],
+        createdAt: DateTime.parse(json["CreatedAt"]),
+        v: json["__v"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "_id": id,
+        "Nama": nama,
+        "Kode": kode,
         "Foto": foto,
         "CreatedAt": createdAt!.toIso8601String(),
         "__v": v,

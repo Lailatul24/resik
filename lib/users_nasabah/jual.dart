@@ -8,6 +8,7 @@ import 'package:resik/bloc/homeController.dart';
 import 'package:resik/model/SampahModel.dart';
 import 'package:resik/prefs/prefrences.dart';
 import 'package:resik/sukses_page.dart';
+import 'package:resik/users_nasabah/alertDialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class JualSampah extends StatefulWidget {
@@ -35,7 +36,7 @@ class _JualSampahState extends State<JualSampah> {
   List namaSampah = [];
   List<Result> _listSampah = <Result>[];
   List<Result> _listSearch = <Result>[];
-
+  Color setor = Colors.grey;
   var _controller = TextEditingController();
   Timer? debounce;
   String search = '';
@@ -57,11 +58,15 @@ class _JualSampahState extends State<JualSampah> {
     _refreshController.loadComplete();
   }
 
-  Color setor = Colors.grey;
   getPref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
-    return token;
+    print(token);
+    if (token != null) {
+      con.getSampahId(token);
+    } else {
+      alertDialog(context);
+    }
   }
 
   @override
