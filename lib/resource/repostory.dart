@@ -15,7 +15,11 @@ class Repostory {
 
   Future produk() => api.produk();
 
-  Future ubahPass(BuildContext context, String username, String token,
-          String passBaru, String passLama) =>
-      api.ubahPass(context, token, username, passBaru, passLama);
+  Future ubahPass(BuildContext context, String token, String passBaru,
+          String passLama) =>
+      api.ubahPass(context, token, passBaru, passLama);
+
+  Future setor(BuildContext context, String banksampah, String username,
+          List detailSetor, String token) =>
+      api.setor(context, banksampah, username, detailSetor, token);
 }

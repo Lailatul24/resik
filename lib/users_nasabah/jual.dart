@@ -29,6 +29,8 @@ class Img {
 class _JualSampahState extends State<JualSampah> {
   final con = HomeController();
 
+  String? token;
+
   List qtyList = [];
   List totalHarga = [];
   List postDetail = [];
@@ -61,7 +63,7 @@ class _JualSampahState extends State<JualSampah> {
   getPref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
-    print(token);
+    // print(token);
     if (token != null) {
       con.getSampahId(token);
     } else {
@@ -72,6 +74,13 @@ class _JualSampahState extends State<JualSampah> {
   @override
   void initState() {
     getPref();
+    // // getKode().then((value) {
+    // //   setState(() {
+    // //     bankSampah = value;
+    // //     print(bankSampah);
+    // //   });
+    // });
+
     super.initState();
     //! menggunakan qtyList
     con.resSampah.listen((value) {
@@ -158,10 +167,12 @@ class _JualSampahState extends State<JualSampah> {
                       hintStyle:
                           TextStyle(fontSize: 15, color: Colors.grey[400])),
                   onChanged: (value) {
-                    _listSampah.where((element) {
-                      var sampah = element.nama!.toLowerCase();
-                      return sampah.contains(value);
-                    }).toList();
+                    setState(() {
+                      _listSearch = _listSampah.where((element) {
+                        var namaProduk = element.nama!.toLowerCase();
+                        return namaProduk.contains(value);
+                      }).toList();
+                    });
                   },
                 )),
             SizedBox(height: 15),
@@ -640,12 +651,7 @@ class _JualSampahState extends State<JualSampah> {
                               primary: Color(0xff85d057),
                               onPrimary: Colors.white, // foreground
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Sukses()));
-                            },
+                            onPressed: () {},
                             child: Text(
                               'Jual Sampah',
                               style: TextStyle(

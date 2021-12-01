@@ -16,7 +16,6 @@ class _UbahPinState extends State<UbahPin> {
 
   var _passBaru = TextEditingController();
   var _passLama = TextEditingController();
-  var username = TextEditingController();
 
   bool inHiddenPass = true;
   bool _isHidden = true;
@@ -24,13 +23,13 @@ class _UbahPinState extends State<UbahPin> {
   ubahPass() async {
     String passBaru = _passBaru.text;
     String passLama = _passLama.text;
-    String user = username.text;
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
+    print(token);
 
-    if (_passBaru.text != '' || _passLama.text != '' || username.text != '') {
-      con.ubahPass(context, user, token!, passBaru, passLama);
+    if (passLama.isNotEmpty || passBaru.isNotEmpty) {
+      con.ubahPass(context, token!, passBaru, passLama);
       con.resUbahPass.listen((value) async {
         if (value.hasil == true) {
           Fluttertoast.showToast(
@@ -79,31 +78,6 @@ class _UbahPinState extends State<UbahPin> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Username",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-              height: 50,
-              child: TextField(
-                controller: username,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Color(0xffE5E5E5),
-                  hintText: "Masukkan username",
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
