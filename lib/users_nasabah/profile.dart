@@ -21,20 +21,22 @@ class Profile extends StatefulWidget {
 }
 
 class Img {
-  String nama; String images;
-  Img({required this.nama, required this.images });
+  String nama;
+  String images;
+  Img({required this.nama, required this.images});
 }
 
 class _ProfileState extends State<Profile> {
   List<Result> _listUsers = <Result>[];
-  
+
   final con = HomeController();
-  Future<void> komen() async{
+  Future<void> komen() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-      String? token = pref.getString('token');
-      token == null ? KritikSaran() : alertDialog(context);
+    String? token = pref.getString('token');
+    token == null ? KritikSaran() : alertDialog(context);
   }
-  Future foto()async{
+
+  Future foto() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     return pref.getString('token');
   }
@@ -49,119 +51,120 @@ class _ProfileState extends State<Profile> {
             height: 60,
           ),
           FutureBuilder(
-            future: SharedPreferences.getInstance(),
-            builder: (context, AsyncSnapshot<SharedPreferences>pref) {
-              var x = pref.data;
-              if(x?.getString('token')== null){
-                return FittedBox(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 40,
-                    ),
-                    CircleAvatar(
-                      radius: 39,
-                      backgroundImage: AssetImage('assets/images/a.jpg'),
-                      backgroundColor: Colors.grey,
-                    ),
-                    SizedBox(
-                      width: 60,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Login()));
-                      },
-                      child: Text('Login'),
-                      style: ElevatedButton.styleFrom(
-                        elevation: 10,
-                        primary: Color(0xff85d057),
-                        minimumSize: Size(100, 40),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 17,
-                    ),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Register()));
-                      },
-                      child: Text('Daftar'),
-                      style: OutlinedButton.styleFrom(
-                        primary: Color(0xFF000000),
-                        minimumSize: Size(100, 40),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    )
-                  ],
-                ),
-              );
-                
-              }
-              return Container(
-            child: StreamBuilder<UsersModel>(
-              stream: con.resUsers.stream,
-              builder: (_, snapshot) {
-                if (snapshot.hasData){
-                  if (snapshot.data!.result ==null){
-                    return Center(
-                      child: Text('Data kosong'),
-                    );
-                  
-                }else{
-                return ListView.builder(
-                  itemCount: _listUsers.length,
-                  itemBuilder: (context, index){
-                    Result users = _listUsers[index];
-                 return Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 40,
-                      ),
-                      CircleAvatar(
-                        radius: 39,
-                        backgroundImage: AssetImage(users.foto!),
-                        backgroundColor: Colors.grey,
-                      ),
-                      SizedBox(
-                        width: 40,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            users.username!,
-                            style: TextStyle(
-                                color: Color(0xff303030),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                fontFamily: "Nunito Sans"),
+              future: SharedPreferences.getInstance(),
+              builder: (context, AsyncSnapshot<SharedPreferences> pref) {
+                var x = pref.data;
+                if (x?.getString('token') == null) {
+                  return FittedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 40,
+                        ),
+                        CircleAvatar(
+                          radius: 39,
+                          backgroundImage: AssetImage('assets/images/a.jpg'),
+                          backgroundColor: Colors.grey,
+                        ),
+                        SizedBox(
+                          width: 60,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Login()));
+                          },
+                          child: Text('Login'),
+                          style: ElevatedButton.styleFrom(
+                            elevation: 10,
+                            primary: Color(0xff85d057),
+                            minimumSize: Size(100, 40),
                           ),
-                          Text(
-                            'dimas@gmail.com',
-                            style: TextStyle(
-                                color: Color(0xff808080),
-                                fontSize: 14,
-                                fontFamily: "Nunito Sans"),
-                          )
-                        ],
-                      ),
-                    ],
+                        ),
+                        SizedBox(
+                          width: 17,
+                        ),
+                        OutlinedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Register()));
+                          },
+                          child: Text('Daftar'),
+                          style: OutlinedButton.styleFrom(
+                            primary: Color(0xFF000000),
+                            minimumSize: Size(100, 40),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        )
+                      ],
+                    ),
                   );
-                });
                 }
-                }
-                return Center(child: CircularProgressIndicator());
-              }
-            ),
-          );
-            }
-          ),
+                return Container(
+                  child: StreamBuilder<UsersModel>(
+                      // stream: con.resUsers.stream,
+                      builder: (_, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.result == null) {
+                        return Center(
+                          child: Text('Data kosong'),
+                        );
+                      } else {
+                        return ListView.builder(
+                            itemCount: _listUsers.length,
+                            itemBuilder: (context, index) {
+                              Result users = _listUsers[index];
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 40,
+                                  ),
+                                  CircleAvatar(
+                                    radius: 39,
+                                    backgroundImage: AssetImage(users.foto!),
+                                    backgroundColor: Colors.grey,
+                                  ),
+                                  SizedBox(
+                                    width: 40,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        users.username!,
+                                        style: TextStyle(
+                                            color: Color(0xff303030),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            fontFamily: "Nunito Sans"),
+                                      ),
+                                      Text(
+                                        'dimas@gmail.com',
+                                        style: TextStyle(
+                                            color: Color(0xff808080),
+                                            fontSize: 14,
+                                            fontFamily: "Nunito Sans"),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              );
+                            });
+                      }
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  }),
+                );
+              }),
           SizedBox(
             height: 30,
           ),
@@ -175,11 +178,14 @@ class _ProfileState extends State<Profile> {
                     shape: RoundedRectangleBorder(),
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
-                  onPressed: () async{
-                    SharedPreferences pref = await SharedPreferences.getInstance();
-                       String? token = pref.getString('token');
-                          token == null ? alertDialog(context) :  Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Saldo()));
+                  onPressed: () async {
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    String? token = pref.getString('token');
+                    token == null
+                        ? alertDialog(context)
+                        : Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Saldo()));
                   },
                   child: Row(
                     children: [
@@ -230,11 +236,14 @@ class _ProfileState extends State<Profile> {
                     shape: RoundedRectangleBorder(),
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
-                  onPressed: () async{
-                    SharedPreferences pref = await SharedPreferences.getInstance();
-                       String? token = pref.getString('token');
-                          token == null ? alertDialog(context) :  Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => UbahPin()));
+                  onPressed: () async {
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    String? token = pref.getString('token');
+                    token == null
+                        ? alertDialog(context)
+                        : Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => UbahPin()));
                   },
                   child: Row(
                     children: [
@@ -285,11 +294,16 @@ class _ProfileState extends State<Profile> {
                     shape: RoundedRectangleBorder(),
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
-                  onPressed: () async{
-                    SharedPreferences pref = await SharedPreferences.getInstance();
-                       String? token = pref.getString('token');
-                          token == null ? alertDialog(context) :  Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => KritikSaran()));
+                  onPressed: () async {
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    String? token = pref.getString('token');
+                    token == null
+                        ? alertDialog(context)
+                        : Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => KritikSaran()));
                   },
                   child: Row(
                     children: [

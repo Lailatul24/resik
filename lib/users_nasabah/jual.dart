@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ffi';
 import 'dart:math';
 import 'dart:ui';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -30,6 +31,9 @@ class Img {
 class _JualSampahState extends State<JualSampah> {
   final con = HomeController();
 
+  String? token;
+  String? banksampah = "jLReOov";
+  String? username = 'Nasabah1';
   List<Result> _listSampah = <Result>[];
   List<Result> _listSearch = <Result>[];
   List<CartSampah> _listCart = [];
@@ -39,8 +43,8 @@ class _JualSampahState extends State<JualSampah> {
   Timer? debounce;
   String search = '';
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  // RefreshController _refreshController =
+  //     RefreshController(initialRefresh: false);
 
   // void _onRefresh() async {
   //   await Future.delayed(Duration(milliseconds: 1000));
@@ -56,23 +60,30 @@ class _JualSampahState extends State<JualSampah> {
   //   _refreshController.loadComplete();
   // }
 
-  getPref() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String? token = pref.getString('token');
-    // print(token);
-    if (token != null) {
-      con.getSampahId(token);
-    } else {
-      alertDialog(context);
-    }
-  }
+  // getPref() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   String? token = pref.getString('token');
+  //   // print(token);
+  //   if (token != null) {
+  //     con.getSampahId(token);
+  //   } else {
+  //     alertDialog(context);
+  //   }
+  // }
 
   @override
   void initState() {
-    getPref();
-
-    //! menggunakan qtyList
-    con.getSampahId('');
+    getToken().then((value) {
+      if (value != null) {
+        con.getSampahId(value);
+        setState(() {
+          token = value;
+          print(token);
+        });
+      } else {
+        alertDialog(context);
+      }
+    });
     con.resSampah.listen((value) {
       _listSampah.addAll(value.result!);
       value.result!.forEach((e) {
@@ -98,12 +109,36 @@ class _JualSampahState extends State<JualSampah> {
           'kode': e.kode,
           'jumlah': e.qty,
         };
-
         items.add(item);
+      } else {
+        e.qty = 0;
       }
     });
 
-    print(items);
+    con.setor(context, banksampah!, username!, items, token!);
+    con.resSetor.listen((value) {
+      if (value.hasil == true) {
+        Fluttertoast.showToast(
+            msg: "Berhasil",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => Sukses()));
+      } else {
+        Fluttertoast.showToast(
+            msg: "Gagal",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    });
   }
 
   // @override
@@ -338,7 +373,7 @@ class _JualSampahState extends State<JualSampah> {
                               primary: Color(0xff85d057),
                               onPrimary: Colors.white, // foreground
                             ),
-                            onPressed: () {},
+                            onPressed: () => _onJual(),
                             child: Text(
                               'Jual Sampah',
                               style: TextStyle(
