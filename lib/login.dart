@@ -36,10 +36,12 @@ class _LoginState extends State<Login> {
         );
       });
     } else {
+      CircularProgressIndicator();
       con.login(context, username, pass);
       con.resLogin.listen((value) async {
         if (value.hasil == true) {
           await shared.setString('token', value.token!);
+          await shared.setString('username', value.message!);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
