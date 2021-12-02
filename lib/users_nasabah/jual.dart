@@ -59,7 +59,7 @@ class _JualSampahState extends State<JualSampah> {
   getPref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
-    print(token);
+    // print(token);
     if (token != null) {
       con.getSampahId(token);
     } else {
@@ -339,12 +339,7 @@ class _JualSampahState extends State<JualSampah> {
                               primary: Color(0xff85d057),
                               onPrimary: Colors.white, // foreground
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Sukses()));
-                            },
+                            onPressed: () {},
                             child: Text(
                               'Jual Sampah',
                               style: TextStyle(

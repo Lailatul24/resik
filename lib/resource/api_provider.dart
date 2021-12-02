@@ -8,6 +8,7 @@ import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
 import 'package:resik/model/SampahModel.dart';
 import 'package:resik/model/KomentarModel.dart';
+import 'package:resik/model/SetorModel.dart';
 import 'package:resik/model/UbahPass.dart';
 import 'package:resik/model/UsersModel.dart';
 
@@ -21,7 +22,7 @@ class ApiProvider {
       final res = await http.get(urll, headers: {
         'Authorization': token
       }).timeout(const Duration(seconds: 11));
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         return GetSampah.fromJson(res.body);
       } else if (res.statusCode == 404) {
@@ -100,13 +101,9 @@ class ApiProvider {
     }
   }
 
-  Future ubahPass(BuildContext context, String username, String passBaru,
-      String passLama, String token) async {
-    var body = jsonEncode({
-      'username': username,
-      'passwordLama': passLama,
-      'passwordBaru': passBaru
-    });
+  Future ubahPass(BuildContext context, String passBaru, String passLama,
+      String token) async {
+    var body = jsonEncode({'passwordLama': passLama, 'passwordBaru': passBaru});
     var urll = Uri.parse(url + '/nasabah/editpassword');
 
     try {
@@ -178,18 +175,32 @@ class ApiProvider {
       throw Exception(e.toString());
     }
   }
-  Future<UsersModel> getUsers() async {
-    var urll = Uri.parse('$url/nasabah/byid/Nasabah1');
+
+  Future setor(BuildContext context, String banksampah, String username,
+      List detailSetor, String token) async {
+    var body = jsonEncode({
+      'banksampah': banksampah,
+      'username': username,
+      'penyetoran': detailSetor
+    });
+    var urll = Uri.parse(url + '/setorsampah/setor');
 
     try {
-      final res = await http.get(urll).timeout(const Duration(seconds: 11));
+      final res = await http
+          .post(urll,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+              },
+              body: body)
+          .timeout(const Duration(seconds: 11));
       print(res.body);
       if (res.statusCode == 200) {
-        return UsersModel.fromJson(res.body);
+        return SetorSampah.fromJson(res.body);
       } else if (res.statusCode == 400) {
-        return UsersModel.fromJson(res.body);
+        return SetorSampah.fromJson(res.body);
       } else {
-        throw Exception('Failur Respon');
+        throw Exception("Failur Respons!");
       }
     } on SocketException catch (e) {
       throw Exception(e.toString());
