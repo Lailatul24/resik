@@ -10,6 +10,7 @@ import 'package:resik/model/SampahModel.dart';
 import 'package:resik/model/KomentarModel.dart';
 import 'package:resik/model/SetorModel.dart';
 import 'package:resik/model/UbahPass.dart';
+import 'package:resik/model/UsersModel.dart';
 
 class ApiProvider {
   var url = "http://147.139.193.105/resik/v1";

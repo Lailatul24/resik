@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:resik/model/UsersModel.dart';
 import 'package:flutter/material.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/intro.dart';
@@ -13,23 +13,21 @@ import 'package:resik/users_nasabah/kritiksaran.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+  final String? token;
+  const Profile({Key? key, this.token}) : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class Img {
-  String images;
-  Img({required this.images});
+  String nama; String images;
+  Img({required this.nama, required this.images });
 }
 
-List<Img> _gambar = [
-  Img(images: "assets/images/profile.png"),
-  Img(images: "assets/images/a.jpg"),
-];
-
 class _ProfileState extends State<Profile> {
+  List<Result> _listUsers = <Result>[];
+  
   final con = HomeController();
   Future<void> komen() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -64,7 +62,7 @@ class _ProfileState extends State<Profile> {
                     ),
                     CircleAvatar(
                       radius: 39,
-                      backgroundImage: AssetImage(_gambar[0].images),
+                      backgroundImage: AssetImage('assets/images/a.jpg'),
                       backgroundColor: Colors.grey,
                     ),
                     SizedBox(
@@ -105,41 +103,61 @@ class _ProfileState extends State<Profile> {
                 
               }
               return Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 40,
-                ),
-                CircleAvatar(
-                  radius: 39,
-                  backgroundImage: AssetImage('assets/images/profile.png'),
-                  backgroundColor: Colors.grey,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Sanburn',
-                      style: TextStyle(
-                          color: Color(0xff303030),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          fontFamily: "Nunito Sans"),
-                    ),
-                    Text(
-                      'dimas@gmail.com',
-                      style: TextStyle(
-                          color: Color(0xff808080),
-                          fontSize: 14,
-                          fontFamily: "Nunito Sans"),
-                    )
-                  ],
-                ),
-              ],
+            child: StreamBuilder<UsersModel>(
+              stream: con.resUsers.stream,
+              builder: (_, snapshot) {
+                if (snapshot.hasData){
+                  if (snapshot.data!.result ==null){
+                    return Center(
+                      child: Text('Data kosong'),
+                    );
+                  
+                }else{
+                return ListView.builder(
+                  itemCount: _listUsers.length,
+                  itemBuilder: (context, index){
+                    Result users = _listUsers[index];
+                 return Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 40,
+                      ),
+                      CircleAvatar(
+                        radius: 39,
+                        backgroundImage: AssetImage(users.foto!),
+                        backgroundColor: Colors.grey,
+                      ),
+                      SizedBox(
+                        width: 40,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            users.username!,
+                            style: TextStyle(
+                                color: Color(0xff303030),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                fontFamily: "Nunito Sans"),
+                          ),
+                          Text(
+                            'dimas@gmail.com',
+                            style: TextStyle(
+                                color: Color(0xff808080),
+                                fontSize: 14,
+                                fontFamily: "Nunito Sans"),
+                          )
+                        ],
+                      ),
+                    ],
+                  );
+                });
+                }
+                }
+                return Center(child: CircularProgressIndicator());
+              }
             ),
           );
             }

@@ -7,6 +7,7 @@ import 'package:resik/model/KomentarModel.dart';
 import 'package:resik/model/SampahModel.dart';
 import 'package:resik/model/SetorModel.dart';
 import 'package:resik/model/UbahPass.dart';
+import 'package:resik/model/UsersModel.dart';
 import 'package:resik/resource/repostory.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -35,7 +36,14 @@ class HomeController {
       print(e.toString());
     }
   }
-
+  // Future getUsers() async{
+  //   try{
+  //     UsersModel usersModel = await repostory.getUsers();
+  //     _usersFetchar.sink.add(usersModel);  
+  //   } catch(e){
+  //     print(e.toString());
+  //   }
+  // }
   Future produk() async {
     try {
       Produk produk = await repostory.produk();
