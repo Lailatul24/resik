@@ -9,6 +9,7 @@ import 'package:resik/model/Produk.dart';
 import 'package:resik/model/SampahModel.dart';
 import 'package:resik/model/KomentarModel.dart';
 import 'package:resik/model/UbahPass.dart';
+import 'package:resik/model/UsersModel.dart';
 
 class ApiProvider {
   var url = "http://147.139.193.105/resik/v1";
@@ -164,6 +165,31 @@ class ApiProvider {
         return KomentarModel.fromJson(res.body);
       } else {
         throw Exception("Failur Respons!");
+      }
+    } on SocketException catch (e) {
+      throw Exception(e.toString());
+    } on HttpException {
+      {
+        throw Exception("Tidak Menemukan Post");
+      }
+    } on FormatException {
+      throw Exception("Request Salah");
+    } on TimeoutException catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+  Future<UsersModel> getUsers() async {
+    var urll = Uri.parse('$url/nasabah/byid/Nasabah1');
+
+    try {
+      final res = await http.get(urll).timeout(const Duration(seconds: 11));
+      print(res.body);
+      if (res.statusCode == 200) {
+        return UsersModel.fromJson(res.body);
+      } else if (res.statusCode == 400) {
+        return UsersModel.fromJson(res.body);
+      } else {
+        throw Exception('Failur Respon');
       }
     } on SocketException catch (e) {
       throw Exception(e.toString());

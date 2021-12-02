@@ -18,4 +18,5 @@ class Repostory {
   Future ubahPass(BuildContext context, String username, String token,
           String passBaru, String passLama) =>
       api.ubahPass(context, token, username, passBaru, passLama);
+  Future getUsers() => api.getUsers();
 }

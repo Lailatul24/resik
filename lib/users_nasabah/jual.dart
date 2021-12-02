@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ffi';
 import 'dart:math';
 import 'dart:ui';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:resik/bloc/homeController.dart';
@@ -29,13 +30,10 @@ class Img {
 class _JualSampahState extends State<JualSampah> {
   final con = HomeController();
 
-  List qtyList = [];
-  List totalHarga = [];
-  List postDetail = [];
-  List hargaSetor = [];
-  List namaSampah = [];
   List<Result> _listSampah = <Result>[];
   List<Result> _listSearch = <Result>[];
+  List<CartSampah> _listCart = [];
+  final formatter = NumberFormat('#,##0', 'id_ID');
   Color setor = Colors.grey;
   var _controller = TextEditingController();
   Timer? debounce;
@@ -44,19 +42,19 @@ class _JualSampahState extends State<JualSampah> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  void _onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-    _listSampah.clear();
+  // void _onRefresh() async {
+  //   await Future.delayed(Duration(milliseconds: 1000));
+  //   _listSampah.clear();
 
-    _refreshController.refreshCompleted();
-  }
+  //   _refreshController.refreshCompleted();
+  // }
 
-  void _onLoading() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-    _listSampah.clear();
+  // void _onLoading() async {
+  //   await Future.delayed(Duration(milliseconds: 1000));
+  //   _listSampah.clear();
 
-    _refreshController.loadComplete();
-  }
+  //   _refreshController.loadComplete();
+  // }
 
   getPref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -72,30 +70,41 @@ class _JualSampahState extends State<JualSampah> {
   @override
   void initState() {
     getPref();
-    super.initState();
+    
     //! menggunakan qtyList
+    con.getSampahId('');
     con.resSampah.listen((value) {
-      for (var i = 0; i < value.result!.length; i++) {
-        qtyList.add(0);
-        postDetail.add(0);
-        namaSampah.add(0);
-        hargaSetor.add(0);
-        totalHarga.add(0);
-      }
-
-      if (mounted)
-        setState(() {
-          if (_listSampah.isNotEmpty) {
-            if (mounted)
-              setState(() {
-                _listSampah.clear();
-              });
-          } else {
-            _listSampah.addAll(value.result!);
-            _listSearch = _listSampah;
-          }
-        });
+      _listSampah.addAll(value.result!);
+      value.result!.forEach((e) {
+        _listCart.add(CartSampah(
+          kode: e.kode,
+          qty: 0,
+          nama: e.nama,
+          harga: e.hargaSetor,
+          jumlah: 0,
+        ));
+      });
+    setState(() {
+      
     });
+    super.initState();
+    });
+  }
+  void _onJual() {
+    List items = [];
+
+    _listCart.forEach((e) {
+      if (e.qty! > 0) {
+        var item = {
+          'kode': e.kode,
+          'jumlah': e.qty,
+        };
+
+        items.add(item);
+      }
+    });
+
+    print(items);
   }
 
   // @override
@@ -107,6 +116,7 @@ class _JualSampahState extends State<JualSampah> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         body: SafeArea(
             child: Stack(children: [
@@ -157,293 +167,39 @@ class _JualSampahState extends State<JualSampah> {
                       hintText: "Search Sampah",
                       hintStyle:
                           TextStyle(fontSize: 15, color: Colors.grey[400])),
-                  onChanged: (value) {
-                    _listSampah.where((element) {
-                      var sampah = element.nama!.toLowerCase();
-                      return sampah.contains(value);
-                    }).toList();
-                  },
+                  onChanged: (value) {_onSearch(value);},
                 )),
             SizedBox(height: 15),
             Container(
                 height: MediaQuery.of(context).size.height,
-                child: _listSearch.isEmpty
-                    ? Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.white,
-                        // padding: EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Expanded(
-                              child: ListView.builder(
-                                padding: EdgeInsets.only(top: 8),
-                                scrollDirection: Axis.vertical,
-                                itemBuilder: (context, _) => Padding(
-                                  padding: const EdgeInsets.only(left: 12.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Container(
-                                        margin: EdgeInsets.only(bottom: 12),
-                                        height: 110,
-                                        width: 110,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: Colors.white),
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                bottom: 8, top: 8, left: 8),
-                                            height: 10,
-                                            width: 150,
-                                            color: Colors.white,
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                bottom: 8, left: 8),
-                                            height: 10,
-                                            width: 200,
-                                            color: Colors.white,
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(left: 8),
-                                            height: 10,
-                                            width: 80,
-                                            color: Colors.white,
-                                          ),
-                                          SizedBox(
-                                            height: 3,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                itemCount: 6,
-                              ),
-                            ),
-                          ],
-                        ))
-                    : SmartRefresher(
-                        enablePullDown: true,
-                        enablePullUp: false,
-                        header: WaterDropMaterialHeader(),
-                        controller: _refreshController,
-                        onRefresh: _onRefresh,
-                        onLoading: _onLoading,
-                        child: Container(
-                          padding: EdgeInsets.only(bottom: 70),
-                          height: 400,
-                          child: _listSearch.isEmpty
-                              ? Center(child: CircularProgressIndicator())
-                              : ListView.builder(
-                                  physics: BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: _listSearch.length,
-                                  itemBuilder: (context, index) {
-                                    if (qtyList[index] != 0) {
-                                      postDetail[index] = {
-                                        "id_sampah": _listSampah[index].id,
-                                        "Jumlah": qtyList[index],
-                                        "harga": _listSampah[index].hargaSetor
-                                      };
-                                      namaSampah[index] =
-                                          _listSampah[index].nama;
-                                      hargaSetor[index] =
-                                          _listSampah[index].hargaSetor;
-                                    } else {
-                                      postDetail[index] = 0;
-                                      namaSampah[index] = 0;
-                                      hargaSetor[index] = 0;
-                                    }
-                                    Result sampah = _listSampah[index];
-                                    return Container(
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                child: Text("data")),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Container(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  sampah.nama!,
-                                                  style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                SizedBox(
-                                                  height: 20,
-                                                ),
-                                                Container(
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      qtyList[index] != 0
-                                                          ? Container(
-                                                              margin: EdgeInsets
-                                                                  .all(10),
-                                                              width: 35,
-                                                              height: 35,
-                                                              child: TextButton(
-                                                                child: Align(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .remove,
-                                                                      size: 20,
-                                                                      color: Color(
-                                                                          0xff909090),
-                                                                    )),
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    qtyList[index] =
-                                                                        qtyList[index] -
-                                                                            1;
-                                                                    totalHarga[
-                                                                        index] = _listSampah[index]
-                                                                            .hargaSetor! *
-                                                                        qtyList[
-                                                                            index];
-                                                                    if (totalHarga.reduce((a,
-                                                                                b) =>
-                                                                            a +
-                                                                            b) ==
-                                                                        0) {
-                                                                      setor = Colors
-                                                                          .grey;
-                                                                    } else {
-                                                                      setor = Colors
-                                                                          .green;
-                                                                    }
-                                                                  });
-                                                                },
-                                                                style: TextButton.styleFrom(
-                                                                    backgroundColor:
-                                                                        Color(
-                                                                            0xffE0E0E0),
-                                                                    shape: RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10))),
-                                                              ),
-                                                            )
-                                                          : Container(
-                                                              margin: EdgeInsets
-                                                                  .all(10),
-                                                              width: 35,
-                                                              height: 35,
-                                                              child: TextButton(
-                                                                onPressed:
-                                                                    () {},
-                                                                child: Icon(
-                                                                  Icons.remove,
-                                                                  size: 20,
-                                                                  color: Color(
-                                                                      0xff909090),
-                                                                ),
-                                                                style: TextButton.styleFrom(
-                                                                    backgroundColor:
-                                                                        Color(
-                                                                            0xffE0E0E0),
-                                                                    shape: RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10))),
-                                                              ),
-                                                            ),
-                                                      Text(qtyList[index]
-                                                          .toString()),
-                                                      Container(
-                                                          margin:
-                                                              EdgeInsets.all(
-                                                                  10),
-                                                          width: 35,
-                                                          height: 35,
-                                                          child: TextButton(
-                                                            child: Align(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                child: Icon(
-                                                                  Icons.add,
-                                                                  size: 20,
-                                                                  color: Color(
-                                                                      0xff909090),
-                                                                )),
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                qtyList[index] =
-                                                                    qtyList[index] +
-                                                                        1;
-                                                                totalHarga[
-                                                                    index] = _listSampah[
-                                                                            index]
-                                                                        .hargaSetor! *
-                                                                    qtyList[
-                                                                        index];
-                                                                if (totalHarga.reduce(
-                                                                        (a, b) =>
-                                                                            a +
-                                                                            b) ==
-                                                                    0) {
-                                                                  setor = Colors
-                                                                      .grey;
-                                                                } else {
-                                                                  setor = Colors
-                                                                      .green;
-                                                                }
-                                                              });
-                                                            },
-                                                            style: TextButton.styleFrom(
-                                                                backgroundColor:
-                                                                    Color(
-                                                                        0xffE0E0E0),
-                                                                shape: RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10))),
-                                                          )),
-                                                      Text(
-                                                        "Rp : " +
-                                                            sampah.hargaSetor!
-                                                                .toString(),
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  }),
-                        ),
-                      )),
+                child: StreamBuilder<GetSampah>(
+                  stream: con.resSampah,
+                  builder: (context, snap) {
+                    if (snap.hasData){
+                      var result = snap.data!.result;
+                      if (result!.isEmpty){
+                        return Center(
+                          child: Text('NO Foking Data'),
+                        );
+                      } else {
+                        if(_listSearch.isNotEmpty){
+                          return ListView(
+                                      padding: EdgeInsets.fromLTRB(20, 0, 20, 50),
+                                        children: _listSearch.map((e)=>_cardSampah(e)).toList(),
+                                      );
+                            
+                          
+                        }return ListView(
+                          padding: EdgeInsets.fromLTRB(20, 0, 20, 50),
+                                        children: result.map((e)=>_cardSampah(e)).toList(),
+                          );
+                      }
+                    
+                    }else {
+                      return Center(child: CircularProgressIndicator(),);
+                    }
+                  }
+                )),
           ]),
         ),
       ),
@@ -535,69 +291,16 @@ class _JualSampahState extends State<JualSampah> {
                       ),
                       Container(
                         height: 250,
-                        child: ListView.builder(
+                        child: ListView(
                             padding: EdgeInsets.only(top: 0, bottom: 68),
-                            itemCount: _listSampah.length,
-                            itemBuilder: (context, index) {
-                              return namaSampah[index] != 0
-                                  ? Container(
-                                      padding: EdgeInsets.all(8),
-                                      margin: EdgeInsets.only(
-                                        left: 2,
-                                        right: 2,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                                color: Colors.black,
-                                                width: 1.0),
-                                          ),
-                                          color: Colors.grey),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Container(
-                                            width: 110,
-                                            height: 30,
-                                            child: Text(
-                                              "${namaSampah[index]}",
-                                              style: TextStyle(
-                                                  fontFamily: "Open Sans"),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 30,
-                                            child: Text(
-                                              "${qtyList[index]}",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontFamily: "Open Sans"),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 30,
-                                            child: Text(
-                                              "${hargaSetor[index]}",
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                  fontFamily: "Open Sans"),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 30,
-                                            child: Text(
-                                              "Rp. ${totalHarga[index]}",
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                  fontFamily: "Open Sans"),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  : Container();
-                            }),
+                            children: _listCart.map((e) {
+                              if (e.qty! <= 0 ){
+                                return Container();
+                              }else{
+                                return _itemCart(e);
+                              }
+                            }).toList(),
+                             ),
                       ),
                     ],
                   )
@@ -624,11 +327,7 @@ class _JualSampahState extends State<JualSampah> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Total"),
-                            Text(
-                              "Rp. ${totalHarga.reduce((a, b) => a + b)}",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )
+                            _cartJumlah()
                           ],
                         ),
                       ),
@@ -686,4 +385,225 @@ class _JualSampahState extends State<JualSampah> {
 
   //   setState(() {});
   // }
+   Widget _cartJumlah() {
+    int total = 0;
+    _listCart.forEach((e) {
+      total += e.qty! * e.harga!;
+    });
+    return Text(
+      'Rp. ${formatter.format(total)}',
+      style: TextStyle(
+        fontSize: 26,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+Container _cardSampah(Result res){
+  var cart = _listCart.firstWhere((e) => e.kode == res.kode);
+  return Container(
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: ClipRRect(
+                    borderRadius:
+                        BorderRadius.circular(10.0),
+                    child: Text("data")),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Container(
+                child: Column(
+                  mainAxisAlignment:
+                      MainAxisAlignment.start,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      res.nama!,
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight:
+                              FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                              Container(
+                                  margin: EdgeInsets
+                                      .all(10),
+                                  width: 35,
+                                  height: 35,
+                                  child: TextButton(
+                                    child: Align(
+                                        alignment:
+                                            Alignment
+                                                .center,
+                                        child: Icon(
+                                          Icons
+                                              .remove,
+                                          size: 20,
+                                          color: Color(
+                                              0xff909090),
+                                        )),
+                                    onPressed: () {
+                                      if (cart.qty != 0 ){
+                                        cart.qty = cart.qty! - 0;
+                                        setState(() {
+                                          
+                                        });
+                                      }
+                                    },
+                                    style: TextButton.styleFrom(
+                                        backgroundColor:
+                                            Color(
+                                                0xffE0E0E0),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10))),
+                                  ),
+                                ),
+                          Text('${cart.qty}'),
+                          Container(
+                              margin:
+                                  EdgeInsets.all(
+                                      10),
+                              width: 35,
+                              height: 35,
+                              child: TextButton(
+                                child: Align(
+                                    alignment:
+                                        Alignment
+                                            .center,
+                                    child: Icon(
+                                      Icons.add,
+                                      size: 20,
+                                      color: Color(
+                                          0xff909090),
+                                    )),
+                                onPressed: () {
+                                  cart.qty = cart.qty! + 1;
+                                  setState(() {
+                                    
+                                  });
+                                },
+                                style: TextButton.styleFrom(
+                                    backgroundColor:
+                                        Color(
+                                            0xffE0E0E0),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(
+                                                10))),
+                              )),
+                          Text(
+                            'Rp. ${formatter.format(res.hargaSetor!)}'
+                                    .toString(),
+                            style: TextStyle(
+                                fontWeight:
+                                    FontWeight
+                                        .bold),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+}
+Widget _itemCart(CartSampah e){
+  var jumlah= e.qty! * e.harga!;
+            return Container(
+                padding: EdgeInsets.all(8),
+                margin: EdgeInsets.only(
+                  left: 2,
+                  right: 2,
+                ),
+                decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                          color: Colors.black,
+                          width: 1.0),
+                    ),
+                    color: Colors.grey),
+                child: Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      width: 110,
+                      height: 30,
+                      child: Text(
+                        "${e.nama}",
+                        style: TextStyle(
+                            fontFamily: "Open Sans"),
+                      ),
+                    ),
+                    Container(
+                      height: 30,
+                      child: Text(
+                        "${e.qty}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: "Open Sans"),
+                      ),
+                    ),
+                    Container(
+                      height: 30,
+                      child: Text(
+                        "Rp. ${formatter.format(e.harga)}",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                            fontFamily: "Open Sans"),
+                      ),
+                    ),
+                    Container(
+                      height: 30,
+                      child: Text(
+                        "Rp. ${formatter.format(jumlah)}",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                            fontFamily: "Open Sans"),
+                      ),
+                    ),
+                  ],
+                ),
+              );                     
+}
+_onSearch(String search){
+  _listSearch.clear();
+  if(search.isNotEmpty){
+    _listSearch.addAll(
+      _listSampah.where((e) => e.nama!.toLowerCase().contains(search.toLowerCase()),
+    ),
+    );
+  }
+  setState(() {
+    
+  });
+}
+
+}
+
+class CartSampah {
+  CartSampah({
+    this.jumlah,
+    this.kode,
+    this.harga,
+    this.nama,
+    this.qty,
+  });
+
+  int? jumlah;
+  int? qty;
+  int? harga;
+  String? kode;
+  String? nama;
 }
