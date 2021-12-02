@@ -104,15 +104,13 @@ class _JualSampahState extends State<JualSampah> {
     List items = [];
 
     _listCart.forEach((e) {
-      if (e.qty! > 0) {
+      if (e.qty! > 1) {
         var item = {
           'kode': e.kode,
           'jumlah': e.qty,
         };
         items.add(item);
-      } else {
-        e.qty = 0;
-      }
+      } 
     });
 
     con.setor(context, banksampah!, username!, items, token!);
@@ -219,14 +217,14 @@ class _JualSampahState extends State<JualSampah> {
                         } else {
                           if (_listSearch.isNotEmpty) {
                             return ListView(
-                              padding: EdgeInsets.fromLTRB(20, 0, 20, 50),
+                              padding: EdgeInsets.only(bottom: 50),
                               children: _listSearch
                                   .map((e) => _cardSampah(e))
                                   .toList(),
                             );
                           }
                           return ListView(
-                            padding: EdgeInsets.fromLTRB(20, 0, 20, 50),
+                            padding: EdgeInsets.only(bottom: 380),
                             children:
                                 result.map((e) => _cardSampah(e)).toList(),
                           );
@@ -470,7 +468,7 @@ class _JualSampahState extends State<JualSampah> {
                               )),
                           onPressed: () {
                             if (cart.qty != 0) {
-                              cart.qty = cart.qty! - 0;
+                              cart.qty = cart.qty! - 1;
                               setState(() {});
                             }
                           },

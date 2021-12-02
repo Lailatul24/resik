@@ -71,11 +71,11 @@ class HomeController {
     }
   }
 
-  ubahPass(BuildContext context, String token, String passBaru,
-      String passLama) async {
+  ubahPass(BuildContext context, String passBaru,
+      String passLama, token) async {
     try {
       UbahPassword ubah =
-          await repostory.ubahPass(context, token, passBaru, passLama);
+          await repostory.ubahPass(context, passBaru, passLama, token);
       _ubahpassFetchar.sink.add(ubah);
     } catch (e) {
       print(e.toString());

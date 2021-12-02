@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/prefs/prefrences.dart';
+import 'package:resik/main_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UbahPin extends StatefulWidget {
@@ -29,17 +30,24 @@ class _UbahPinState extends State<UbahPin> {
     print(token);
 
     if (passLama.isNotEmpty || passBaru.isNotEmpty) {
-      con.ubahPass(context, token!, passBaru, passLama);
+      con.ubahPass(context, passBaru, passLama, token!);
       con.resUbahPass.listen((value) async {
         if (value.hasil == true) {
+          Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(),
+          ),
+        );
           Fluttertoast.showToast(
               msg: 'berhasil',
               toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
+              gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 1,
               backgroundColor: Colors.grey,
               textColor: Colors.white,
               fontSize: 16.0);
+              
         } else {
           Fluttertoast.showToast(
               msg: 'gagal',

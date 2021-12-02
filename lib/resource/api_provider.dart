@@ -101,8 +101,7 @@ class ApiProvider {
     }
   }
 
-  Future ubahPass(BuildContext context, String passBaru, String passLama,
-      String token) async {
+  Future ubahPass(BuildContext context, String passBaru, String passLama, token) async {
     var body = jsonEncode({'passwordLama': passLama, 'passwordBaru': passBaru});
     var urll = Uri.parse(url + '/nasabah/editpassword');
 
