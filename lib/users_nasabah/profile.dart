@@ -27,7 +27,8 @@ class Img {
 }
 
 class _ProfileState extends State<Profile> {
-  List<Result> _listUsers = <Result>[];
+  // List<Result> _listUsers = <Result>[];
+  String? token;
 
   final con = HomeController();
   Future<void> komen() async {
@@ -40,6 +41,18 @@ class _ProfileState extends State<Profile> {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     return pref.getString('token');
   }
+  @override
+  void initState() {
+    getToken().then((value) {
+      con.users(context, value);
+      setState(() {
+        token = value;
+       
+      });
+      
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +64,11 @@ class _ProfileState extends State<Profile> {
             height: 60,
           ),
           FutureBuilder(
-              future: SharedPreferences.getInstance(),
-              builder: (context, AsyncSnapshot<SharedPreferences> pref) {
-                var x = pref.data;
-                if (x?.getString('token') == null) {
+              future: getToken(),
+              builder: (context,snapshot) {
+                
+                if (snapshot.data == null) {
+                  
                   return FittedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +78,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         CircleAvatar(
                           radius: 39,
-                          backgroundImage: AssetImage('assets/images/a.jpg'),
+                          backgroundImage: AssetImage('assets/images/user.png'),
                           backgroundColor: Colors.grey,
                         ),
                         SizedBox(
@@ -109,19 +123,17 @@ class _ProfileState extends State<Profile> {
                 }
                 return Container(
                   child: StreamBuilder<UsersModel>(
-                      // stream: con.resUsers.stream,
-                      builder: (_, snapshot) {
+                      stream: con.resUsers.stream,
+                      builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      if (snapshot.data!.result == null) {
+                      if (snapshot.data!.result== null) {
+                        
                         return Center(
                           child: Text('Data kosong'),
                         );
                       } else {
-                        return ListView.builder(
-                            itemCount: _listUsers.length,
-                            itemBuilder: (context, index) {
-                              Result users = _listUsers[index];
-                              return Row(
+                        var result = snapshot.data!.result;
+                        return Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   SizedBox(
@@ -129,7 +141,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                                   CircleAvatar(
                                     radius: 39,
-                                    backgroundImage: AssetImage(users.foto!),
+                                    backgroundImage: AssetImage(result!.foto!),
                                     backgroundColor: Colors.grey,
                                   ),
                                   SizedBox(
@@ -140,7 +152,7 @@ class _ProfileState extends State<Profile> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        users.username!,
+                                       result.fullname!,
                                         style: TextStyle(
                                             color: Color(0xff303030),
                                             fontWeight: FontWeight.bold,
@@ -148,7 +160,7 @@ class _ProfileState extends State<Profile> {
                                             fontFamily: "Nunito Sans"),
                                       ),
                                       Text(
-                                        'dimas@gmail.com',
+                                       result.email!,
                                         style: TextStyle(
                                             color: Color(0xff808080),
                                             fontSize: 14,
@@ -158,7 +170,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 ],
                               );
-                            });
+                           
                       }
                     }
                     return Center(child: CircularProgressIndicator());

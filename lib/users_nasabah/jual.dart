@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
-import 'dart:math';
 import 'dart:ui';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -124,8 +122,8 @@ class _JualSampahState extends State<JualSampah> {
             backgroundColor: Colors.grey,
             textColor: Colors.white,
             fontSize: 16.0);
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => Sukses()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Sukses()));
       } else {
         Fluttertoast.showToast(
             msg: "Gagal",
@@ -139,12 +137,12 @@ class _JualSampahState extends State<JualSampah> {
     });
   }
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _listSampah.clear();
-  //   _listSearch.clear();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+    _listSampah.clear();
+    _listSearch.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -230,7 +228,8 @@ class _JualSampahState extends State<JualSampah> {
                           );
                         }
                       } else {
-                        return Center(
+                        return Container(
+                          padding: EdgeInsets.fromLTRB(30, 20, 30, 400),
                           child: CircularProgressIndicator(),
                         );
                       }

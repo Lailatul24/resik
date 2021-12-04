@@ -22,4 +22,6 @@ class Repostory {
   Future setor(BuildContext context, String banksampah, String username,
           List detailSetor, String token) =>
       api.setor(context, banksampah, username, detailSetor, token);
+  Future users(BuildContext context, token) => 
+    api.users(context, token);
 }

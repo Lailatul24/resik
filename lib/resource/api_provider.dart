@@ -213,4 +213,37 @@ class ApiProvider {
       throw Exception(e.toString());
     }
   }
+  Future users(BuildContext context,token) async {
+    var urll = Uri.parse(url + '/nasabah/get');
+
+    try {
+      final res = await http
+          .post(urll, headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+          })
+          .timeout(const Duration(seconds: 11));
+      print(res.body);
+      if (res.statusCode == 200) {
+        return UsersModel.fromJson(res.body);
+      } else if (res.statusCode == 400) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Data tidak ada')),
+        );
+        return UsersModel.fromJson(res.body);
+      } else {
+        throw Exception("Failur Respons!");
+      }
+    } on SocketException catch (e) {
+      throw Exception(e.toString());
+    } on HttpException {
+      {
+        throw Exception("Tidak Menemukan Post");
+      }
+    } on FormatException {
+      throw Exception("Request Salah");
+    } on TimeoutException catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

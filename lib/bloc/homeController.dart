@@ -20,6 +20,7 @@ class HomeController {
   final _komentarFetchar = PublishSubject<KomentarModel>();
   final _ubahpassFetchar = PublishSubject<UbahPassword>();
   final _setorFetchar = PublishSubject<SetorSampah>();
+  final _usersFetchar = PublishSubject<UsersModel>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
   PublishSubject<Produk> get resProduk => _produkFetchar;
@@ -27,6 +28,7 @@ class HomeController {
   PublishSubject<KomentarModel> get resKomentar => _komentarFetchar;
   PublishSubject<UbahPassword> get resUbahPass => _ubahpassFetchar;
   PublishSubject<SetorSampah> get resSetor => _setorFetchar;
+  PublishSubject<UsersModel> get resUsers => _usersFetchar;
 
   Future getSampahId(String token) async {
     try {
@@ -62,10 +64,10 @@ class HomeController {
     }
   }
 
-  void komentar(BuildContext context, String komen, token) async {
+  void users(BuildContext context, token) async {
     try {
-      KomentarModel komentar = await repostory.komentar(context, komen, token);
-      _komentarFetchar.sink.add(komentar);
+      UsersModel users = await repostory.users(context, token);
+      _usersFetchar.sink.add(users);
     } catch (e) {
       print(e.toString());
     }
@@ -92,6 +94,15 @@ class HomeController {
       print(e.toString());
     }
   }
+  void komentar(BuildContext context, String komen, token) async {
+    try {
+      KomentarModel komentar = await repostory.komentar(context, komen, token);
+      _komentarFetchar.sink.add(komentar);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
 
   void dispose() {
     _sampahFetchar.close();
@@ -100,5 +111,6 @@ class HomeController {
     _komentarFetchar.close();
     _ubahpassFetchar.close();
     _setorFetchar.close();
+    _usersFetchar.close();
   }
 }

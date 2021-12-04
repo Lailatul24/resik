@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:resik/users_nasabah/e-commerce/detail_produk.dart';
 import 'package:resik/users_nasabah/saldo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:resik/prefs/prefrences.dart';
+import 'package:resik/users_nasabah/alertDialog.dart';
+import 'package:resik/bloc/homeController.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final String? token;
+  const Home({Key? key, this.token}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  String? token;
+  final con = HomeController();
   int _current = 1;
 
   List<T> map<T>(List list, Function handler) {
@@ -28,6 +35,18 @@ class _HomeState extends State<Home> {
     "assets/images/iconsayur.png"
   ];
 
+  @override
+  void initState() {
+    getToken().then((value) {
+      con.users(context, value);
+      setState(() {
+        token = value;
+       
+      });
+      
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +105,13 @@ class _HomeState extends State<Home> {
                                 color: Color(0xffFCF2E1).withOpacity(0.5),
                                 clipBehavior: Clip.antiAlias, // Add This
                                 child: MaterialButton(
-                                  onPressed: () {
+                                  onPressed: () async{
+                                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    String? token = pref.getString('token');
+                    token == null
+                        ? alertDialog(context)
+                        : 
                                     Navigator.push(
                                         context,
                                         PageRouteBuilder(
@@ -112,6 +137,9 @@ class _HomeState extends State<Home> {
                                                     secAnimation) {
                                               return Saldo();
                                             }));
+                                            
+                    
+                  
                                   },
                                   minWidth: 100,
                                   height: 45,
