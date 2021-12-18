@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:resik/model/EcomerceModel.dart';
+import 'package:resik/model/UsersModel.dart';
 import 'package:resik/users_nasabah/e-commerce/detail_produk.dart';
 import 'package:resik/users_nasabah/saldo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +22,7 @@ class _HomeState extends State<Home> {
   String? token;
   final con = HomeController();
   int _current = 1;
+  List<Message> _ecomerce = <Message>[];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -76,13 +79,43 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Selamat Datang Mr....",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Roboto"),
+                        Container(
+                          child: FutureBuilder(
+                            future: getToken(),
+                            builder: (context,snapshot){
+                              if(snapshot.data == null){
+                            return Text(
+                              "Selamat Datang Mr....",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Roboto"),
+                            );
+                              }
+                              return StreamBuilder<UsersModel>(
+                                stream: con.resUsers.stream,
+                                builder: (context, snapshot) {
+                                  if(snapshot.hasData){
+                                    if (snapshot.data!.result==null){
+                                      return Center(
+                                        child: Text('Data Kosong'),
+                                      );
+                                    }else {
+                                  var result = snapshot.data!.result;
+                                  return Text(
+                                  "Selamat Datang Mr${result!.fullname}",
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Roboto"),
+                                                        );
+                                }
+                                } return Center(child: CircularProgressIndicator()); 
+
+                              });   
+                            }),
                         ),
                         SizedBox(
                           height: 20,
@@ -102,16 +135,16 @@ class _HomeState extends State<Home> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(22.0),
                                 ),
-                                color: Color(0xffFCF2E1).withOpacity(0.5),
+                                color: const Color(0xffFCF2E1).withOpacity(0.5),
                                 clipBehavior: Clip.antiAlias, // Add This
                                 child: MaterialButton(
                                   onPressed: () async{
-                                    SharedPreferences pref =
-                        await SharedPreferences.getInstance();
-                    String? token = pref.getString('token');
-                    token == null
-                        ? alertDialog(context)
-                        : 
+                                        SharedPreferences pref =
+                                            await SharedPreferences.getInstance();
+                                        String? token = pref.getString('token');
+                                        token == null
+                                            ? alertDialog(context)
+                                            : 
                                     Navigator.push(
                                         context,
                                         PageRouteBuilder(
@@ -278,10 +311,12 @@ class _HomeState extends State<Home> {
               height: 300,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: ListView(
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    Container(
+                  itemCount: _ecomerce.length,
+                  itemBuilder: (context, index){
+                    Message message = _ecomerce[index];
+                  return Container(
                       width: 200,
                       height: 150,
                       child: Card(
@@ -294,7 +329,7 @@ class _HomeState extends State<Home> {
                                   child: Image.asset("assets/images/a.jpg")),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8, top: 8),
-                                child: Text("Barang 1"),
+                                child: Text(message.nama!),
                               ),
                               Container(
                                 padding: EdgeInsets.only(left: 8),
@@ -311,71 +346,71 @@ class _HomeState extends State<Home> {
                               )
                             ],
                           )),
-                    ),
-                    Container(
-                      width: 200,
-                      height: 150,
-                      child: Card(
-                          color: Color(0xffE9FFE1),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.asset("assets/images/a.jpg")),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8, top: 8),
-                                child: Text("Barang 1"),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 10),
-                                child: ElevatedButton(
-                                  child: Text("Detail Produk"),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                DetailProduk()));
-                                  },
-                                ),
-                              )
-                            ],
-                          )),
-                    ),
-                    Container(
-                      width: 200,
-                      height: 160,
-                      child: Card(
-                          color: Color(0xffE9FFE1),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.asset("assets/images/a.jpg")),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8, top: 8),
-                                child: Text("Barang 1"),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 10),
-                                child: ElevatedButton(
-                                  child: Text("Detail Produk"),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                DetailProduk()));
-                                  },
-                                ),
-                              )
-                            ],
-                          )),
-                    ),
-                  ],
-                ),
+                    );
+                    // Container(
+                    //   width: 200,
+                    //   height: 150,
+                    //   child: Card(
+                    //       color: Color(0xffE9FFE1),
+                    //       child: Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           ClipRRect(
+                    //               borderRadius: BorderRadius.circular(10.0),
+                    //               child: Image.asset("assets/images/a.jpg")),
+                    //           Padding(
+                    //             padding: const EdgeInsets.only(left: 8, top: 8),
+                    //             child: Text("Barang 1"),
+                    //           ),
+                    //           Container(
+                    //             padding: EdgeInsets.only(left: 10),
+                    //             child: ElevatedButton(
+                    //               child: Text("Detail Produk"),
+                    //               onPressed: () {
+                    //                 Navigator.push(
+                    //                     context,
+                    //                     MaterialPageRoute(
+                    //                         builder: (context) =>
+                    //                             DetailProduk()));
+                    //               },
+                    //             ),
+                    //           )
+                    //         ],
+                    //       )),
+                    // ),
+                    // Container(
+                    //   width: 200,
+                    //   height: 160,
+                    //   child: Card(
+                    //       color: Color(0xffE9FFE1),
+                    //       child: Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           ClipRRect(
+                    //               borderRadius: BorderRadius.circular(10.0),
+                    //               child: Image.asset("assets/images/a.jpg")),
+                    //           Padding(
+                    //             padding: const EdgeInsets.only(left: 8, top: 8),
+                    //             child: Text("Barang 1"),
+                    //           ),
+                    //           Container(
+                    //             padding: EdgeInsets.only(left: 10),
+                    //             child: ElevatedButton(
+                    //               child: Text("Detail Produk"),
+                    //               onPressed: () {
+                    //                 Navigator.push(
+                    //                     context,
+                    //                     MaterialPageRoute(
+                    //                         builder: (context) =>
+                    //                             DetailProduk()));
+                    //               },
+                    //             ),
+                    //           )
+                    //         ],
+                    //       )),
+                    // ),
+                 
+                }),
               ),
             )
           ],

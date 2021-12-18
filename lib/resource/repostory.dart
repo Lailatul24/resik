@@ -24,4 +24,6 @@ class Repostory {
       api.setor(context, banksampah, username, detailSetor, token);
   Future users(BuildContext context, token) => 
     api.users(context, token);
+  Future getEcomerce(BuildContext context)=>
+      api.getEcomerce(context);
 }

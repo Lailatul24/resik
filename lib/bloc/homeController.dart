@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
+import 'package:resik/model/EcomerceModel.dart';
 import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
 import 'package:resik/model/KomentarModel.dart';
@@ -21,6 +22,7 @@ class HomeController {
   final _ubahpassFetchar = PublishSubject<UbahPassword>();
   final _setorFetchar = PublishSubject<SetorSampah>();
   final _usersFetchar = PublishSubject<UsersModel>();
+  final _ecomerceFetchar = PublishSubject<GetEcomerce>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
   PublishSubject<Produk> get resProduk => _produkFetchar;
@@ -29,6 +31,7 @@ class HomeController {
   PublishSubject<UbahPassword> get resUbahPass => _ubahpassFetchar;
   PublishSubject<SetorSampah> get resSetor => _setorFetchar;
   PublishSubject<UsersModel> get resUsers => _usersFetchar;
+  PublishSubject<GetEcomerce> get resEcomerce => _ecomerceFetchar;
 
   Future getSampahId(String token) async {
     try {
@@ -38,14 +41,14 @@ class HomeController {
       print(e.toString());
     }
   }
-  // Future getUsers() async{
-  //   try{
-  //     UsersModel usersModel = await repostory.getUsers();
-  //     _usersFetchar.sink.add(usersModel);  
-  //   } catch(e){
-  //     print(e.toString());
-  //   }
-  // }
+  void getEcomerce(BuildContext context) async {
+    try {
+      GetEcomerce ecomerce = await repostory.getEcomerce(context);
+      _ecomerceFetchar.sink.add(ecomerce);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
   Future produk() async {
     try {
       Produk produk = await repostory.produk();
@@ -112,5 +115,6 @@ class HomeController {
     _ubahpassFetchar.close();
     _setorFetchar.close();
     _usersFetchar.close();
+    _ecomerceFetchar.close();
   }
 }

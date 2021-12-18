@@ -230,7 +230,8 @@ class _JualSampahState extends State<JualSampah> {
                       } else {
                         return Container(
                           padding: EdgeInsets.fromLTRB(30, 20, 30, 400),
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(
+                          ),
                         );
                       }
                     })),

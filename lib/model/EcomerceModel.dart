@@ -1,47 +1,45 @@
 // To parse this JSON data, do
 //
-//     final getSampah = getSampahFromMap(jsonString);
+//     final getEcomerce = getEcomerceFromMap(jsonString);
 
 import 'dart:convert';
 
-class GetSampah {
-    GetSampah({
+class GetEcomerce {
+    GetEcomerce({
         this.hasil,
-        this.result,
+        this.message,
     });
 
     bool? hasil;
-    List<Result>? result;
+    List<Message>? message;
 
-    factory GetSampah.fromJson(String str) => GetSampah.fromMap(json.decode(str));
+    factory GetEcomerce.fromJson(String str) => GetEcomerce.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory GetSampah.fromMap(Map<String, dynamic> json) => GetSampah(
+    factory GetEcomerce.fromMap(Map<String, dynamic> json) => GetEcomerce(
         hasil: json["hasil"],
-        result: List<Result>.from(json["result"].map((x) => Result.fromMap(x))),
+        message: List<Message>.from(json["message"].map((x) => Message.fromMap(x))),
     );
 
     Map<String, dynamic> toMap() => {
         "hasil": hasil,
-        "result": List<dynamic>.from(result!.map((x) => x.toMap())),
+        "message": List<dynamic>.from(message!.map((x) => x.toMap())),
     };
 }
 
-class Result {
-    Result({
+class Message {
+    Message({
         this.id,
         this.nama,
         this.kode,
         this.jenis,
         this.jumlah,
-        this.hargaSetor,
         this.hargaJual,
+        this.deskripsi,
         this.foto,
         this.createdAt,
-        this.editedAt,
         this.v,
-        this.status,
     });
 
     String? id;
@@ -49,31 +47,27 @@ class Result {
     String? kode;
     Jenis? jenis;
     String? jumlah;
-    int? hargaSetor;
     int? hargaJual;
+    String? deskripsi;
     String? foto;
     DateTime? createdAt;
-    String? editedAt;
     int? v;
-    int? status;
 
-    factory Result.fromJson(String str) => Result.fromMap(json.decode(str));
+    factory Message.fromJson(String str) => Message.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory Result.fromMap(Map<String, dynamic> json) => Result(
+    factory Message.fromMap(Map<String, dynamic> json) => Message(
         id: json["_id"],
         nama: json["Nama"],
         kode: json["Kode"],
         jenis: Jenis.fromMap(json["Jenis"]),
         jumlah: json["Jumlah"],
-        hargaSetor: json["HargaSetor"] == null ? null : json["HargaSetor"],
-        hargaJual: json["HargaJual"] == null ? null : json["HargaJual"],
+        hargaJual: json["HargaJual"],
+        deskripsi: json["Deskripsi"],
         foto: json["Foto"],
         createdAt: DateTime.parse(json["CreatedAt"]),
-        editedAt: json["EditedAt"] == null ? null : json["EditedAt"],
         v: json["__v"],
-        status: json["Status"] == null ? null : json["Status"],
     );
 
     Map<String, dynamic> toMap() => {
@@ -82,13 +76,11 @@ class Result {
         "Kode": kode,
         "Jenis": jenis!.toMap(),
         "Jumlah": jumlah,
-        "HargaSetor": hargaSetor == null ? null : hargaSetor,
-        "HargaJual": hargaJual == null ? null : hargaJual,
+        "HargaJual": hargaJual,
+        "Deskripsi": deskripsi,
         "Foto": foto,
         "CreatedAt": createdAt!.toIso8601String(),
-        "EditedAt": editedAt == null ? null : editedAt,
         "__v": v,
-        "Status": status == null ? null : status,
     };
 }
 
@@ -99,8 +91,8 @@ class Jenis {
         this.kode,
         this.foto,
         this.createdAt,
-        this.editedAt,
         this.v,
+        this.editedAt,
     });
 
     String? id;
@@ -108,8 +100,8 @@ class Jenis {
     String? kode;
     String? foto;
     DateTime? createdAt;
-    String? editedAt;
     int? v;
+    DateTime? editedAt;
 
     factory Jenis.fromJson(String str) => Jenis.fromMap(json.decode(str));
 
@@ -121,8 +113,8 @@ class Jenis {
         kode: json["Kode"],
         foto: json["Foto"],
         createdAt: DateTime.parse(json["CreatedAt"]),
-        editedAt: json["EditedAt"],
         v: json["__v"],
+        editedAt: DateTime.parse(json["EditedAt"]),
     );
 
     Map<String, dynamic> toMap() => {
@@ -131,7 +123,7 @@ class Jenis {
         "Kode": kode,
         "Foto": foto,
         "CreatedAt": createdAt!.toIso8601String(),
-        "EditedAt": editedAt,
         "__v": v,
+        "EditedAt": editedAt!.toIso8601String(),
     };
 }
