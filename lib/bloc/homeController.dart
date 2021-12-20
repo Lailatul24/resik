@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
+import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
 import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
@@ -23,6 +24,7 @@ class HomeController {
   final _setorFetchar = PublishSubject<SetorSampah>();
   final _usersFetchar = PublishSubject<UsersModel>();
   final _ecomerceFetchar = PublishSubject<GetEcomerce>();
+  final _bannerFetchar = PublishSubject<GetBanner>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
   PublishSubject<Produk> get resProduk => _produkFetchar;
@@ -32,6 +34,7 @@ class HomeController {
   PublishSubject<SetorSampah> get resSetor => _setorFetchar;
   PublishSubject<UsersModel> get resUsers => _usersFetchar;
   PublishSubject<GetEcomerce> get resEcomerce => _ecomerceFetchar;
+  PublishSubject<GetBanner> get resBanner => _bannerFetchar;
 
   Future getSampahId(String token) async {
     try {
@@ -46,6 +49,15 @@ class HomeController {
     try {
       GetEcomerce ecomerce = await repostory.getEcomerce(context);
       _ecomerceFetchar.sink.add(ecomerce);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future getBanner(BuildContext context) async {
+    try {
+      GetBanner banner = await repostory.getBenner(context);
+      _bannerFetchar.sink.add(banner);
     } catch (e) {
       print(e.toString());
     }
@@ -118,5 +130,6 @@ class HomeController {
     _setorFetchar.close();
     _usersFetchar.close();
     _ecomerceFetchar.close();
+    _bannerFetchar.close();
   }
 }

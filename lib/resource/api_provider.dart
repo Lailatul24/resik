@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
 import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
@@ -17,13 +18,13 @@ class ApiProvider {
   var url = "http://147.139.193.105/resik/v1";
 
   Future<GetSampah> getSampahId(String token) async {
-    var urll = Uri.parse('$url/sampah/listsampah');
+    var urll = Uri.parse('$url/sampah/listharga');
 
     try {
       final res = await http.get(urll, headers: {
         'Authorization': token
       }).timeout(const Duration(seconds: 11));
-      // print(res.body);
+      print(res.body);
       if (res.statusCode == 200) {
         return GetSampah.fromJson(res.body);
       } else if (res.statusCode == 404) {
@@ -102,7 +103,8 @@ class ApiProvider {
     }
   }
 
-  Future ubahPass(BuildContext context, String passBaru, String passLama, token) async {
+  Future ubahPass(
+      BuildContext context, String passBaru, String passLama, token) async {
     var body = jsonEncode({'passwordLama': passLama, 'passwordBaru': passBaru});
     var urll = Uri.parse(url + '/nasabah/editpassword');
 
@@ -214,16 +216,15 @@ class ApiProvider {
       throw Exception(e.toString());
     }
   }
-  Future users(BuildContext context,token) async {
+
+  Future users(BuildContext context, token) async {
     var urll = Uri.parse(url + '/nasabah/get');
 
     try {
-      final res = await http
-          .post(urll, headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token
-          })
-          .timeout(const Duration(seconds: 11));
+      final res = await http.post(urll, headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      }).timeout(const Duration(seconds: 11));
       print(res.body);
       if (res.statusCode == 200) {
         return UsersModel.fromJson(res.body);
@@ -247,16 +248,43 @@ class ApiProvider {
       throw Exception(e.toString());
     }
   }
+
   Future getEcomerce(BuildContext context) async {
     var urll = Uri.parse(url + '/produk/listproduk');
 
     try {
       final res = await http.get(urll).timeout(const Duration(seconds: 11));
-      // print(res.body);
+      print(res.body);
       if (res.statusCode == 200) {
         return GetEcomerce.fromJson(res.body);
       } else if (res.statusCode == 400) {
         return GetEcomerce.fromJson(res.body);
+      } else {
+        throw Exception('Failur Respon');
+      }
+    } on SocketException catch (e) {
+      throw Exception(e.toString());
+    } on HttpException {
+      {
+        throw Exception("Tidak Menemukan Post");
+      }
+    } on FormatException {
+      throw Exception("Request Salah");
+    } on TimeoutException catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future getBenner(BuildContext context) async {
+    var urll = Uri.parse(url + '/banner/listbanner');
+
+    try {
+      final res = await http.get(urll).timeout(const Duration(seconds: 11));
+      print(res.body);
+      if (res.statusCode == 200) {
+        return GetBanner.fromJson(res.body);
+      } else if (res.statusCode == 400) {
+        return GetBanner.fromJson(res.body);
       } else {
         throw Exception('Failur Respon');
       }

@@ -86,9 +86,9 @@ class _JualSampahState extends State<JualSampah> {
       _listSampah.addAll(value.result!);
       value.result!.forEach((e) {
         _listCart.add(CartSampah(
-          kode: e.kode,
+          kode: e.sampah!.kode!,
           qty: 0,
-          nama: e.nama,
+          nama: e.sampah!.nama!,
           harga: e.hargaSetor,
           jumlah: 0,
         ));
@@ -108,7 +108,7 @@ class _JualSampahState extends State<JualSampah> {
           'jumlah': e.qty,
         };
         items.add(item);
-      } 
+      }
     });
 
     con.setor(context, banksampah!, username!, items, token!);
@@ -230,8 +230,7 @@ class _JualSampahState extends State<JualSampah> {
                       } else {
                         return Container(
                           padding: EdgeInsets.fromLTRB(30, 20, 30, 400),
-                          child: CircularProgressIndicator(
-                          ),
+                          child: CircularProgressIndicator(),
                         );
                       }
                     })),
@@ -427,7 +426,7 @@ class _JualSampahState extends State<JualSampah> {
   }
 
   Container _cardSampah(Result res) {
-    var cart = _listCart.firstWhere((e) => e.kode == res.kode);
+    var cart = _listCart.firstWhere((e) => e.kode == res.sampah!.kode!);
     return Container(
       child: Row(
         children: [
@@ -445,7 +444,7 @@ class _JualSampahState extends State<JualSampah> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  res.nama!,
+                  res.sampah!.nama!,
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -573,7 +572,7 @@ class _JualSampahState extends State<JualSampah> {
     if (search.isNotEmpty) {
       _listSearch.addAll(
         _listSampah.where(
-          (e) => e.nama!.toLowerCase().contains(search.toLowerCase()),
+          (e) => e.sampah!.nama!.toLowerCase().contains(search.toLowerCase()),
         ),
       );
     }
