@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:resik/home.dart';
-import 'package:resik/transaksi.dart';
+
 import 'package:resik/users_nasabah/jual.dart';
 import 'package:resik/users_nasabah/profile.dart';
+
+import 'package:resik/users_nasabah/transaksi.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -12,35 +14,46 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectIndex = 0;
+  int _currentIndex = 0;
 
-  final _pageList = [Home(), JualSampah(), Profile(), Transaksi()];
+  PageController _pageController = PageController(initialPage: 0);
 
-  onTappedItem(int index) {
-    setState(() {
-      _selectIndex = index;
-    });
-  }
+  final _bottomNavigationBarItems = [
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+    BottomNavigationBarItem(
+        icon: Icon(Icons.shopping_cart_rounded), label: "Jual"),
+    BottomNavigationBarItem(
+        icon: Icon(Icons.horizontal_split_rounded), label: "Transaksi"),
+    BottomNavigationBarItem(
+        icon: Icon(Icons.account_circle_rounded), label: "Profile")
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pageList.elementAt(_selectIndex),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (newIndex) {
+          setState(() {
+            _currentIndex = newIndex;
+          });
+        },
+        children: [Home(), JualSampah(), Transaksi(), Profile()],
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_rounded), label: "Jual"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.history), label: "Transaksi"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_rounded), label: "Profile")
-        ],
-        currentIndex: _selectIndex,
-        onTap: onTappedItem,
+        currentIndex: _currentIndex,
+        items: _bottomNavigationBarItems,
         selectedItemColor: Color(0xff85d057),
         unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          _pageController.animateToPage(index,
+              duration: Duration(milliseconds: 500), curve: Curves.ease);
+        },
       ),
     );
   }
 }
+
+
+
+//Home(), JualSampah(), Transaksi(), Profile()
