@@ -44,12 +44,11 @@ class _HomeState extends State<Home> {
       con.users(context, value);
       setState(() {
         token = value;
-       
       });
-      
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,41 +80,42 @@ class _HomeState extends State<Home> {
                       children: [
                         Container(
                           child: FutureBuilder(
-                            future: getToken(),
-                            builder: (context,snapshot){
-                              if(snapshot.data == null){
-                            return Text(
-                              "Selamat Datang Mr....",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "Roboto"),
-                            );
-                              }
-                              return StreamBuilder<UsersModel>(
-                                stream: con.resUsers.stream,
-                                builder: (context, snapshot) {
-                                  if(snapshot.hasData){
-                                    if (snapshot.data!.result==null){
-                                      return Center(
-                                        child: Text('Data Kosong'),
-                                      );
-                                    }else {
-                                  var result = snapshot.data!.result;
+                              future: getToken(),
+                              builder: (context, snapshot) {
+                                if (snapshot.data == null) {
                                   return Text(
-                                  "Selamat Datang Mr${result!.fullname}",
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "Roboto"),
-                                                        );
+                                    "Selamat Datang Mr....",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Roboto"),
+                                  );
                                 }
-                                } return Center(child: CircularProgressIndicator()); 
-
-                              });   
-                            }),
+                                return StreamBuilder<UsersModel>(
+                                    stream: con.resUsers.stream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        if (snapshot.data!.result == null) {
+                                          return Center(
+                                            child: Text('Data Kosong'),
+                                          );
+                                        } else {
+                                          var result = snapshot.data!.result;
+                                          return Text(
+                                            "Selamat Datang Mr${result!.fullname}",
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: "Roboto"),
+                                          );
+                                        }
+                                      }
+                                      return Center(
+                                          child: CircularProgressIndicator());
+                                    });
+                              }),
                         ),
                         SizedBox(
                           height: 20,
@@ -138,41 +138,41 @@ class _HomeState extends State<Home> {
                                 color: const Color(0xffFCF2E1).withOpacity(0.5),
                                 clipBehavior: Clip.antiAlias, // Add This
                                 child: MaterialButton(
-                                  onPressed: () async{
-                                        SharedPreferences pref =
-                                            await SharedPreferences.getInstance();
-                                        String? token = pref.getString('token');
-                                        token == null
-                                            ? alertDialog(context)
-                                            : 
-                                    Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                            transitionDuration:
-                                                Duration(seconds: 2),
-                                            transitionsBuilder: (BuildContext
-                                                    context,
-                                                Animation<double> animation,
-                                                Animation<double> secAnimation,
-                                                Widget child) {
-                                              animation = CurvedAnimation(
-                                                  parent: animation,
-                                                  curve: Curves.elasticInOut);
-                                              return ScaleTransition(
-                                                alignment: Alignment.center,
-                                                scale: animation,
-                                                child: child,
-                                              );
-                                            },
-                                            pageBuilder: (BuildContext context,
-                                                Animation<double> animation,
-                                                Animation<double>
-                                                    secAnimation) {
-                                              return Saldo();
-                                            }));
-                                            
-                    
-                  
+                                  onPressed: () async {
+                                    SharedPreferences pref =
+                                        await SharedPreferences.getInstance();
+                                    String? token = pref.getString('token');
+                                    token == null
+                                        ? alertDialog(context)
+                                        : Navigator.push(
+                                            context,
+                                            PageRouteBuilder(
+                                                transitionDuration:
+                                                    Duration(seconds: 2),
+                                                transitionsBuilder:
+                                                    (BuildContext context,
+                                                        Animation<double>
+                                                            animation,
+                                                        Animation<double>
+                                                            secAnimation,
+                                                        Widget child) {
+                                                  animation = CurvedAnimation(
+                                                      parent: animation,
+                                                      curve:
+                                                          Curves.elasticInOut);
+                                                  return ScaleTransition(
+                                                    alignment: Alignment.center,
+                                                    scale: animation,
+                                                    child: child,
+                                                  );
+                                                },
+                                                pageBuilder: (BuildContext
+                                                        context,
+                                                    Animation<double> animation,
+                                                    Animation<double>
+                                                        secAnimation) {
+                                                  return Saldo();
+                                                }));
                                   },
                                   minWidth: 100,
                                   height: 45,
@@ -312,105 +312,105 @@ class _HomeState extends State<Home> {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _ecomerce.length,
-                  itemBuilder: (context, index){
-                    Message message = _ecomerce[index];
-                  return Container(
-                      width: 200,
-                      height: 150,
-                      child: Card(
-                          color: Color(0xffE9FFE1),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.asset("assets/images/a.jpg")),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8, top: 8),
-                                child: Text(message.nama!),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 8),
-                                child: ElevatedButton(
-                                  child: Text("Detail Produk"),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                DetailProduk()));
-                                  },
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _ecomerce.length,
+                    itemBuilder: (context, index) {
+                      Message message = _ecomerce[index];
+                      return Container(
+                        width: 200,
+                        height: 150,
+                        child: Card(
+                            color: Color(0xffE9FFE1),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.asset(message.jenis!.foto!)),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8, top: 8),
+                                  child: Text(message.nama!),
                                 ),
-                              )
-                            ],
-                          )),
-                    );
-                    // Container(
-                    //   width: 200,
-                    //   height: 150,
-                    //   child: Card(
-                    //       color: Color(0xffE9FFE1),
-                    //       child: Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           ClipRRect(
-                    //               borderRadius: BorderRadius.circular(10.0),
-                    //               child: Image.asset("assets/images/a.jpg")),
-                    //           Padding(
-                    //             padding: const EdgeInsets.only(left: 8, top: 8),
-                    //             child: Text("Barang 1"),
-                    //           ),
-                    //           Container(
-                    //             padding: EdgeInsets.only(left: 10),
-                    //             child: ElevatedButton(
-                    //               child: Text("Detail Produk"),
-                    //               onPressed: () {
-                    //                 Navigator.push(
-                    //                     context,
-                    //                     MaterialPageRoute(
-                    //                         builder: (context) =>
-                    //                             DetailProduk()));
-                    //               },
-                    //             ),
-                    //           )
-                    //         ],
-                    //       )),
-                    // ),
-                    // Container(
-                    //   width: 200,
-                    //   height: 160,
-                    //   child: Card(
-                    //       color: Color(0xffE9FFE1),
-                    //       child: Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           ClipRRect(
-                    //               borderRadius: BorderRadius.circular(10.0),
-                    //               child: Image.asset("assets/images/a.jpg")),
-                    //           Padding(
-                    //             padding: const EdgeInsets.only(left: 8, top: 8),
-                    //             child: Text("Barang 1"),
-                    //           ),
-                    //           Container(
-                    //             padding: EdgeInsets.only(left: 10),
-                    //             child: ElevatedButton(
-                    //               child: Text("Detail Produk"),
-                    //               onPressed: () {
-                    //                 Navigator.push(
-                    //                     context,
-                    //                     MaterialPageRoute(
-                    //                         builder: (context) =>
-                    //                             DetailProduk()));
-                    //               },
-                    //             ),
-                    //           )
-                    //         ],
-                    //       )),
-                    // ),
-                 
-                }),
+                                Container(
+                                  padding: EdgeInsets.only(left: 8),
+                                  child: ElevatedButton(
+                                    child: Text("Detail Produk"),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailProduk()));
+                                    },
+                                  ),
+                                )
+                              ],
+                            )),
+                      );
+                      // Container(
+                      //   width: 200,
+                      //   height: 150,
+                      //   child: Card(
+                      //       color: Color(0xffE9FFE1),
+                      //       child: Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           ClipRRect(
+                      //               borderRadius: BorderRadius.circular(10.0),
+                      //               child: Image.asset("assets/images/a.jpg")),
+                      //           Padding(
+                      //             padding: const EdgeInsets.only(left: 8, top: 8),
+                      //             child: Text("Barang 1"),
+                      //           ),
+                      //           Container(
+                      //             padding: EdgeInsets.only(left: 10),
+                      //             child: ElevatedButton(
+                      //               child: Text("Detail Produk"),
+                      //               onPressed: () {
+                      //                 Navigator.push(
+                      //                     context,
+                      //                     MaterialPageRoute(
+                      //                         builder: (context) =>
+                      //                             DetailProduk()));
+                      //               },
+                      //             ),
+                      //           )
+                      //         ],
+                      //       )),
+                      // ),
+                      // Container(
+                      //   width: 200,
+                      //   height: 160,
+                      //   child: Card(
+                      //       color: Color(0xffE9FFE1),
+                      //       child: Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           ClipRRect(
+                      //               borderRadius: BorderRadius.circular(10.0),
+                      //               child: Image.asset("assets/images/a.jpg")),
+                      //           Padding(
+                      //             padding: const EdgeInsets.only(left: 8, top: 8),
+                      //             child: Text("Barang 1"),
+                      //           ),
+                      //           Container(
+                      //             padding: EdgeInsets.only(left: 10),
+                      //             child: ElevatedButton(
+                      //               child: Text("Detail Produk"),
+                      //               onPressed: () {
+                      //                 Navigator.push(
+                      //                     context,
+                      //                     MaterialPageRoute(
+                      //                         builder: (context) =>
+                      //                             DetailProduk()));
+                      //               },
+                      //             ),
+                      //           )
+                      //         ],
+                      //       )),
+                      // ),
+                    }),
               ),
             )
           ],

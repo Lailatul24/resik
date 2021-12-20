@@ -41,7 +41,8 @@ class HomeController {
       print(e.toString());
     }
   }
-  void getEcomerce(BuildContext context) async {
+
+  Future getEcomerce(BuildContext context) async {
     try {
       GetEcomerce ecomerce = await repostory.getEcomerce(context);
       _ecomerceFetchar.sink.add(ecomerce);
@@ -49,6 +50,7 @@ class HomeController {
       print(e.toString());
     }
   }
+
   Future produk() async {
     try {
       Produk produk = await repostory.produk();
@@ -76,8 +78,8 @@ class HomeController {
     }
   }
 
-  ubahPass(BuildContext context, String passBaru,
-      String passLama, token) async {
+  ubahPass(
+      BuildContext context, String passBaru, String passLama, token) async {
     try {
       UbahPassword ubah =
           await repostory.ubahPass(context, passBaru, passLama, token);
@@ -97,6 +99,7 @@ class HomeController {
       print(e.toString());
     }
   }
+
   void komentar(BuildContext context, String komen, token) async {
     try {
       KomentarModel komentar = await repostory.komentar(context, komen, token);
@@ -105,7 +108,6 @@ class HomeController {
       print(e.toString());
     }
   }
-
 
   void dispose() {
     _sampahFetchar.close();
