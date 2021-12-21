@@ -31,25 +31,21 @@ class GetSampah {
 class Result {
   Result({
     this.id,
-    this.nama,
-    this.kode,
-    this.jenis,
+    this.sampah,
+    this.admin,
     this.jumlah,
     this.hargaSetor,
     this.hargaJual,
-    this.foto,
     this.createdAt,
     this.v,
   });
 
   String? id;
-  String? nama;
-  String? kode;
-  Jenis? jenis;
-  String? jumlah;
+  Sampah? sampah;
+  String? admin;
+  int? jumlah;
   int? hargaSetor;
   int? hargaJual;
-  String? foto;
   DateTime? createdAt;
   int? v;
 
@@ -59,36 +55,34 @@ class Result {
 
   factory Result.fromMap(Map<String, dynamic> json) => Result(
         id: json["_id"],
-        nama: json["Nama"],
-        kode: json["Kode"],
-        jenis: Jenis.fromMap(json["Jenis"]),
+        sampah: Sampah.fromMap(json["Sampah"]),
+        admin: json["Admin"],
         jumlah: json["Jumlah"],
         hargaSetor: json["HargaSetor"],
         hargaJual: json["HargaJual"],
-        foto: json["Foto"],
         createdAt: DateTime.parse(json["CreatedAt"]),
         v: json["__v"],
       );
 
   Map<String, dynamic> toMap() => {
         "_id": id,
-        "Nama": nama,
-        "Kode": kode,
-        "Jenis": jenis!.toMap(),
+        "Sampah": sampah!.toMap(),
+        "Admin": admin,
         "Jumlah": jumlah,
         "HargaSetor": hargaSetor,
         "HargaJual": hargaJual,
-        "Foto": foto,
         "CreatedAt": createdAt!.toIso8601String(),
         "__v": v,
       };
 }
 
-class Jenis {
-  Jenis({
+class Sampah {
+  Sampah({
     this.id,
     this.nama,
     this.kode,
+    this.jenis,
+    this.status,
     this.foto,
     this.createdAt,
     this.v,
@@ -97,18 +91,22 @@ class Jenis {
   String? id;
   String? nama;
   String? kode;
+  String? jenis;
+  int? status;
   String? foto;
   DateTime? createdAt;
   int? v;
 
-  factory Jenis.fromJson(String str) => Jenis.fromMap(json.decode(str));
+  factory Sampah.fromJson(String str) => Sampah.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Jenis.fromMap(Map<String, dynamic> json) => Jenis(
+  factory Sampah.fromMap(Map<String, dynamic> json) => Sampah(
         id: json["_id"],
         nama: json["Nama"],
         kode: json["Kode"],
+        jenis: json["Jenis"],
+        status: json["Status"],
         foto: json["Foto"],
         createdAt: DateTime.parse(json["CreatedAt"]),
         v: json["__v"],
@@ -118,6 +116,8 @@ class Jenis {
         "_id": id,
         "Nama": nama,
         "Kode": kode,
+        "Jenis": jenis,
+        "Status": status,
         "Foto": foto,
         "CreatedAt": createdAt!.toIso8601String(),
         "__v": v,
