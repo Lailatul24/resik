@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:resik/main_page.dart';
+import 'package:resik/transaksi.dart';
 
 class Qrcode extends StatefulWidget {
   final String data;
@@ -69,8 +70,7 @@ class _QrcodeState extends State<Qrcode> {
                 height: 50,
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MainPage()));
+                    Navigator.pop(context);
                   },
                   child: Text(
                     'Kembali keDepan',

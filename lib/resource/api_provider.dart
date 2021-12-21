@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
+import 'package:resik/model/ListsetorModel.dart';
 import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
 import 'package:resik/model/SampahModel.dart';
@@ -178,13 +179,9 @@ class ApiProvider {
     }
   }
 
-  Future setor(BuildContext context, String banksampah, String username,
-      List detailSetor, String token) async {
-    var body = jsonEncode({
-      'banksampah': banksampah,
-      'username': username,
-      'penyetoran': detailSetor
-    });
+  Future setor(BuildContext context, String username, List detailSetor,
+      String token) async {
+    var body = jsonEncode({'username': username, 'penyetoran': detailSetor});
     var urll = Uri.parse(url + '/setorsampah/setor');
 
     try {
@@ -293,6 +290,34 @@ class ApiProvider {
     } on HttpException {
       {
         throw Exception("Tidak Menemukan Post");
+      }
+    } on FormatException {
+      throw Exception("Request Salah");
+    } on TimeoutException catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future listSetor(String token) async {
+    var urll = Uri.parse('$url/setorsampah/list');
+
+    try {
+      final res = await http.get(urll, headers: {
+        'Authorization': token
+      }).timeout(const Duration(seconds: 11));
+      print(res.body);
+      if (res.statusCode == 200) {
+        return ListsetorModel.fromJson(res.body);
+      } else if (res.statusCode == 404) {
+        return ListsetorModel.fromJson(res.body);
+      } else {
+        throw Exception('Failur Respon');
+      }
+    } on SocketException catch (e) {
+      throw Exception(e.toString());
+    } on HttpException {
+      {
+        throw Exception("Tidak ditemukan");
       }
     } on FormatException {
       throw Exception("Request Salah");

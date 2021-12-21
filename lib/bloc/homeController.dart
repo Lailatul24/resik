@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
+import 'package:resik/model/ListsetorModel.dart';
 import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
 import 'package:resik/model/KomentarModel.dart';
@@ -25,6 +26,7 @@ class HomeController {
   final _usersFetchar = PublishSubject<UsersModel>();
   final _ecomerceFetchar = PublishSubject<GetEcomerce>();
   final _bannerFetchar = PublishSubject<GetBanner>();
+  final _listSetorFetchar = PublishSubject<ListsetorModel>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
   PublishSubject<Produk> get resProduk => _produkFetchar;
@@ -35,6 +37,7 @@ class HomeController {
   PublishSubject<UsersModel> get resUsers => _usersFetchar;
   PublishSubject<GetEcomerce> get resEcomerce => _ecomerceFetchar;
   PublishSubject<GetBanner> get resBanner => _bannerFetchar;
+  PublishSubject<ListsetorModel> get resListsetor => _listSetorFetchar;
 
   Future getSampahId(String token) async {
     try {
@@ -101,11 +104,11 @@ class HomeController {
     }
   }
 
-  Future setor(BuildContext context, String banksampah, String username,
-      List detailSetor, String token) async {
+  Future setor(BuildContext context, String username, List detailSetor,
+      String token) async {
     try {
-      SetorSampah setor = await repostory.setor(
-          context, banksampah, username, detailSetor, token);
+      SetorSampah setor =
+          await repostory.setor(context, username, detailSetor, token);
       _setorFetchar.sink.add(setor);
     } catch (e) {
       print(e.toString());
@@ -121,6 +124,15 @@ class HomeController {
     }
   }
 
+  Future getList(String token) async {
+    try {
+      ListsetorModel listSetor = await repostory.listSetor(token);
+      _listSetorFetchar.sink.add(listSetor);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   void dispose() {
     _sampahFetchar.close();
     _produkFetchar.close();
@@ -131,5 +143,6 @@ class HomeController {
     _usersFetchar.close();
     _ecomerceFetchar.close();
     _bannerFetchar.close();
+    _listSetorFetchar.close();
   }
 }
