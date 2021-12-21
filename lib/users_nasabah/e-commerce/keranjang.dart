@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:resik/sukses_page.dart';
 
 class Keranjang extends StatefulWidget {
-  const Keranjang({Key? key}) : super(key: key);
+  final String? id;
+  final String? nama;
+  final int? harga;
+  const Keranjang({Key? key,this.id,this.nama,this.harga}) : super(key: key);
 
   @override
   _KeranjangState createState() => _KeranjangState();
@@ -52,7 +55,14 @@ class _KeranjangState extends State<Keranjang> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("data"),
+                    Text(widget.nama!, 
+                      style: TextStyle(
+                        fontFamily: 'NunitoSans',
+                        color: Color(0xff303030),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700
+                      ),
+                    ),
                     Container(
                       child: Divider(
                         color: Colors.grey,
@@ -142,7 +152,13 @@ class _KeranjangState extends State<Keranjang> {
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("data"), Text("data")],
+                  children: [Text("Order", style: TextStyle(
+                    fontFamily:'NunitoSans',
+                    fontSize: 15,
+                  ),), Text("Rp.${widget.harga.toString()}", style: TextStyle(
+                    fontFamily:'NunitoSans',
+                    fontSize:15
+                  ),)],
                 ),
               ),
             ),
@@ -151,7 +167,13 @@ class _KeranjangState extends State<Keranjang> {
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("data"), Text("data")],
+                  children: [Text("fee", style: TextStyle(
+                    fontFamily: 'NunitoSans',
+                    fontSize: 15
+                  ),), Text("Rp.500",style: TextStyle(
+                    fontFamily:'NunitoSans',
+                    fontSize:15
+                  ))],
                 ),
               ),
             ),
@@ -160,7 +182,13 @@ class _KeranjangState extends State<Keranjang> {
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("data"), Text("data")],
+                  children: [Text("total", style: TextStyle(
+                    fontFamily: 'NunitoSans',
+                    fontSize: 15,
+                  ),), Text("Rp.${widget.harga!-500}",style: TextStyle(
+                    fontFamily:'NunitoSans',
+                    fontSize:15
+                  ))],
                 ),
               ),
             ),

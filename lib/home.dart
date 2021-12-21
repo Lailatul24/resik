@@ -21,6 +21,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String? token;
+  String? idBarang;
+  // String? nama;
+  // String? deskripsi;
+  // String? foto;
+  // String? harga;
   final con = HomeController();
   int _current = 1;
   List<Result> banner = <Result>[];
@@ -402,7 +407,8 @@ class _HomeState extends State<Home> {
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                DetailProduk()));
+                                                                DetailProduk(id : message.id,nama : message.nama, harga : message.hargaJual, deskripsi : message.deskripsi
+                                                                 )));
                                                   },
                                                 ),
                                               )
