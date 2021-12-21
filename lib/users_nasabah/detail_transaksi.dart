@@ -3,7 +3,8 @@ import 'package:resik/bloc/homeController.dart';
 import 'package:resik/model/EcomerceModel.dart';
 
 class DetailTransaksi extends StatefulWidget {
-  DetailTransaksi({Key? key}) : super(key: key);
+  final idBarang;
+  DetailTransaksi({Key? key, this.idBarang}) : super(key: key);
 
   @override
   _DetailTransaksiState createState() => _DetailTransaksiState();

@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:resik/bloc/homeController.dart';
 import 'package:resik/users_nasabah/e-commerce/keranjang.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:resik/users_nasabah/alertDialog.dart';
 class DetailProduk extends StatefulWidget {
-  const DetailProduk({Key? key}) : super(key: key);
+  
+  final String? nama;
+  final int? harga; 
+  final String? deskripsi;
+  final String? id;
+  const DetailProduk({Key? key,this.id,this.nama,this.harga,this.deskripsi}) : super(key: key);
 
   @override
   _DetailProdukState createState() => _DetailProdukState();
 }
 
 class _DetailProdukState extends State<DetailProduk> {
+  final con = HomeController();
+
+  @override
+  void initState() {
+    
+    super.initState();
+    con.getEcomerce(context);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +65,7 @@ class _DetailProdukState extends State<DetailProduk> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Barang 1",
+                           widget.nama!,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -58,7 +73,7 @@ class _DetailProdukState extends State<DetailProduk> {
                             height: 15,
                           ),
                           Text(
-                            "Harga Rp 1000",
+                            widget.harga.toString(),
                             style: TextStyle(color: Colors.red),
                           ),
                         ],
@@ -70,11 +85,22 @@ class _DetailProdukState extends State<DetailProduk> {
                     Container(
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: ListTile(
-                          title: Text("Description"),
-                          subtitle: Text(
-                              "The speaker unit contains a diaphragm that is precision-grown from NAC Audio bio-cellulose, making it stiffer, lighter and stronger than regular PET speaker units, and allowing the sound-producing diaphragm to vibrate without the levels of distortion found in other speakers. "),
-                        ),
+                        child: Text('Deskripsi',
+                                style: TextStyle(
+                                  fontFamily:'Roboto',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16
+                                ),
+                          )
+                      ),
+                    ),
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(widget.deskripsi!, style: TextStyle(
+                          fontFamily: 'NunitoSans',
+                          fontSize: 14
+                        ),),
                       ),
                     ),
                     SizedBox(
@@ -95,12 +121,16 @@ class _DetailProdukState extends State<DetailProduk> {
                         primary: Color(0xff85d057),
                         onPrimary: Colors.white, // foreground
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Keranjang()));
-                      },
+                      onPressed: () async {
+                         SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                        String? token = pref.getString('token');
+                        token == null
+                            ? alertDialog(context)
+                            : Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => Keranjang(id : widget.id,
+                                  nama : widget.nama,harga : widget.harga)));
+                  },
                       child: Text(
                         'Pesan',
                         style: TextStyle(
