@@ -25,7 +25,7 @@ class ApiProvider {
       final res = await http.get(urll, headers: {
         'Authorization': token
       }).timeout(const Duration(seconds: 11));
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         return GetSampah.fromJson(res.body);
       } else if (res.statusCode == 404) {
@@ -193,7 +193,7 @@ class ApiProvider {
               },
               body: body)
           .timeout(const Duration(seconds: 11));
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         return SetorSampah.fromJson(res.body);
       } else if (res.statusCode == 400) {
@@ -222,7 +222,7 @@ class ApiProvider {
         'Content-Type': 'application/json',
         'Authorization': token
       }).timeout(const Duration(seconds: 11));
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         return UsersModel.fromJson(res.body);
       } else if (res.statusCode == 400) {
@@ -251,7 +251,7 @@ class ApiProvider {
 
     try {
       final res = await http.get(urll).timeout(const Duration(seconds: 11));
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         return GetEcomerce.fromJson(res.body);
       } else if (res.statusCode == 400) {

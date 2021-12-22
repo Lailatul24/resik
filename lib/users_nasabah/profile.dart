@@ -41,15 +41,14 @@ class _ProfileState extends State<Profile> {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     return pref.getString('token');
   }
+
   @override
   void initState() {
     getToken().then((value) {
       con.users(context, value);
       setState(() {
         token = value;
-       
       });
-      
     });
     super.initState();
   }
@@ -65,10 +64,8 @@ class _ProfileState extends State<Profile> {
           ),
           FutureBuilder(
               future: getToken(),
-              builder: (context,snapshot) {
-                
+              builder: (context, snapshot) {
                 if (snapshot.data == null) {
-                  
                   return FittedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -125,56 +122,53 @@ class _ProfileState extends State<Profile> {
                   child: StreamBuilder<UsersModel>(
                       stream: con.resUsers.stream,
                       builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data!.result== null) {
-                        
-                        return Center(
-                          child: Text('Data kosong'),
-                        );
-                      } else {
-                        var result = snapshot.data!.result;
-                        return Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: 40,
-                                  ),
-                                  CircleAvatar(
-                                    radius: 39,
-                                    backgroundImage: AssetImage(result!.foto!),
-                                    backgroundColor: Colors.grey,
-                                  ),
-                                  SizedBox(
-                                    width: 40,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                       result.fullname!,
-                                        style: TextStyle(
-                                            color: Color(0xff303030),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                            fontFamily: "Nunito Sans"),
-                                      ),
-                                      Text(
-                                       result.email!,
-                                        style: TextStyle(
-                                            color: Color(0xff808080),
-                                            fontSize: 14,
-                                            fontFamily: "Nunito Sans"),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              );
-                           
-                      }
-                    }
-                    return Center(child: CircularProgressIndicator());
-                  }),
+                        if (snapshot.hasData) {
+                          if (snapshot.data!.result == null) {
+                            return Center(
+                              child: Text('Data kosong'),
+                            );
+                          } else {
+                            var result = snapshot.data!.result;
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 40,
+                                ),
+                                CircleAvatar(
+                                  radius: 39,
+                                  backgroundImage: NetworkImage(result!.foto!),
+                                  backgroundColor: Colors.grey,
+                                ),
+                                SizedBox(
+                                  width: 40,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      result.fullname!,
+                                      style: TextStyle(
+                                          color: Color(0xff303030),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          fontFamily: "Nunito Sans"),
+                                    ),
+                                    Text(
+                                      result.email!,
+                                      style: TextStyle(
+                                          color: Color(0xff808080),
+                                          fontSize: 14,
+                                          fontFamily: "Nunito Sans"),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            );
+                          }
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      }),
                 );
               }),
           SizedBox(

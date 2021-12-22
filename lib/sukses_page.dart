@@ -52,7 +52,7 @@ class Sukses extends StatelessWidget {
                         onPrimary: Colors.white, // foreground
                       ),
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Transaksi()));

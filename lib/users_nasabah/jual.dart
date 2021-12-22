@@ -85,7 +85,6 @@ class _JualSampahState extends State<JualSampah> {
       _listSampah.addAll(value.result!);
       value.result!.forEach((e) {
         _listCart.add(CartSampah(
-          kode: e.sampah!.kode!,
           id: e.id,
           qty: 0,
           nama: e.sampah!.nama!,
@@ -94,23 +93,24 @@ class _JualSampahState extends State<JualSampah> {
         ));
       });
       setState(() {});
-      super.initState();
     });
+    super.initState();
   }
 
   void _onJual() {
     List items = [];
 
     _listCart.forEach((e) {
-      if (e.qty! > 1) {
+      if (e.qty! > 0) {
         var item = {
           'id_harga': e.id,
           'jumlah': e.qty,
         };
-        print(item);
+
         items.add(item);
       }
     });
+    print(items);
 
     con.setor(context, username!, items, token!);
     print(items);
@@ -428,7 +428,7 @@ class _JualSampahState extends State<JualSampah> {
   }
 
   Container _cardSampah(Result res) {
-    var cart = _listCart.firstWhere((e) => e.kode == res.sampah!.kode!);
+    var cart = _listCart.firstWhere((e) => e.id == res.id);
 
     return Container(
       child: Row(
@@ -585,18 +585,16 @@ class _JualSampahState extends State<JualSampah> {
 
 class CartSampah {
   CartSampah({
-    this.id,
     this.jumlah,
-    this.kode,
+    this.id,
     this.harga,
     this.nama,
     this.qty,
   });
 
-  String? id;
   int? jumlah;
   int? qty;
   int? harga;
-  String? kode;
+  String? id;
   String? nama;
 }

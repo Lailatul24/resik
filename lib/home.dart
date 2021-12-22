@@ -260,9 +260,8 @@ class _HomeState extends State<Home> {
                         } else {
                           return CarouselSlider.builder(
                             itemCount: snapshot.data!.result!.length,
-                            itemBuilder: (context, itemIndex, realIndex) {
-                              ResultB banner =
-                                  snapshot.data!.result![realIndex];
+                            itemBuilder: (context, i, id) {
+                              ResultB banner = snapshot.data!.result![i];
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Card(
@@ -275,7 +274,7 @@ class _HomeState extends State<Home> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                     child: Center(
-                                      child: Image.asset(
+                                      child: Image.network(
                                         banner.foto!,
                                         fit: BoxFit.cover,
                                         width: double.maxFinite,
@@ -407,8 +406,16 @@ class _HomeState extends State<Home> {
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                DetailProduk(id : message.id,nama : message.nama, harga : message.hargaJual, deskripsi : message.deskripsi
-                                                                 )));
+                                                                DetailProduk(
+                                                                    id: message
+                                                                        .id,
+                                                                    nama: message
+                                                                        .nama,
+                                                                    harga: message
+                                                                        .hargaJual,
+                                                                    deskripsi:
+                                                                        message
+                                                                            .deskripsi)));
                                                   },
                                                 ),
                                               )

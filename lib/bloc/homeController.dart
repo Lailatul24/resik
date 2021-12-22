@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
