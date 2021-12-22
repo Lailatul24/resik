@@ -30,7 +30,6 @@ class _JualSampahState extends State<JualSampah> {
   final con = HomeController();
 
   String? token;
-  String? banksampah = "jLReOov";
   String? username = 'Nasabah1';
   List<Result> _listSampah = <Result>[];
   List<Result> _listSearch = <Result>[];
@@ -87,6 +86,7 @@ class _JualSampahState extends State<JualSampah> {
       value.result!.forEach((e) {
         _listCart.add(CartSampah(
           kode: e.sampah!.kode!,
+          id: e.id,
           qty: 0,
           nama: e.sampah!.nama!,
           harga: e.hargaSetor,
@@ -104,14 +104,16 @@ class _JualSampahState extends State<JualSampah> {
     _listCart.forEach((e) {
       if (e.qty! > 1) {
         var item = {
-          'kode': e.kode,
+          'id_harga': e.id,
           'jumlah': e.qty,
         };
+        print(item);
         items.add(item);
       }
     });
 
-    con.setor(context, banksampah!, username!, items, token!);
+    con.setor(context, username!, items, token!);
+    print(items);
     con.resSetor.listen((value) {
       if (value.hasil == true) {
         Fluttertoast.showToast(
@@ -204,7 +206,7 @@ class _JualSampahState extends State<JualSampah> {
             Container(
                 height: MediaQuery.of(context).size.height,
                 child: StreamBuilder<GetSampah>(
-                    stream: con.resSampah,
+                    stream: con.resSampah.stream,
                     builder: (context, snap) {
                       if (snap.hasData) {
                         var result = snap.data!.result;
@@ -427,6 +429,7 @@ class _JualSampahState extends State<JualSampah> {
 
   Container _cardSampah(Result res) {
     var cart = _listCart.firstWhere((e) => e.kode == res.sampah!.kode!);
+
     return Container(
       child: Row(
         children: [
@@ -582,6 +585,7 @@ class _JualSampahState extends State<JualSampah> {
 
 class CartSampah {
   CartSampah({
+    this.id,
     this.jumlah,
     this.kode,
     this.harga,
@@ -589,6 +593,7 @@ class CartSampah {
     this.qty,
   });
 
+  String? id;
   int? jumlah;
   int? qty;
   int? harga;

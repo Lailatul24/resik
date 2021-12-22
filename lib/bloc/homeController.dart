@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
-import 'package:resik/model/JualModel.dart';
+import 'package:resik/model/ListsetorModel.dart';
 import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
 import 'package:resik/model/KomentarModel.dart';
@@ -27,6 +27,7 @@ class HomeController {
   final _ecomerceFetchar = PublishSubject<GetEcomerce>();
   final _bannerFetchar = PublishSubject<GetBanner>();
   final _beliFetchar = PublishSubject<JualProduk>();
+  final _listSetorFetchar = PublishSubject<ListsetorModel>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
   PublishSubject<Produk> get resProduk => _produkFetchar;
@@ -37,7 +38,7 @@ class HomeController {
   PublishSubject<UsersModel> get resUsers => _usersFetchar;
   PublishSubject<GetEcomerce> get resEcomerce => _ecomerceFetchar;
   PublishSubject<GetBanner> get resBanner => _bannerFetchar;
-  PublishSubject<JualProduk> get resJual => _beliFetchar;
+  PublishSubject<ListsetorModel> get resListsetor => _listSetorFetchar;
 
   Future getSampahId(String token) async {
     try {
@@ -124,12 +125,16 @@ class HomeController {
     }
   }
 
-  Future jualproduk(
-      BuildContext context, String username, List detailProduk, token) async {
+  // Future jualproduk(
+  //     BuildContext context, String username, List detailProduk, token) async {
+  //   try {
+  //     JualProduk beli =
+  //         await repostory.jualproduk(context, username, detailProduk, token);
+  //     _beliFetchar.sink.add(beli);
+  Future getList(String token) async {
     try {
-      JualProduk beli =
-          await repostory.jualproduk(context, username, detailProduk, token);
-      _beliFetchar.sink.add(beli);
+      ListsetorModel listSetor = await repostory.listSetor(token);
+      _listSetorFetchar.sink.add(listSetor);
     } catch (e) {
       print(e.toString());
     }
@@ -145,6 +150,6 @@ class HomeController {
     _usersFetchar.close();
     _ecomerceFetchar.close();
     _bannerFetchar.close();
-    _beliFetchar.close();
+    _listSetorFetchar.close();
   }
 }
