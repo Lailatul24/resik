@@ -9,6 +9,7 @@ import 'package:resik/model/SampahModel.dart';
 import 'package:resik/prefs/prefrences.dart';
 import 'package:resik/sukses_page.dart';
 import 'package:resik/users_nasabah/alertDialog.dart';
+import 'package:resik/users_nasabah/sukses_screen/sukses_setor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class JualSampah extends StatefulWidget {
@@ -102,7 +103,7 @@ class _JualSampahState extends State<JualSampah> {
     List items = [];
 
     _listCart.forEach((e) {
-      if (e.qty! > 1) {
+      if (e.id != null || e.qty! > 0) {
         var item = {
           'id_harga': e.id,
           'jumlah': e.qty,
@@ -125,7 +126,7 @@ class _JualSampahState extends State<JualSampah> {
             textColor: Colors.white,
             fontSize: 16.0);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Sukses()));
+            context, MaterialPageRoute(builder: (context) => SuksesSetor()));
       } else {
         Fluttertoast.showToast(
             msg: "Gagal",
