@@ -309,7 +309,7 @@ class ApiProvider {
       final res = await http.get(urll, headers: {
         'Authorization': token
       }).timeout(const Duration(seconds: 11));
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         return ListsetorModel.fromJson(res.body);
       } else if (res.statusCode == 404) {

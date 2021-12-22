@@ -73,19 +73,19 @@ class _TransaksiState extends State<Transaksi> {
                     stream: con.resListsetor.stream,
                     builder: (_, snapshot) {
                       if (snapshot.hasData) {
-                        if (snapshot.data!.message == null) {
+                        if (snapshot.data!.result == null) {
                           return Center(
                             child: Text('Data kosong '),
                           );
                         } else {
                           return ListView.builder(
-                              itemCount: snapshot.data!.message!.length,
+                              itemCount: snapshot.data!.result!.length,
                               itemBuilder: (context, index) {
                                 var formatDate = DateFormat('yyyy-MM-dd ')
                                     .format(snapshot
-                                        .data!.message![index].createdAt!
+                                        .data!.result![index].createdAt!
                                         .toLocal());
-                                Message list = snapshot.data!.message![index];
+                                Result list = snapshot.data!.result![index];
                                 return InkWell(
                                   onTap: () {
                                     Navigator.push(

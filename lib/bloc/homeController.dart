@@ -24,7 +24,6 @@ class HomeController {
   final _usersFetchar = PublishSubject<UsersModel>();
   final _ecomerceFetchar = PublishSubject<GetEcomerce>();
   final _bannerFetchar = PublishSubject<GetBanner>();
-  final _beliFetchar = PublishSubject<JualProduk>();
   final _listSetorFetchar = PublishSubject<ListsetorModel>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
