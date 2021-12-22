@@ -24,6 +24,7 @@ class HomeController {
   final _usersFetchar = PublishSubject<UsersModel>();
   final _ecomerceFetchar = PublishSubject<GetEcomerce>();
   final _bannerFetchar = PublishSubject<GetBanner>();
+  final _beliFetchar = PublishSubject<JualProduk>();
   final _listSetorFetchar = PublishSubject<ListsetorModel>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
@@ -122,6 +123,12 @@ class HomeController {
     }
   }
 
+  // Future jualproduk(
+  //     BuildContext context, String username, List detailProduk, token) async {
+  //   try {
+  //     JualProduk beli =
+  //         await repostory.jualproduk(context, username, detailProduk, token);
+  //     _beliFetchar.sink.add(beli);
   Future getList(String token) async {
     try {
       ListsetorModel listSetor = await repostory.listSetor(token);

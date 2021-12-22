@@ -298,6 +298,10 @@ class ApiProvider {
     }
   }
 
+  // Future jualproduk(BuildContext context, String username, List detailProduk,
+  //     String token) async {
+  //   var body = jsonEncode({'username': username, 'pembelian': detailProduk});
+  //   var urll = Uri.parse(url + '/pembelian/beli');
   Future listSetor(String token) async {
     var urll = Uri.parse('$url/setorsampah/list');
 

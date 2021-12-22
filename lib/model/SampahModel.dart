@@ -32,7 +32,6 @@ class Result {
   Result({
     this.id,
     this.sampah,
-    this.admin,
     this.jumlah,
     this.hargaSetor,
     this.hargaJual,
@@ -42,7 +41,6 @@ class Result {
 
   String? id;
   Sampah? sampah;
-  String? admin;
   int? jumlah;
   int? hargaSetor;
   int? hargaJual;
@@ -56,7 +54,6 @@ class Result {
   factory Result.fromMap(Map<String, dynamic> json) => Result(
         id: json["_id"],
         sampah: Sampah.fromMap(json["Sampah"]),
-        admin: json["Admin"],
         jumlah: json["Jumlah"],
         hargaSetor: json["HargaSetor"],
         hargaJual: json["HargaJual"],
@@ -67,7 +64,6 @@ class Result {
   Map<String, dynamic> toMap() => {
         "_id": id,
         "Sampah": sampah!.toMap(),
-        "Admin": admin,
         "Jumlah": jumlah,
         "HargaSetor": hargaSetor,
         "HargaJual": hargaJual,

@@ -25,6 +25,9 @@ class Repostory {
       api.setor(context, username, detailSetor, token);
   Future users(BuildContext context, token) => api.users(context, token);
   Future getEcomerce(BuildContext context) => api.getEcomerce(context);
+  // Future jualproduk(
+  //         BuildContext context, String username, List detailProduk, token) =>
+  //     api.jualproduk(context, username, detailProduk, token);
 
   Future getBenner(BuildContext context) => api.getBenner(context);
 
