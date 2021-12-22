@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/model/ListsetorModel.dart';
 import 'package:resik/prefs/prefrences.dart';
@@ -23,6 +24,7 @@ class _TransaksiState extends State<Transaksi> {
       con.getList(value);
       setState(() {
         token = value;
+        print(token);
       });
     });
     super.initState();
@@ -61,7 +63,7 @@ class _TransaksiState extends State<Transaksi> {
                   ],
                 )),
             Container(
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.only(bottom: 150),
               height: MediaQuery.of(context).size.height,
               child: RefreshIndicator(
                 onRefresh: () async {
@@ -79,6 +81,10 @@ class _TransaksiState extends State<Transaksi> {
                           return ListView.builder(
                               itemCount: snapshot.data!.message!.length,
                               itemBuilder: (context, index) {
+                                var formatDate = DateFormat('yyyy-MM-dd ')
+                                    .format(snapshot
+                                        .data!.message![index].createdAt!
+                                        .toLocal());
                                 Message list = snapshot.data!.message![index];
                                 return InkWell(
                                   onTap: () {
@@ -113,7 +119,7 @@ class _TransaksiState extends State<Transaksi> {
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
-                                                    Text("02/02/20"),
+                                                    Text(formatDate),
                                                   ],
                                                 ),
                                               ),

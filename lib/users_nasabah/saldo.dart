@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:resik/bloc/homeController.dart';
+import 'package:resik/model/UsersModel.dart';
+import 'package:resik/prefs/prefrences.dart';
 import 'package:resik/users_nasabah/tukarpulsa.dart';
 import 'package:resik/users_nasabah/tariksaldo.dart';
 import 'package:resik/users_nasabah/donasi.dart';
 
 class Saldo extends StatefulWidget {
-  Saldo({Key? key}) : super(key: key);
+  final String? token;
+  Saldo({Key? key, this.token}) : super(key: key);
 
   @override
   _SaldoState createState() => _SaldoState();
 }
 
 class _SaldoState extends State<Saldo> {
+  String? token;
+  final con = HomeController();
+
+  @override
+  void initState() {
+    getToken().then((value) {
+      con.users(context, value);
+      setState(() {
+        token = value;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -75,35 +93,51 @@ class _SaldoState extends State<Saldo> {
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Saldo Anda",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "Poppins",
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  r"Rp.2.000.000",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 36,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "Poppins"),
-                                )
-                              ],
-                            ),
-                          )
+                          StreamBuilder<UsersModel>(
+                              stream: con.resUsers.stream,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  if (snapshot.data!.result == null) {
+                                    return Center(
+                                      child: Text('Data Kosongh'),
+                                    );
+                                  } else {
+                                    var result = snapshot.data!.result;
+                                    return Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Saldo Anda",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: "Poppins",
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          Text(
+                                            "Rp.${result!.saldo}",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 36,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: "Poppins"),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                }
+                                return CircularProgressIndicator();
+                              })
                         ],
                       ),
                     ),
