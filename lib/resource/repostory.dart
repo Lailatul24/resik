@@ -20,13 +20,13 @@ class Repostory {
           BuildContext context, String passBaru, String passLama, token) =>
       api.ubahPass(context, passBaru, passLama, token);
 
-  Future setor(BuildContext context, String banksampah, String username,
-          List detailSetor, String token) =>
-      api.setor(context, banksampah, username, detailSetor, token);
+  Future setor(BuildContext context, String username, List detailSetor,
+          String token) =>
+      api.setor(context, username, detailSetor, token);
   Future users(BuildContext context, token) => api.users(context, token);
   Future getEcomerce(BuildContext context) => api.getEcomerce(context);
-  Future jualproduk(BuildContext context, String username, List detailProduk, 
-          token)=> 
-          api.jualproduk(context, username, detailProduk, token); 
+  Future jualproduk(
+          BuildContext context, String username, List detailProduk, token) =>
+      api.jualproduk(context, username, detailProduk, token);
   Future getBenner(BuildContext context) => api.getBenner(context);
 }

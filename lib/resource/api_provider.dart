@@ -179,13 +179,9 @@ class ApiProvider {
     }
   }
 
-  Future setor(BuildContext context, String banksampah, String username,
-      List detailSetor, String token) async {
-    var body = jsonEncode({
-      'banksampah': banksampah,
-      'username': username,
-      'penyetoran': detailSetor
-    });
+  Future setor(BuildContext context, String username, List detailSetor,
+      String token) async {
+    var body = jsonEncode({'username': username, 'penyetoran': detailSetor});
     var urll = Uri.parse(url + '/setorsampah/setor');
 
     try {
@@ -302,12 +298,9 @@ class ApiProvider {
     }
   }
 
-  Future jualproduk(BuildContext context, String username,
-      List detailProduk, String token) async {
-    var body = jsonEncode({
-      'username': username,
-      'pembelian': detailProduk
-    });
+  Future jualproduk(BuildContext context, String username, List detailProduk,
+      String token) async {
+    var body = jsonEncode({'username': username, 'pembelian': detailProduk});
     var urll = Uri.parse(url + '/pembelian/beli');
 
     try {
