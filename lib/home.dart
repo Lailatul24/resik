@@ -10,6 +10,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:resik/prefs/prefrences.dart';
 import 'package:resik/users_nasabah/alertDialog.dart';
 import 'package:resik/bloc/homeController.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class Home extends StatefulWidget {
   final String? token;
@@ -29,6 +30,7 @@ class _HomeState extends State<Home> {
   final con = HomeController();
   int _current = 1;
   List<Result> banner = <Result>[];
+  
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -38,6 +40,22 @@ class _HomeState extends State<Home> {
     return result;
   }
 
+
+    RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    
+
+    _refreshController.loadComplete();
+  }
   @override
   void initState() {
     getToken().then((value) {
@@ -55,10 +73,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: RefreshIndicator(
-        onRefresh: () async {
-          con.resUsers;
-        },
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: WaterDropHeader(),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        onLoading: _onLoading,
         child: Container(
             child: SingleChildScrollView(
           child: Column(
@@ -254,10 +275,6 @@ class _HomeState extends State<Home> {
                 height: 20,
               ),
               Container(
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    con.getBanner(context);
-                  },
                   child: StreamBuilder<GetBanner>(
                       stream: con.resBanner.stream,
                       builder: (_, snapshot) {
@@ -321,7 +338,7 @@ class _HomeState extends State<Home> {
                         }
                         return Center(child: CircularProgressIndicator());
                       }),
-                ),
+                
               ),
               Container(
                 alignment: Alignment.center,
@@ -365,10 +382,7 @@ class _HomeState extends State<Home> {
                   height: 400,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: RefreshIndicator(
-                      onRefresh: () async {
-                        con.getEcomerce(context);
-                      },
+                    
                       child: StreamBuilder<GetEcomerce>(
                           stream: con.resEcomerce.stream,
                           builder: (_, snapshot) {
@@ -436,7 +450,7 @@ class _HomeState extends State<Home> {
                             }
                             return Center(child: CircularProgressIndicator());
                           }),
-                    ),
+                
                   )),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:resik/model/BannerModel.dart';
+import 'package:resik/model/DetaisetorModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
 import 'package:resik/model/ListsetorModel.dart';
 import 'package:resik/model/LoginModel.dart';
@@ -25,6 +26,7 @@ class HomeController {
   final _ecomerceFetchar = PublishSubject<GetEcomerce>();
   final _bannerFetchar = PublishSubject<GetBanner>();
   final _listSetorFetchar = PublishSubject<ListsetorModel>();
+  final _detailSetorFetchar = PublishSubject<GetDetailsetor>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
   PublishSubject<Produk> get resProduk => _produkFetchar;
@@ -36,6 +38,7 @@ class HomeController {
   PublishSubject<GetEcomerce> get resEcomerce => _ecomerceFetchar;
   PublishSubject<GetBanner> get resBanner => _bannerFetchar;
   PublishSubject<ListsetorModel> get resListsetor => _listSetorFetchar;
+  PublishSubject<GetDetailsetor> get resDetailsetor => _detailSetorFetchar;
 
   Future getSampahId(String token) async {
     try {
@@ -121,6 +124,15 @@ class HomeController {
       print(e.toString());
     }
   }
+  Future detailsetor(BuildContext context, String setor) async {
+    try {
+      GetDetailsetor detail =
+          await repostory.detailsetor(context, setor);
+      _detailSetorFetchar.sink.add(detail);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   // Future jualproduk(
   //     BuildContext context, String username, List detailProduk, token) async {
@@ -148,5 +160,6 @@ class HomeController {
     _ecomerceFetchar.close();
     _bannerFetchar.close();
     _listSetorFetchar.close();
+    _detailSetorFetchar.close();
   }
 }
