@@ -10,6 +10,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:resik/prefs/prefrences.dart';
 import 'package:resik/users_nasabah/alertDialog.dart';
 import 'package:resik/bloc/homeController.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class Home extends StatefulWidget {
   final String? token;
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> {
   // String? harga;
   final con = HomeController();
   int _current = 1;
-  List<Result> banner = <Result>[];
+  // List<Result> banner = <Result>[];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -36,6 +37,21 @@ class _HomeState extends State<Home> {
       result.add(handler(i, list[i]));
     }
     return result;
+  }
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+
+    _refreshController.loadComplete();
   }
 
   @override
@@ -55,10 +71,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: RefreshIndicator(
-        onRefresh: () async {
-          con.resUsers;
-        },
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: WaterDropHeader(),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        onLoading: _onLoading,
         child: Container(
             child: SingleChildScrollView(
           child: Column(
@@ -254,74 +273,69 @@ class _HomeState extends State<Home> {
                 height: 20,
               ),
               Container(
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    con.getBanner(context);
-                  },
-                  child: StreamBuilder<GetBanner>(
-                      stream: con.resBanner.stream,
-                      builder: (_, snapshot) {
-                        if (snapshot.hasData) {
-                          if (snapshot.data!.result == null) {
-                            return Center(
-                              child: Text('Data kosong '),
-                            );
-                          } else {
-                            return CarouselSlider.builder(
-                              itemCount: snapshot.data!.result!.length,
-                              itemBuilder: (context, i, id) {
-                                ResultB banner = snapshot.data!.result![i];
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Card(
-                                    elevation: 0,
-                                    shadowColor: Colors.grey,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                      child: Center(
-                                        child: Image.network(
-                                          banner.foto!,
-                                          fit: BoxFit.cover,
-                                          width: double.maxFinite,
-                                          height: 200,
-                                        ),
+                child: StreamBuilder<GetBanner>(
+                    stream: con.resBanner.stream,
+                    builder: (_, snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data!.result == null) {
+                          return Center(
+                            child: Text('Data kosong '),
+                          );
+                        } else {
+                          return CarouselSlider.builder(
+                            itemCount: snapshot.data!.result!.length,
+                            itemBuilder: (context, i, id) {
+                              ResultB banner = snapshot.data!.result![i];
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                  elevation: 0,
+                                  shadowColor: Colors.grey,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    child: Center(
+                                      child: Image.network(
+                                        banner.foto!,
+                                        fit: BoxFit.cover,
+                                        width: double.maxFinite,
+                                        height: 200,
                                       ),
                                     ),
                                   ),
+                                ),
+                              );
+                            },
+                            options: CarouselOptions(
+                              height: 200,
+                              viewportFraction: 0.8,
+                              initialPage: 0,
+                              enableInfiniteScroll: true,
+                              reverse: false,
+                              autoPlay: true,
+                              autoPlayInterval: Duration(seconds: 2),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 500),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              pauseAutoPlayOnTouch: true,
+                              enlargeCenterPage: true,
+                              scrollDirection: Axis.horizontal,
+                              onPageChanged: (index, reason) {
+                                setState(
+                                  () {
+                                    _current = index;
+                                  },
                                 );
                               },
-                              options: CarouselOptions(
-                                height: 200,
-                                viewportFraction: 0.8,
-                                initialPage: 0,
-                                enableInfiniteScroll: true,
-                                reverse: false,
-                                autoPlay: true,
-                                autoPlayInterval: Duration(seconds: 2),
-                                autoPlayAnimationDuration:
-                                    Duration(milliseconds: 500),
-                                autoPlayCurve: Curves.fastOutSlowIn,
-                                pauseAutoPlayOnTouch: true,
-                                enlargeCenterPage: true,
-                                scrollDirection: Axis.horizontal,
-                                onPageChanged: (index, reason) {
-                                  setState(
-                                    () {
-                                      _current = index;
-                                    },
-                                  );
-                                },
-                              ),
-                            );
-                          }
+                            ),
+                          );
                         }
-                        return Center(child: CircularProgressIndicator());
-                      }),
-                ),
+                      }
+                      return Center(child: CircularProgressIndicator());
+                    }),
               ),
               Container(
                 alignment: Alignment.center,
@@ -365,78 +379,75 @@ class _HomeState extends State<Home> {
                   height: 400,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: RefreshIndicator(
-                      onRefresh: () async {
-                        con.getEcomerce(context);
-                      },
-                      child: StreamBuilder<GetEcomerce>(
-                          stream: con.resEcomerce.stream,
-                          builder: (_, snapshot) {
-                            if (snapshot.hasData) {
-                              if (snapshot.data!.message == null) {
-                                return Center(
-                                  child: Text('Data kosong '),
-                                );
-                              } else {
-                                return ListView.builder(
-                                    itemCount: snapshot.data!.message!.length,
-                                    itemBuilder: (context, index) {
-                                      Message message =
-                                          snapshot.data!.message![index];
-                                      return Container(
-                                        width: 200,
-                                        height: 200,
-                                        child: Card(
-                                            color: Color(0xffE9FFE1),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    child: Image(
-                                                        image: AssetImage(
-                                                            'assets/images/b.jpg'),
-                                                        fit: BoxFit.cover)),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 8, top: 8),
-                                                  child: Text(message.nama!),
+                    child: StreamBuilder<GetEcomerce>(
+                        stream: con.resEcomerce.stream,
+                        builder: (_, snapshot) {
+                          if (snapshot.hasData) {
+                            if (snapshot.data!.result == null) {
+                              return Center(
+                                child: Text('Data kosong '),
+                              );
+                            } else {
+                              return ListView.builder(
+                                  itemCount: snapshot.data!.result!.length,
+                                  itemBuilder: (context, index) {
+                                    var result = snapshot.data!.result![index];
+                                    return Container(
+                                      width: 200,
+                                      height: 200,
+                                      child: Card(
+                                          color: Color(0xffE9FFE1),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                  child: Image(
+                                                      image: AssetImage(
+                                                          'assets/images/b.jpg'),
+                                                      fit: BoxFit.cover)),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 8, top: 8),
+                                                child:
+                                                    Text(result.produk!.nama!),
+                                              ),
+                                              Container(
+                                                padding:
+                                                    EdgeInsets.only(left: 8),
+                                                child: ElevatedButton(
+                                                  child: Text("Detail Produk"),
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                DetailProduk(
+                                                                    id:
+                                                                        result
+                                                                            .id,
+                                                                    nama: result
+                                                                        .produk!
+                                                                        .nama,
+                                                                    harga: result
+                                                                        .hargaJual,
+                                                                    deskripsi: result
+                                                                        .produk!
+                                                                        .deskripsi)));
+                                                  },
                                                 ),
-                                                Container(
-                                                  padding:
-                                                      EdgeInsets.only(left: 8),
-                                                  child: ElevatedButton(
-                                                    child:
-                                                        Text("Detail Produk"),
-                                                    onPressed: () {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) => DetailProduk(
-                                                                  id: message
-                                                                      .id,
-                                                                  nama: message
-                                                                      .nama,
-                                                                  harga: message
-                                                                      .hargaJual,
-                                                                  deskripsi: message
-                                                                      .deskripsi)));
-                                                    },
-                                                  ),
-                                                )
-                                              ],
-                                            )),
-                                      );
-                                    });
-                              }
+                                              )
+                                            ],
+                                          )),
+                                    );
+                                  });
                             }
-                            return Center(child: CircularProgressIndicator());
-                          }),
-                    ),
+                          }
+                          return Center(child: CircularProgressIndicator());
+                        }),
                   )),
             ],
           ),

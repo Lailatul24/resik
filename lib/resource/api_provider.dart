@@ -79,32 +79,6 @@ class ApiProvider {
     }
   }
 
-  Future produk() async {
-    var url = Uri.parse("");
-
-    try {
-      final res = await http.get(url).timeout(const Duration(seconds: 11));
-
-      if (res.statusCode == 200) {
-        return Produk.fromJson(res.body);
-      } else if (res.statusCode == 400) {
-        return Produk.fromJson(res.body);
-      } else {
-        throw Exception("Failur Response");
-      }
-    } on SocketException catch (e) {
-      throw Exception(e.toString());
-    } on HttpException {
-      {
-        throw Exception("Tidak Menemukan Post");
-      }
-    } on FormatException {
-      throw Exception("Request Salah");
-    } on TimeoutException catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
   Future ubahPass(
       BuildContext context, String passBaru, String passLama, token) async {
     var body = jsonEncode({'passwordLama': passLama, 'passwordBaru': passBaru});
@@ -248,7 +222,7 @@ class ApiProvider {
   }
 
   Future getEcomerce(BuildContext context) async {
-    var urll = Uri.parse(url + '/produk/listproduk');
+    var urll = Uri.parse(url + '/produk/listharga');
 
     try {
       final res = await http.get(urll).timeout(const Duration(seconds: 11));

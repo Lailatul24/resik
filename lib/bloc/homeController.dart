@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/DetailsetorModel.dart';
+import 'package:resik/model/DetaisetorModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
 import 'package:resik/model/ListsetorModel.dart';
 import 'package:resik/model/LoginModel.dart';
@@ -17,7 +18,6 @@ class HomeController {
   final repostory = Repostory();
 
   final _sampahFetchar = PublishSubject<GetSampah>();
-  final _produkFetchar = PublishSubject<Produk>();
   final _loginFetchar = PublishSubject<LoginModel>();
   final _komentarFetchar = PublishSubject<KomentarModel>();
   final _ubahpassFetchar = PublishSubject<UbahPassword>();
@@ -29,7 +29,6 @@ class HomeController {
   final _detailSetorFetchar = PublishSubject<DetailsetorModel>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
-  PublishSubject<Produk> get resProduk => _produkFetchar;
   PublishSubject<LoginModel> get resLogin => _loginFetchar;
   PublishSubject<KomentarModel> get resKomentar => _komentarFetchar;
   PublishSubject<UbahPassword> get resUbahPass => _ubahpassFetchar;
@@ -62,15 +61,6 @@ class HomeController {
     try {
       GetBanner banner = await repostory.getBenner(context);
       _bannerFetchar.sink.add(banner);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future produk() async {
-    try {
-      Produk produk = await repostory.produk();
-      _produkFetchar.sink.add(produk);
     } catch (e) {
       print(e.toString());
     }
@@ -125,6 +115,15 @@ class HomeController {
     }
   }
 
+  Future detailsetor(BuildContext context, String setor) async {
+    try {
+      DetailsetorModel detail = await repostory.detailsetor(context, setor);
+      _detailSetorFetchar.sink.add(detail);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   // Future jualproduk(
   //     BuildContext context, String username, List detailProduk, token) async {
   //   try {
@@ -151,7 +150,6 @@ class HomeController {
 
   void dispose() {
     _sampahFetchar.close();
-    _produkFetchar.close();
     _loginFetchar.close();
     _komentarFetchar.close();
     _ubahpassFetchar.close();
