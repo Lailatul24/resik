@@ -17,13 +17,20 @@ class _DetailTransaksiState extends State<DetailTransaksi> {
   // String? setor = widget.data;
   dynamic susun;
   var mama;
-  var yaya = {'setor': '8853190'};
+  // var yaya = {'setor': '8853190'};
+  List setoran = [{'setor':'8853190'}];
   @override
   void initState() {
-    con.detailsetor(context, yaya.toString());
+    con.detailsetor(context, setoran);
+    print(setoran);
+    con.resDetailsetor;
     super.initState();
     susun = widget.data;
     mama = int.parse(widget.data);
+  //   setState(() {
+      
+  // var yaya = {'setor': '8853190'};
+  //   });
   }
 
   @override

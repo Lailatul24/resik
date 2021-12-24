@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:resik/bloc/homeController.dart';
 import 'package:resik/sukses_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Keranjang extends StatefulWidget {
   final String? id;
@@ -12,6 +15,58 @@ class Keranjang extends StatefulWidget {
 }
 
 class _KeranjangState extends State<Keranjang> {
+  final con = HomeController();
+  dynamic username = 'Nasabah1';
+  late List detailProduk ;
+  @override
+  void initState() {
+   
+    super.initState();
+   
+  }
+  void _onBeli()async{
+    List items = [];
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+    print(token);
+    var item = {
+      'id_hargaProduk': widget.id,
+      'jumlah': '1'
+    };
+    items.add(item);
+    if (items.isNotEmpty){
+    con.jualproduk(context, username, items, token);
+    con.resBeli.listen((value) async{
+      if(value.hasil == true){
+        Fluttertoast.showToast(
+              msg: 'berhasil',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.grey,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Sukses(),
+          ),
+        );
+        
+      }else{
+        Fluttertoast.showToast(
+            msg: "Gagal",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+     });
+  }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -200,10 +255,7 @@ class _KeranjangState extends State<Keranjang> {
                     primary: Color(0xff85d057),
                     onPrimary: Colors.white, // foreground
                   ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Sukses()));
-                  },
+                  onPressed: () => _onBeli(),
                   child: Text(
                     'check Out',
                     style: TextStyle(

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
+import 'package:resik/model/JualModel.dart';
 import 'package:resik/model/ListsetorModel.dart';
 import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
@@ -272,10 +273,41 @@ class ApiProvider {
     }
   }
 
-  // Future jualproduk(BuildContext context, String username, List detailProduk,
-  //     String token) async {
-  //   var body = jsonEncode({'username': username, 'pembelian': detailProduk});
-  //   var urll = Uri.parse(url + '/pembelian/beli');
+  Future jualproduk(BuildContext context, String username, List detailProduk,
+      String token) async {
+    var body = jsonEncode({'username': username, 'pembelian': detailProduk});
+    var urll = Uri.parse(url + '/pembelian/beli');
+    
+    try {
+      final res = await http
+          .post(urll,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+              },
+              body: body)
+          .timeout(const Duration(seconds: 11));
+      // print(res.body);
+      if (res.statusCode == 200) {
+        return JualProduk.fromJson(res.body);
+      } else if (res.statusCode == 400) {
+        return JualProduk.fromJson(res.body);
+      } else {
+        throw Exception("Failur Respons!");
+      }
+    } on SocketException catch (e) {
+      throw Exception(e.toString());
+    } on HttpException {
+      {
+        throw Exception("Tidak Menemukan Post");
+      }
+    } on FormatException {
+      throw Exception("Request Salah");
+    } on TimeoutException catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   Future listSetor(String token) async {
     var urll = Uri.parse('$url/setorsampah/list');
 
@@ -304,7 +336,7 @@ class ApiProvider {
     }
   }
 
-  Future detailsetor(BuildContext context, String username) async {
+  Future detailsetor(BuildContext context, List setor) async {
     var body = jsonEncode({'setor': setor});
     var urll = Uri.parse(url + '/setorsampah/detailsetor');
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/DetaisetorModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
+import 'package:resik/model/JualModel.dart';
 import 'package:resik/model/ListsetorModel.dart';
 import 'package:resik/model/LoginModel.dart';
 import 'package:resik/model/Produk.dart';
@@ -26,6 +27,7 @@ class HomeController {
   final _bannerFetchar = PublishSubject<GetBanner>();
   final _listSetorFetchar = PublishSubject<ListsetorModel>();
   final _detailSetorFetchar = PublishSubject<GetDetailsetor>();
+  final _beliFetchar = PublishSubject<JualProduk>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
   PublishSubject<LoginModel> get resLogin => _loginFetchar;
@@ -37,6 +39,7 @@ class HomeController {
   PublishSubject<GetBanner> get resBanner => _bannerFetchar;
   PublishSubject<ListsetorModel> get resListsetor => _listSetorFetchar;
   PublishSubject<GetDetailsetor> get resDetailsetor => _detailSetorFetchar;
+  PublishSubject<JualProduk> get resBeli => _beliFetchar;
 
   Future getSampahId(String token) async {
     try {
@@ -114,7 +117,7 @@ class HomeController {
     }
   }
 
-  Future detailsetor(BuildContext context, String setor) async {
+  Future detailsetor(BuildContext context, List setor) async {
     try {
       GetDetailsetor detail = await repostory.detailsetor(context, setor);
       _detailSetorFetchar.sink.add(detail);
@@ -123,12 +126,16 @@ class HomeController {
     }
   }
 
-  // Future jualproduk(
-  //     BuildContext context, String username, List detailProduk, token) async {
-  //   try {
-  //     JualProduk beli =
-  //         await repostory.jualproduk(context, username, detailProduk, token);
-  //     _beliFetchar.sink.add(beli);
+  Future jualproduk(
+      BuildContext context, String username, List detailProduk, token) async {
+    try {
+      JualProduk beli =
+          await repostory.jualproduk(context, username, detailProduk, token);
+      _beliFetchar.sink.add(beli);
+    }catch(e){
+      print(e.toString());
+    }
+      }
   Future getList(String token) async {
     try {
       ListsetorModel listSetor = await repostory.listSetor(token);
@@ -149,5 +156,6 @@ class HomeController {
     _bannerFetchar.close();
     _listSetorFetchar.close();
     _detailSetorFetchar.close();
+    _beliFetchar.close();
   }
 }
