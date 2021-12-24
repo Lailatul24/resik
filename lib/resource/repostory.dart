@@ -32,4 +32,6 @@ class Repostory {
   Future getBenner(BuildContext context) => api.getBenner(context);
 
   Future listSetor(String token) => api.listSetor(token);
+
+  Future detailSetor(String kode) => api.detailSetor(kode);
 }

@@ -92,7 +92,9 @@ class _TransaksiState extends State<Transaksi> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                DetailTransaksi()));
+                                                DetailTransaksi(
+                                                  kode: list.kode,
+                                                )));
                                   },
                                   child: Container(
                                     child: Card(
