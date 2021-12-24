@@ -17,6 +17,21 @@ class _TransaksiState extends State<Transaksi> {
   final con = HomeController();
   String? token;
   List<Setoran> setor = [];
+  List<Result> _listSetoran = <Result>[];
+
+  // _sendKode() {
+  //   List items = [];
+
+  //   setor.forEach((e) {
+  //     if (e.kode != null) {
+  //       var item = {'setor': e.kode};
+  //       print(item);
+  //       items.add(item);
+  //     }
+  //   });
+  //   con.detailsetor(context, items.toString());
+  //   print(items);
+  // }
 
   @override
   void initState() {
@@ -27,6 +42,14 @@ class _TransaksiState extends State<Transaksi> {
         print(token);
       });
     });
+    // con.resListsetor.listen((value) {
+    //   _listSetoran.addAll(value.result!);
+    //   value.result!.forEach((e) {
+    //     setor.add(Setoran(kode: e.kode!));
+    //   });
+
+    // });
+    setState(() {});
     super.initState();
   }
 
@@ -94,7 +117,8 @@ class _TransaksiState extends State<Transaksi> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  DetailTransaksi(data : list.kode)));
+                                                  DetailTransaksi(
+                                                      data: list.kode)));
                                     },
                                     child: Container(
                                       child: Card(
@@ -119,7 +143,8 @@ class _TransaksiState extends State<Transaksi> {
                                                         "Order ${list.kode}",
                                                         style: TextStyle(
                                                             fontWeight:
-                                                                FontWeight.bold),
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
                                                       Text(formatDate),
                                                     ],
@@ -140,7 +165,8 @@ class _TransaksiState extends State<Transaksi> {
                                                       Container(
                                                         width: 96,
                                                         height: 36,
-                                                        color: Color(0xff85d057),
+                                                        color:
+                                                            Color(0xff85d057),
                                                         child: TextButton(
                                                           child: Row(
                                                             children: [
@@ -168,8 +194,7 @@ class _TransaksiState extends State<Transaksi> {
                                                                     MaterialPageRoute(
                                                                         builder: (context) =>
                                                                             Qrcode(
-                                                                              data:
-                                                                                  list.kode!,
+                                                                              data: list.kode!,
                                                                             )));
                                                           },
                                                         ),
@@ -205,7 +230,8 @@ class _TransaksiState extends State<Transaksi> {
                                                                       FontStyle
                                                                           .italic,
                                                                   color: Colors
-                                                                      .red[600]),
+                                                                          .red[
+                                                                      600]),
                                                             )
                                                           ],
                                                         ),
@@ -232,3 +258,11 @@ class _TransaksiState extends State<Transaksi> {
     ));
   }
 }
+
+// class Setoran {
+//   Setoran({
+//     this.kode,
+//   });
+
+//   String? kode;
+// }

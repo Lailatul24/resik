@@ -19,14 +19,17 @@ class SuksesSetor extends StatelessWidget {
               children: [
                 Text(
                   "Succes!",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 33,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Roboto'),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 150,
+                    height: 330,
                     child: Image(
                         image: AssetImage('assets/images/assets_setor.png'))),
                 SizedBox(

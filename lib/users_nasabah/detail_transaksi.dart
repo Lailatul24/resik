@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resik/bloc/homeController.dart';
 import 'package:resik/model/EcomerceModel.dart';
+import 'package:resik/model/PulsaModel.dart';
 
 class DetailTransaksi extends StatefulWidget {
   final data;
@@ -12,6 +13,18 @@ class DetailTransaksi extends StatefulWidget {
 
 class _DetailTransaksiState extends State<DetailTransaksi> {
   final con = HomeController();
+  // Text data = Text(widget.data);
+  // String? setor = widget.data;
+  dynamic susun;
+  var mama;
+  var yaya = {'setor': '8853190'};
+  @override
+  void initState() {
+    con.detailsetor(context, yaya.toString());
+    super.initState();
+    susun = widget.data;
+    mama = int.parse(widget.data);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,105 +86,96 @@ class _DetailTransaksiState extends State<DetailTransaksi> {
               height: 20,
             ),
             Container(
-              child: Row(
-                children: [
-                  Padding(padding: EdgeInsets.all(10),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0), child: Text('Data FOto'),
-                    ),
+                child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Text('Data FOto'),
                   ),
-                  SizedBox(
-                    width : 10,
-                  ),
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Sampah',
-                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                        ), 
-                        SizedBox(
-                          height: 20,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Sampah',
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        child: Row(
+                          children: <Widget>[Text('Rp.20.000'), Text('30 X')],
                         ),
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              Text('Rp.20.000'),
-                              Text('30 X')
-                            ],
-                          ),
-
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 100,
+                ),
+              ],
+            )),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 100,
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Container(
                       color: Colors.white,
-                      child: Column(
-                        children: [
-                          Container(
-                            color: Colors.white,
-                            margin: EdgeInsets.all(8),
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Jual'), Text('Rp 35.000')
-                              ],
-                            ),
-                          ),
-                          Container(
-                            color: Colors.white,
-                            margin: EdgeInsets.all(8),
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('fee'), Text('Rp 500')
-                              ],
-                            ),
-                          ),
-                          Container(
-                            color: Colors.white,
-                            margin: EdgeInsets.all(8),
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Total :'), Text('34.500')
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 50,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Color(0xff85d057),
-                                onPrimary: Colors.white
-                              ),
-                              onPressed: () {
-                                
-                              },
-                              child: Text('PROSES',
-                              style: TextStyle(
-                                fontSize: 19,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Roboto"
-                              ),),
-                            ),
-                          )
-                        ],
+                      margin: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text('Jual'), Text('Rp 35.000')],
                       ),
                     ),
-                  )
-                ],
-              )
+                    Container(
+                      color: Colors.white,
+                      margin: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text('fee'), Text('Rp 500')],
+                      ),
+                    ),
+                    Container(
+                      color: Colors.white,
+                      margin: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text('Total :'), Text('34.500')],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Color(0xff85d057),
+                            onPrimary: Colors.white),
+                        onPressed: () {},
+                        child: Text(
+                          'PROSES',
+                          style: TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Roboto"),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             )
           ],
         ),

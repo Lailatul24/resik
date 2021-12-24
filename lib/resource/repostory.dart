@@ -14,8 +14,6 @@ class Repostory {
   Future komentar(BuildContext context, String komen, token) =>
       api.komentar(context, komen, token);
 
-  Future produk() => api.produk();
-
   Future ubahPass(
           BuildContext context, String passBaru, String passLama, token) =>
       api.ubahPass(context, passBaru, passLama, token);
@@ -31,6 +29,6 @@ class Repostory {
 
   Future getBenner(BuildContext context) => api.getBenner(context);
   Future detailsetor(BuildContext context, String setor) =>
-        api.detailsetor(context, setor);
+      api.detailsetor(context, setor);
   Future listSetor(String token) => api.listSetor(token);
 }
