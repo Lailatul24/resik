@@ -115,9 +115,9 @@ class HomeController {
     }
   }
 
-  Future detailsetor(BuildContext context, String setor) async {
+  Future detailsetor(String kode) async {
     try {
-      DetailsetorModel detail = await repostory.detailsetor(context, setor);
+      DetailsetorModel detail = await repostory.detailSetor(kode);
       _detailSetorFetchar.sink.add(detail);
     } catch (e) {
       print(e.toString());

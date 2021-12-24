@@ -147,104 +147,15 @@ class _TransaksiState extends State<Transaksi> {
                                                     Text(formatDate),
                                                   ],
                                                 ),
-                                                Divider(),
-                                                Text(
-                                                    "Please help us to confirm  \nto get 10% discount code for next order."),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Container(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Container(
-                                                        width: 96,
-                                                        height: 36,
-                                                        color:
-                                                            Color(0xff85d057),
-                                                        child: TextButton(
-                                                          child: Row(
-                                                            children: [
-                                                              SizedBox(
-                                                                width: 5,
-                                                              ),
-                                                              Text(
-                                                                "Qr Code",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 20,
-                                                                width: 20,
-                                                                child: Image.asset(
-                                                                    'assets/images/qrscan.png'),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator
-                                                                .pushReplacement(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) =>
-                                                                            Qrcode(
-                                                                              data: list.kode!,
-                                                                            )));
-                                                          },
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            Text(
-                                                              "Total Amount: Rp ",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 10,
-                                                            ),
-                                                            Text(
-                                                              list.status == "1"
-                                                                  ? "Diproses"
-                                                                  : list.status ==
-                                                                          "2"
-                                                                      ? "Sudah Di ambil"
-                                                                      : "Gagal Di ambil",
-                                                              style: TextStyle(
-                                                                  fontStyle:
-                                                                      FontStyle
-                                                                          .italic,
-                                                                  color: Colors
-                                                                          .red[
-                                                                      600]),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              )],
-                                            ),
+                                              )
+                                            ],
                                           ),
                                         ),
                                       ),
                                     ),
-                                  );
-                                });
-                      
+                                  ),
+                                );
+                              });
                         }
                       }
                       return Center(child: CircularProgressIndicator());
@@ -255,11 +166,3 @@ class _TransaksiState extends State<Transaksi> {
     ));
   }
 }
-
-// class Setoran {
-//   Setoran({
-//     this.kode,
-//   });
-
-//   String? kode;
-// }

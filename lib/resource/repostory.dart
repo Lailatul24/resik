@@ -28,8 +28,7 @@ class Repostory {
   //     api.jualproduk(context, username, detailProduk, token);
 
   Future getBenner(BuildContext context) => api.getBenner(context);
-  Future detailsetor(BuildContext context, String setor) =>
-      api.detailsetor(context, setor);
+
   Future listSetor(String token) => api.listSetor(token);
 
   Future detailSetor(String kode) => api.detailSetor(kode);
