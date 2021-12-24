@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:resik/model/BannerModel.dart';
+import 'package:resik/model/DetailsetorModel.dart';
 import 'package:resik/model/DetaisetorModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
 import 'package:resik/model/JualModel.dart';
@@ -26,8 +27,9 @@ class HomeController {
   final _ecomerceFetchar = PublishSubject<GetEcomerce>();
   final _bannerFetchar = PublishSubject<GetBanner>();
   final _listSetorFetchar = PublishSubject<ListsetorModel>();
-  final _detailSetorFetchar = PublishSubject<GetDetailsetor>();
+  // final _detailSetorFetchar = PublishSubject<GetDetailsetor>();
   final _beliFetchar = PublishSubject<JualProduk>();
+  final _detailSetorFetchar = PublishSubject<DetailsetorModel>();
 
   PublishSubject<GetSampah> get resSampah => _sampahFetchar;
   PublishSubject<LoginModel> get resLogin => _loginFetchar;
@@ -38,8 +40,9 @@ class HomeController {
   PublishSubject<GetEcomerce> get resEcomerce => _ecomerceFetchar;
   PublishSubject<GetBanner> get resBanner => _bannerFetchar;
   PublishSubject<ListsetorModel> get resListsetor => _listSetorFetchar;
-  PublishSubject<GetDetailsetor> get resDetailsetor => _detailSetorFetchar;
+  // PublishSubject<GetDetailsetor> get resDetailsetor => _detailSetorFetchar;
   PublishSubject<JualProduk> get resBeli => _beliFetchar;
+  PublishSubject<DetailsetorModel> get resDetailsetor => _detailSetorFetchar;
 
   Future getSampahId(String token) async {
     try {
@@ -117,9 +120,10 @@ class HomeController {
     }
   }
 
-  Future detailsetor(BuildContext context, List setor) async {
+  
+  Future detailsetor(String kode) async {
     try {
-      GetDetailsetor detail = await repostory.detailsetor(context, setor);
+      DetailsetorModel detail = await repostory.detailSetor(kode);
       _detailSetorFetchar.sink.add(detail);
     } catch (e) {
       print(e.toString());
@@ -140,6 +144,15 @@ class HomeController {
     try {
       ListsetorModel listSetor = await repostory.listSetor(token);
       _listSetorFetchar.sink.add(listSetor);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future detailSetor(String kode) async {
+    try {
+      DetailsetorModel detailsetor = await repostory.detailSetor(kode);
+      _detailSetorFetchar.sink.add(detailsetor);
     } catch (e) {
       print(e.toString());
     }

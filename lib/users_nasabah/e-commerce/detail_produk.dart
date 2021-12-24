@@ -3,13 +3,14 @@ import 'package:resik/bloc/homeController.dart';
 import 'package:resik/users_nasabah/e-commerce/keranjang.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:resik/users_nasabah/alertDialog.dart';
+
 class DetailProduk extends StatefulWidget {
-  
   final String? nama;
-  final int? harga; 
+  final int? harga;
   final String? deskripsi;
   final String? id;
-  const DetailProduk({Key? key,this.id,this.nama,this.harga,this.deskripsi}) : super(key: key);
+  const DetailProduk({Key? key, this.id, this.nama, this.harga, this.deskripsi})
+      : super(key: key);
 
   @override
   _DetailProdukState createState() => _DetailProdukState();
@@ -20,10 +21,10 @@ class _DetailProdukState extends State<DetailProduk> {
 
   @override
   void initState() {
-    
     super.initState();
     con.getEcomerce(context);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +66,7 @@ class _DetailProdukState extends State<DetailProduk> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                           widget.nama!,
+                            widget.nama!,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -84,23 +85,23 @@ class _DetailProdukState extends State<DetailProduk> {
                     ),
                     Container(
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text('Deskripsi',
-                                style: TextStyle(
-                                  fontFamily:'Roboto',
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16
-                                ),
-                          )
-                      ),
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            'Deskripsi',
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16),
+                          )),
                     ),
                     Container(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(widget.deskripsi!, style: TextStyle(
-                          fontFamily: 'NunitoSans',
-                          fontSize: 14
-                        ),),
+                        child: Text(
+                          widget.deskripsi!,
+                          style:
+                              TextStyle(fontFamily: 'NunitoSans', fontSize: 14),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -122,15 +123,19 @@ class _DetailProdukState extends State<DetailProduk> {
                         onPrimary: Colors.white, // foreground
                       ),
                       onPressed: () async {
-                         SharedPreferences pref =
-                        await SharedPreferences.getInstance();
+                        SharedPreferences pref =
+                            await SharedPreferences.getInstance();
                         String? token = pref.getString('token');
                         token == null
                             ? alertDialog(context)
-                            : Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => Keranjang(id : widget.id,
-                                  nama : widget.nama,harga : widget.harga)));
-                  },
+                            : Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Keranjang(
+                                        id: widget.id,
+                                        nama: widget.nama,
+                                        harga: widget.harga)));
+                      },
                       child: Text(
                         'Pesan',
                         style: TextStyle(

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:resik/model/BannerModel.dart';
+import 'package:resik/model/DetailsetorModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
 import 'package:resik/model/JualModel.dart';
 import 'package:resik/model/ListsetorModel.dart';
@@ -307,6 +308,10 @@ class ApiProvider {
       throw Exception(e.toString());
     }
   }
+  // Future jualproduk(BuildContext context, String username, List detailProduk,
+  //     String token) async {
+  //   var body = jsonEncode({'username': username, 'pembelian': detailProduk});
+  //   var urll = Uri.parse(url + '/pembelian/beli');
 
   Future listSetor(String token) async {
     var urll = Uri.parse('$url/setorsampah/list');
@@ -336,27 +341,30 @@ class ApiProvider {
     }
   }
 
-  Future detailsetor(BuildContext context, List setor) async {
-    var body = jsonEncode({'setor': setor});
-    var urll = Uri.parse(url + '/setorsampah/detailsetor');
+  // Future detailsetor(BuildContext context, List setor) async {
+  //   var body = jsonEncode({'setor': setor});
+  //   var urll = Uri.parse(url + '/setorsampah/detailsetor');
+  Future detailSetor(String kode) async {
+    var body = jsonEncode({'setor': kode});
+    var urll = Uri.parse('$url/setorsampah/detailsetor');
 
     try {
       final res = await http
           .post(urll, body: body)
           .timeout(const Duration(seconds: 11));
-      // print(res.body);
+      print(res.body);
       if (res.statusCode == 200) {
-        return SetorSampah.fromJson(res.body);
-      } else if (res.statusCode == 400) {
-        return SetorSampah.fromJson(res.body);
+        return DetailsetorModel.fromJson(res.body);
+      } else if (res.statusCode == 404) {
+        return DetailsetorModel.fromJson(res.body);
       } else {
-        throw Exception("Failur Respons!");
+        throw Exception('Failur Respon');
       }
     } on SocketException catch (e) {
       throw Exception(e.toString());
     } on HttpException {
       {
-        throw Exception("Tidak Menemukan Post");
+        throw Exception("Tidak ditemukan");
       }
     } on FormatException {
       throw Exception("Request Salah");
