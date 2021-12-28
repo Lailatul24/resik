@@ -62,115 +62,107 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 60,
           ),
-          FutureBuilder(
-              future: getToken(),
-              builder: (context, snapshot) {
-                if (snapshot.data == null) {
-                  return FittedBox(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 40,
+          Container(
+            child: StreamBuilder<UsersModel>(
+                stream: con.resUsers.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.result == null) {
+                      return FittedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 40,
+                            ),
+                            CircleAvatar(
+                              radius: 39,
+                              backgroundImage:
+                                  AssetImage('assets/images/user.png'),
+                              backgroundColor: Colors.grey,
+                            ),
+                            SizedBox(
+                              width: 60,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Login()));
+                              },
+                              child: Text('Login'),
+                              style: ElevatedButton.styleFrom(
+                                elevation: 10,
+                                primary: Color(0xff85d057),
+                                minimumSize: Size(100, 40),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 17,
+                            ),
+                            OutlinedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Register()));
+                              },
+                              child: Text('Daftar'),
+                              style: OutlinedButton.styleFrom(
+                                primary: Color(0xFF000000),
+                                minimumSize: Size(100, 40),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            )
+                          ],
                         ),
-                        CircleAvatar(
-                          radius: 39,
-                          backgroundImage: AssetImage('assets/images/user.png'),
-                          backgroundColor: Colors.grey,
-                        ),
-                        SizedBox(
-                          width: 60,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Login()));
-                          },
-                          child: Text('Login'),
-                          style: ElevatedButton.styleFrom(
-                            elevation: 10,
-                            primary: Color(0xff85d057),
-                            minimumSize: Size(100, 40),
+                      );
+                    } else {
+                      var result = snapshot.data!.result;
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 40,
                           ),
-                        ),
-                        SizedBox(
-                          width: 17,
-                        ),
-                        OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Register()));
-                          },
-                          child: Text('Daftar'),
-                          style: OutlinedButton.styleFrom(
-                            primary: Color(0xFF000000),
-                            minimumSize: Size(100, 40),
+                          CircleAvatar(
+                            radius: 39,
+                            backgroundImage: NetworkImage(result!.foto!),
+                            backgroundColor: Colors.grey,
                           ),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        )
-                      ],
-                    ),
-                  );
-                }
-                return Container(
-                  child: StreamBuilder<UsersModel>(
-                      stream: con.resUsers.stream,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          if (snapshot.data!.result == null) {
-                            return Center(
-                              child: Text('Data kosong'),
-                            );
-                          } else {
-                            var result = snapshot.data!.result;
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 40,
-                                ),
-                                CircleAvatar(
-                                  radius: 39,
-                                  backgroundImage: NetworkImage(result!.foto!),
-                                  backgroundColor: Colors.grey,
-                                ),
-                                SizedBox(
-                                  width: 40,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      result.fullname!,
-                                      style: TextStyle(
-                                          color: Color(0xff303030),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          fontFamily: "Nunito Sans"),
-                                    ),
-                                    Text(
-                                      result.email!,
-                                      style: TextStyle(
-                                          color: Color(0xff808080),
-                                          fontSize: 14,
-                                          fontFamily: "Nunito Sans"),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            );
-                          }
-                        }
-                        return Center(child: CircularProgressIndicator());
-                      }),
-                );
-              }),
+                          SizedBox(
+                            width: 40,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                result.fullname!,
+                                style: TextStyle(
+                                    color: Color(0xff303030),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    fontFamily: "Nunito Sans"),
+                              ),
+                              Text(
+                                result.email!,
+                                style: TextStyle(
+                                    color: Color(0xff808080),
+                                    fontSize: 14,
+                                    fontFamily: "Nunito Sans"),
+                              )
+                            ],
+                          ),
+                        ],
+                      );
+                    }
+                  }
+                  return Center(child: CircularProgressIndicator());
+                }),
+          ),
           SizedBox(
             height: 30,
           ),

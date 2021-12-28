@@ -8,19 +8,14 @@ import 'package:resik/users_nasabah/qrcode.dart';
 import 'package:resik/users_nasabah/tes.dart';
 import 'package:resik/users_nasabah/tes2.dart';
 
-class Transaksi extends StatefulWidget {
-  const Transaksi({Key? key}) : super(key: key);
+class Tes2 extends StatefulWidget {
+  Tes2() : super();
 
   @override
-  _TransaksiState createState() => _TransaksiState();
+  _Tes2State createState() => _Tes2State();
 }
 
-var now = new DateTime.now();
-var now_1w = now.subtract(Duration(days: 1));
-var now_1m = new DateTime(now.year, now.month - 1, now.day);
-var now_1y = new DateTime(now.year - 1, now.month, now.day);
-
-class _TransaksiState extends State<Transaksi> {
+class _Tes2State extends State<Tes2> {
   final con = HomeController();
 
   String? token;
@@ -75,114 +70,32 @@ class _TransaksiState extends State<Transaksi> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      body: CustomScrollView(slivers: <Widget>[
-        SliverAppBar(
-          pinned: true,
-          snap: true,
-          floating: true,
-          expandedHeight: 150,
-          centerTitle: true,
-          title: Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  size: 25,
-                  color: Color(0xff85d057),
+      child: Scaffold(
+        body: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  pinned: true,
+                  snap: true,
+                  floating: true,
+                  expandedHeight: 300,
+                  centerTitle: true,
+                  title: Text('baba'),
+                  bottom: AppBar(
+                    title: Container(
+                      height: 45,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter a search term'),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 50,
-              ),
-              Text("Transaksi",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  )),
-            ],
-          ),
-          bottom: AppBar(
-            title: Container(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 250),
-                child: ElevatedButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25))),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        context: context,
-                        builder: (context) {
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              ListTile(
-                                leading: new Icon(Icons.close),
-                                title: Padding(
-                                  padding: const EdgeInsets.only(left: 90),
-                                  child: Text('Sort By Date'),
-                                ),
-                                onTap: () {},
-                              ),
-                              ListTile(
-                                  leading: new Icon(Icons.calendar_today),
-                                  title: new Text('today'),
-                                  onTap: () => _listHari
-                                          .addAll(_listSetoran.where((element) {
-                                        final createdAt = element.createdAt;
-                                        return now_1w.isBefore(createdAt!);
-                                      }).toList())),
-                              ListTile(
-                                leading:
-                                    new Icon(Icons.calendar_view_week_rounded),
-                                title: new Text('Week'),
-                                onTap: () {
-                                  setState(() {
-                                    _listSetoran.where((element) {
-                                      final date = element.createdAt;
-                                      return now_1w.isBefore(date!);
-                                    });
-                                  });
-                                },
-                              ),
-                              ListTile(
-                                leading:
-                                    new Icon(Icons.calendar_view_month_rounded),
-                                title: new Text('Month'),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Mama()));
-                                },
-                              ),
-                              ListTile(
-                                leading: new Icon(Icons.calendar_today_rounded),
-                                title: new Text('Year'),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          );
-                        });
-                  },
-                  child: Text('SORT'),
-                  style: ElevatedButton.styleFrom(shape: StadiumBorder()),
-                ),
-              ),
-            ),
-          ),
-        ),
-        SliverList(
-          delegate:
-              SliverChildBuilderDelegate((BuildContext context, int index) {
-            return Container(
+              ];
+            },
+            body: Container(
               height: MediaQuery.of(context).size.height,
               child: RefreshIndicator(
                 onRefresh: () async {
@@ -200,7 +113,7 @@ class _TransaksiState extends State<Transaksi> {
                           return Scrollbar(
                             thickness: 5,
                             child: ListView.builder(
-
+                                shrinkWrap: true,
                                 // physics: NeverScrollableScrollPhysics(),
                                 itemCount: snapshot.data!.result!.length,
                                 itemBuilder: (context, index) {
@@ -352,40 +265,39 @@ class _TransaksiState extends State<Transaksi> {
                       return Center(child: CircularProgressIndicator());
                     }),
               ),
-            );
-          }),
-        )
-      ]),
-    ));
-  }
-
-  _byYesterday(String hari) {
-    _listHari.clear();
-    _listSetoran.where((element) {
-      final date = element.createdAt;
-      return now_1w.isBefore(date!);
-    });
-  }
-
-  _byYesterday2(String hari) {
-    _listHari.clear();
-    if (hari.isNotEmpty) {
-      _listHari.addAll(_listSetoran.where((element) {
-        final date = element.createdAt;
-        return now_1w.isBefore(date!);
-      }));
-    }
-    setState(() {});
+            )),
+      ),
+    );
   }
 }
 
+class ItemTile extends StatelessWidget {
+  final int itemNo;
 
+  const ItemTile(
+    this.itemNo,
+  );
 
-
-// class Setoran {
-//   Setoran({
-//     this.kode,
-//   });
-
-//   String? kode;
-// }
+  @override
+  Widget build(BuildContext context) {
+    final Color color = Colors.primaries[itemNo % Colors.primaries.length];
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListTile(
+        onTap: () {},
+        leading: Container(
+          width: 50,
+          height: 30,
+          color: color.withOpacity(0.5),
+          child: Placeholder(
+            color: color,
+          ),
+        ),
+        title: Text(
+          'Product $itemNo',
+          key: Key('text_$itemNo'),
+        ),
+      ),
+    );
+  }
+}

@@ -228,7 +228,6 @@ class _HomeState extends State<Home> {
                                     },
                                     minWidth: 100,
                                     height: 45,
-                                    color: Colors.transparent,
                                     child: Row(
                                       children: [
                                         SizedBox(
