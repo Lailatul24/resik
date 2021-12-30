@@ -252,7 +252,7 @@ class ApiProvider {
 
     try {
       final res = await http.get(urll).timeout(const Duration(seconds: 11));
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         return GetBanner.fromJson(res.body);
       } else if (res.statusCode == 400) {
@@ -307,14 +307,14 @@ class ApiProvider {
   }
 
   Future detailSetor(String kode) async {
-    var body = jsonEncode({'setor': kode});
+    var body = {'setor': kode};
     var urll = Uri.parse('$url/setorsampah/detailsetor');
 
     try {
       final res = await http
           .post(urll, body: body)
           .timeout(const Duration(seconds: 11));
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         return DetailsetorModel.fromJson(res.body);
       } else if (res.statusCode == 404) {

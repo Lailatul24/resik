@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/DetailsetorModel.dart';
-import 'package:resik/model/DetaisetorModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
 import 'package:resik/model/ListsetorModel.dart';
 import 'package:resik/model/LoginModel.dart';

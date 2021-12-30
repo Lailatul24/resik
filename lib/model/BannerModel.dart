@@ -38,7 +38,7 @@ class ResultB {
     this.id,
     this.namaAdmin,
     this.kode,
-    this.foto,
+    this.foto1,
     this.status,
     this.createdAt,
     this.v,
@@ -48,7 +48,7 @@ class ResultB {
   String? id;
   String? namaAdmin;
   String? kode;
-  String? foto;
+  String? foto1;
   String? status;
   DateTime? createdAt;
   int? v;
@@ -62,7 +62,7 @@ class ResultB {
         id: json["_id"],
         namaAdmin: json["NamaAdmin"],
         kode: json["Kode"],
-        foto: json["Foto"],
+        foto1: json["Foto"],
         status: json["Status"],
         createdAt: DateTime.parse(json["CreatedAt"]),
         v: json["__v"],
@@ -73,7 +73,7 @@ class ResultB {
         "_id": id,
         "NamaAdmin": namaAdmin,
         "Kode": kode,
-        "Foto": foto,
+        "Foto": foto1,
         "Status": status,
         "CreatedAt": createdAt!.toIso8601String(),
         "__v": v,

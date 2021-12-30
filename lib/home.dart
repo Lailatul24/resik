@@ -299,7 +299,7 @@ class _HomeState extends State<Home> {
                                         BorderRadius.all(Radius.circular(10)),
                                     child: Center(
                                       child: Image.network(
-                                        banner.foto!,
+                                        banner.foto1!,
                                         fit: BoxFit.cover,
                                         width: double.maxFinite,
                                         height: 200,

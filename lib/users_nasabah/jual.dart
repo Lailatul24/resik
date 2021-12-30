@@ -97,6 +97,12 @@ class _JualSampahState extends State<JualSampah> {
       setState(() {});
       super.initState();
     });
+    getAnggota().then((value) {
+      setState(() {
+        username = value;
+        print(username);
+      });
+    });
   }
 
   void _onJual() {
