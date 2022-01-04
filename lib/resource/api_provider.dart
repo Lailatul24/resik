@@ -278,7 +278,7 @@ class ApiProvider {
       String token) async {
     var body = jsonEncode({'username': username, 'pembelian': detailProduk});
     var urll = Uri.parse(url + '/pembelian/beli');
-    
+
     try {
       final res = await http
           .post(urll,
@@ -352,7 +352,7 @@ class ApiProvider {
       final res = await http
           .post(urll, body: body)
           .timeout(const Duration(seconds: 11));
-      // print(res.body);
+      print(res.body);
       if (res.statusCode == 200) {
         return DetailsetorModel.fromJson(res.body);
       } else if (res.statusCode == 404) {

@@ -130,7 +130,7 @@ class _Tes2State extends State<Tes2> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   DetailTransaksi(
-                                                      kode: list.kode)));
+                                                      kode: list.kode!)));
                                     },
                                     child: Container(
                                       child: Card(

@@ -119,7 +119,6 @@ class HomeController {
     }
   }
 
-  
   Future detailsetor(String kode) async {
     try {
       DetailsetorModel detail = await repostory.detailSetor(kode);
@@ -135,10 +134,11 @@ class HomeController {
       JualProduk beli =
           await repostory.jualproduk(context, username, detailProduk, token);
       _beliFetchar.sink.add(beli);
-    }catch(e){
+    } catch (e) {
       print(e.toString());
     }
-      }
+  }
+
   Future getList(String token) async {
     try {
       ListsetorModel listSetor = await repostory.listSetor(token);

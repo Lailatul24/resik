@@ -238,7 +238,7 @@ class _MamaState extends State<Mama> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   DetailTransaksi(
-                                                      kode: list.kode)));
+                                                      kode: list.kode!)));
                                     },
                                     child: Container(
                                       child: Card(

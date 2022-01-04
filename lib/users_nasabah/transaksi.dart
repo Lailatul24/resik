@@ -58,7 +58,6 @@ class _TransaksiState extends State<Transaksi> {
       con.getList(value);
       setState(() {
         token = value;
-        print(token);
       });
     });
     // con.resListsetor.listen((value) {
@@ -78,6 +77,7 @@ class _TransaksiState extends State<Transaksi> {
         child: Scaffold(
       body: CustomScrollView(slivers: <Widget>[
         SliverAppBar(
+          backgroundColor: Colors.white,
           pinned: true,
           snap: true,
           floating: true,
@@ -100,9 +100,9 @@ class _TransaksiState extends State<Transaksi> {
               ),
               Text("Transaksi",
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  )),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
             ],
           ),
           bottom: AppBar(
