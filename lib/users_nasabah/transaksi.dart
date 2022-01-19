@@ -114,10 +114,13 @@ class _TransaksiState extends State<Transaksi> {
                   centerTitle: true,
                   elevation: 0,
                   backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
                   bottom: AppBar(
                     automaticallyImplyLeading: false,
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
+                    foregroundColor: Colors.transparent,
+                    elevation: 0,
                     title: Container(
                       color: Colors.transparent,
                       height: 45,
