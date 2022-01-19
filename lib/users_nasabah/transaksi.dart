@@ -74,115 +74,138 @@ class _TransaksiState extends State<Transaksi> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      body: CustomScrollView(slivers: <Widget>[
-        SliverAppBar(
-          backgroundColor: Colors.white,
-          pinned: true,
-          snap: true,
-          floating: true,
-          expandedHeight: 150,
-          centerTitle: true,
-          title: Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  size: 25,
-                  color: Color(0xff85d057),
+      child: Scaffold(
+        body: NestedScrollView(
+            floatHeaderSlivers: true,
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverToBoxAdapter(
+                  child: Container(
+                    height: 70,
+                    child: Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.arrow_back_ios_new_rounded,
+                            size: 25,
+                            color: Color(0xff85d057),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Text("Transaksi",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 50,
-              ),
-              Text("Transaksi",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
-            ],
-          ),
-          bottom: AppBar(
-            title: Container(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 250),
-                child: ElevatedButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25))),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        context: context,
-                        builder: (context) {
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              ListTile(
-                                leading: new Icon(Icons.close),
-                                title: Padding(
-                                  padding: const EdgeInsets.only(left: 90),
-                                  child: Text('Sort By Date'),
-                                ),
-                                onTap: () {},
-                              ),
-                              ListTile(
-                                  leading: new Icon(Icons.calendar_today),
-                                  title: new Text('today'),
-                                  onTap: () => _listHari
-                                          .addAll(_listSetoran.where((element) {
-                                        final createdAt = element.createdAt;
-                                        return now_1w.isBefore(createdAt!);
-                                      }).toList())),
-                              ListTile(
-                                leading:
-                                    new Icon(Icons.calendar_view_week_rounded),
-                                title: new Text('Week'),
-                                onTap: () {
-                                  setState(() {
-                                    _listSetoran.where((element) {
-                                      final date = element.createdAt;
-                                      return now_1w.isBefore(date!);
-                                    });
-                                  });
-                                },
-                              ),
-                              ListTile(
-                                leading:
-                                    new Icon(Icons.calendar_view_month_rounded),
-                                title: new Text('Month'),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Mama()));
-                                },
-                              ),
-                              ListTile(
-                                leading: new Icon(Icons.calendar_today_rounded),
-                                title: new Text('Year'),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          );
-                        });
-                  },
-                  child: Text('SORT'),
-                  style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                SliverAppBar(
+                  pinned: true,
+                  floating: true,
+                  expandedHeight: 2,
+                  centerTitle: true,
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  bottom: AppBar(
+                    automaticallyImplyLeading: false,
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    foregroundColor: Colors.transparent,
+                    elevation: 0,
+                    title: Container(
+                      color: Colors.transparent,
+                      height: 45,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 250),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(25))),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                context: context,
+                                builder: (context) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ListTile(
+                                        leading: new Icon(Icons.close),
+                                        title: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 90),
+                                          child: Text('Sort By Date'),
+                                        ),
+                                        onTap: () {},
+                                      ),
+                                      ListTile(
+                                          leading:
+                                              new Icon(Icons.calendar_today),
+                                          title: new Text('today'),
+                                          onTap: () => _listHari.addAll(
+                                                  _listSetoran.where((element) {
+                                                final createdAt =
+                                                    element.createdAt;
+                                                return now_1w
+                                                    .isBefore(createdAt!);
+                                              }).toList())),
+                                      ListTile(
+                                        leading: new Icon(
+                                            Icons.calendar_view_week_rounded),
+                                        title: new Text('Week'),
+                                        onTap: () {
+                                          setState(() {
+                                            _listSetoran.where((element) {
+                                              final date = element.createdAt;
+                                              return now_1w.isBefore(date!);
+                                            });
+                                          });
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading: new Icon(
+                                            Icons.calendar_view_month_rounded),
+                                        title: new Text('Month'),
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Mama()));
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading: new Icon(
+                                            Icons.calendar_today_rounded),
+                                        title: new Text('Year'),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                });
+                          },
+                          child: Text('SORT'),
+                          style:
+                              ElevatedButton.styleFrom(shape: StadiumBorder()),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ),
-        SliverList(
-          delegate:
-              SliverChildBuilderDelegate((BuildContext context, int index) {
-            return Container(
+              ];
+            },
+            body: Container(
               height: MediaQuery.of(context).size.height,
               child: RefreshIndicator(
                 onRefresh: () async {
@@ -346,11 +369,9 @@ class _TransaksiState extends State<Transaksi> {
                       return Center(child: CircularProgressIndicator());
                     }),
               ),
-            );
-          }),
-        )
-      ]),
-    ));
+            )),
+      ),
+    );
   }
 
   _byYesterday(String hari) {
