@@ -272,69 +272,50 @@ class _HomeState extends State<Home> {
                 height: 20,
               ),
               Container(
-                child: StreamBuilder<GetBanner>(
-                    stream: con.resBanner.stream,
-                    builder: (_, snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data!.result == null) {
-                          return Center(
-                            child: Text('Data kosong '),
-                          );
-                        } else {
-                          return CarouselSlider.builder(
-                            itemCount: snapshot.data!.result!.length,
-                            itemBuilder: (context, i, id) {
-                              ResultB banner = snapshot.data!.result![i];
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                  elevation: 0,
-                                  shadowColor: Colors.grey,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    child: Center(
-                                      child: Image.network(
-                                        banner.foto1!,
-                                        fit: BoxFit.cover,
-                                        width: double.maxFinite,
-                                        height: 200,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                            options: CarouselOptions(
-                              height: 200,
-                              viewportFraction: 0.8,
-                              initialPage: 0,
-                              enableInfiniteScroll: true,
-                              reverse: false,
-                              autoPlay: true,
-                              autoPlayInterval: Duration(seconds: 2),
-                              autoPlayAnimationDuration:
-                                  Duration(milliseconds: 500),
-                              autoPlayCurve: Curves.fastOutSlowIn,
-                              pauseAutoPlayOnTouch: true,
-                              enlargeCenterPage: true,
-                              scrollDirection: Axis.horizontal,
-                              onPageChanged: (index, reason) {
-                                setState(
-                                  () {
-                                    _current = index;
-                                  },
-                                );
-                              },
-                            ),
-                          );
-                        }
-                      }
-                      return Center(child: CircularProgressIndicator());
-                    }),
+                  child: CarouselSlider(
+                items: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              "https://images.unsplash.com/photo-1616698845008-2e5b56e18780?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80")),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                "https://images.unsplash.com/photo-1612729875065-1385f02852ef?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=883&q=80"))),
+                  ),
+                ],
+                options: CarouselOptions(
+                  height: 130,
+                  viewportFraction: 0.9,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  // autoPlay: true,
+                  // autoPlayInterval: Duration(seconds: 2),
+                  // autoPlayAnimationDuration: Duration(milliseconds: 500),
+                  // autoPlayCurve: Curves.fastOutSlowIn,
+                  pauseAutoPlayOnTouch: true,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
+                  onPageChanged: (index, reason) {
+                    setState(
+                      () {
+                        _current = index;
+                      },
+                    );
+                  },
+                ),
+              )),
+              SizedBox(
+                height: 10,
               ),
               Container(
                 alignment: Alignment.center,
@@ -351,7 +332,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
                 padding: EdgeInsets.only(left: 10, right: 10),

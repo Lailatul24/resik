@@ -283,11 +283,11 @@ class _TransaksiState extends State<Transaksi> {
                                                             ],
                                                           ),
                                                           onPressed: () {
-                                                            Navigator
-                                                                .pushReplacement(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) =>
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
                                                                             Qrcode(
                                                                               data: list.kode!,
                                                                             )));

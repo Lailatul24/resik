@@ -27,10 +27,10 @@ class _QrcodeState extends State<Qrcode> {
                   children: [
                     InkWell(
                       onTap: () {
-                       Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MainPage()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainPage()));
                       },
                       child: Icon(
                         Icons.arrow_back_ios_new_rounded,
@@ -73,7 +73,8 @@ class _QrcodeState extends State<Qrcode> {
                 height: 50,
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Transaksi()));
                   },
                   child: Text(
                     'Kembali keDepan',

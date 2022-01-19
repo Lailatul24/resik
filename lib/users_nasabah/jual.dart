@@ -31,7 +31,7 @@ class _JualSampahState extends State<JualSampah> {
   final con = HomeController();
 
   String? token;
-  String? username = 'Nasabah1';
+  String? username = 'Nasabah2';
   List<Result> _listSampah = <Result>[];
   List<Result> _listSearch = <Result>[];
   List<CartSampah> _listCart = [];
@@ -119,7 +119,7 @@ class _JualSampahState extends State<JualSampah> {
       }
     });
 
-    con.setor(context, username!, items, token!);
+    con.setor(context, "Nasabah2", items, token!);
     print(items);
     con.resSetor.listen((value) {
       if (value.hasil == true) {
@@ -442,8 +442,16 @@ class _JualSampahState extends State<JualSampah> {
         children: [
           Padding(
             padding: EdgeInsets.all(10),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.0), child: Text("data")),
+            child: Container(
+              height: 100,
+              width: 100,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image(
+                    image: AssetImage('assets/images/a.jpg'),
+                    fit: BoxFit.cover,
+                  )),
+            ),
           ),
           SizedBox(
             width: 10,
