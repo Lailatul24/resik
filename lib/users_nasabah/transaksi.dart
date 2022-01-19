@@ -58,7 +58,6 @@ class _TransaksiState extends State<Transaksi> {
       con.getList(value);
       setState(() {
         token = value;
-        print(token);
       });
     });
     // con.resListsetor.listen((value) {
@@ -218,27 +217,23 @@ class _TransaksiState extends State<Transaksi> {
                             child: Text('Data kosong '),
                           );
                         } else {
-                          return Scrollbar(
-                            thickness: 5,
-                            child: ListView.builder(
-
-                                // physics: NeverScrollableScrollPhysics(),
-                                itemCount: snapshot.data!.result!.length,
-                                itemBuilder: (context, index) {
-                                  var formatDate = DateFormat('yyyy-MM-dd ')
-                                      .format(snapshot
-                                          .data!.result![index].createdAt!
-                                          .toLocal());
-                                  Result list = snapshot.data!.result![index];
-
-                                  return InkWell(
+                          return ListView.builder(
+                              itemCount: snapshot.data!.result!.length,
+                              itemBuilder: (context, index) {
+                                var formatDate = DateFormat('yyyy-MM-dd ')
+                                    .format(snapshot
+                                        .data!.result![index].createdAt!
+                                        .toLocal());
+                                Result list = snapshot.data!.result![index];
+                                return InkWell(
                                     onTap: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   DetailTransaksi(
-                                                      kode: list.kode)));
+                                                    kode: list.kode!,
+                                                  )));
                                     },
                                     child: Container(
                                       child: Card(
@@ -364,10 +359,8 @@ class _TransaksiState extends State<Transaksi> {
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                }),
-                          );
+                                    ));
+                              });
                         }
                       }
                       return Center(child: CircularProgressIndicator());

@@ -253,7 +253,7 @@ class ApiProvider {
 
     try {
       final res = await http.get(urll).timeout(const Duration(seconds: 11));
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         return GetBanner.fromJson(res.body);
       } else if (res.statusCode == 400) {
@@ -278,7 +278,7 @@ class ApiProvider {
       String token) async {
     var body = jsonEncode({'username': username, 'pembelian': detailProduk});
     var urll = Uri.parse(url + '/pembelian/beli');
-    
+
     try {
       final res = await http
           .post(urll,
@@ -345,7 +345,7 @@ class ApiProvider {
   //   var body = jsonEncode({'setor': setor});
   //   var urll = Uri.parse(url + '/setorsampah/detailsetor');
   Future detailSetor(String kode) async {
-    var body = jsonEncode({'setor': kode});
+    var body = {'setor': kode};
     var urll = Uri.parse('$url/setorsampah/detailsetor');
 
     try {

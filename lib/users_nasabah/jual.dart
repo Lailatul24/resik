@@ -71,6 +71,7 @@ class _JualSampahState extends State<JualSampah> {
 
   @override
   void initState() {
+    super.initState();
     getToken().then((value) {
       if (value != null) {
         con.getSampahId(value);
@@ -95,7 +96,12 @@ class _JualSampahState extends State<JualSampah> {
         ));
       });
       setState(() {});
-      super.initState();
+    });
+    getAnggota().then((value) {
+      setState(() {
+        username = value;
+        print(username);
+      });
     });
   }
 

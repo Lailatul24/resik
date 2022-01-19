@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:resik/model/BannerModel.dart';
 import 'package:resik/model/DetailsetorModel.dart';
-import 'package:resik/model/DetaisetorModel.dart';
 import 'package:resik/model/EcomerceModel.dart';
 import 'package:resik/model/JualModel.dart';
 import 'package:resik/model/ListsetorModel.dart';
@@ -120,7 +119,6 @@ class HomeController {
     }
   }
 
-  
   Future detailsetor(String kode) async {
     try {
       DetailsetorModel detail = await repostory.detailSetor(kode);
@@ -136,10 +134,11 @@ class HomeController {
       JualProduk beli =
           await repostory.jualproduk(context, username, detailProduk, token);
       _beliFetchar.sink.add(beli);
-    }catch(e){
+    } catch (e) {
       print(e.toString());
     }
-      }
+  }
+
   Future getList(String token) async {
     try {
       ListsetorModel listSetor = await repostory.listSetor(token);
